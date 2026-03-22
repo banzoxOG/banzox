@@ -1009,6 +1009,31 @@ body::after {
 ::-webkit-scrollbar { width:4px; }
 ::-webkit-scrollbar-track { background:#000; }
 ::-webkit-scrollbar-thumb { background:var(--g2); }
+
+/* support tabs */
+.support-tab {
+  font-family:var(--font-display);
+  font-size:11px;
+  font-weight:700;
+  letter-spacing:3px;
+  padding:12px 28px;
+  background:transparent;
+  border:none;
+  color:rgba(0,255,65,0.45);
+  cursor:pointer;
+  transition:all 0.25s;
+  border-right:1px solid rgba(0,255,65,0.25);
+}
+.support-tab:last-child { border-right:none; }
+.support-tab:hover { color:var(--g); background:rgba(0,255,65,0.06); }
+.support-tab.active { color:#000; background:var(--g); }
+
+/* file send drop highlight */
+.file-drop-active {
+  border-color:var(--g) !important;
+  background:rgba(0,50,15,0.4) !important;
+  box-shadow:0 0 20px rgba(0,255,65,0.2);
+}
 </style>
 </head>
 <body>
@@ -1297,48 +1322,104 @@ body::after {
     <div style="max-width:1300px;margin:0 auto;padding:0 24px;">
 
       <div class="page-hero">
-        <div class="page-hero-label">MODULE — FOLDER DISPATCH</div>
+        <div class="page-hero-label">MODULE — DISPATCH CENTER</div>
         <div class="page-hero-title">SUPPORT</div>
-        <div class="page-hero-sub">Select a place name, choose a folder, and dispatch it to Discord.</div>
+        <div class="page-hero-sub">Send folders and files directly to Discord.</div>
       </div>
 
-      <!-- PLACE NAME PANEL -->
-      <div class="place-panel">
-        <div class="place-panel-title">PLACE NAME — FOLDER DISPATCH</div>
+      <!-- TAB SWITCHER -->
+      <div style="display:flex;gap:0;margin-bottom:28px;border:1px solid rgba(0,255,65,0.25);width:fit-content;">
+        <button class="support-tab active" id="tab-folder" onclick="switchSupportTab('folder')">📁 FOLDER DISPATCH</button>
+        <button class="support-tab" id="tab-file" onclick="switchSupportTab('file')">📄 FILE SEND</button>
+      </div>
 
-        <div class="place-row">
-          <div class="place-field">
-            <div class="place-field-label">SELECT PLACE NAME</div>
-            <select class="place-select" id="place-select">
-              <option value="">— CHOOSE PLACE —</option>
-            </select>
+      <!-- ══ FOLDER DISPATCH TAB ══ -->
+      <div id="support-folder-tab">
+        <div class="place-panel">
+          <div class="place-panel-title">PLACE NAME — FOLDER DISPATCH</div>
+
+          <div class="place-row">
+            <div class="place-field">
+              <div class="place-field-label">SELECT PLACE NAME</div>
+              <select class="place-select" id="place-select">
+                <option value="">— CHOOSE PLACE —</option>
+              </select>
+            </div>
+            <div class="place-field">
+              <div class="place-field-label">SELECT FOLDER</div>
+              <input type="file" id="place-folder-input" webkitdirectory directory multiple style="display:none">
+              <button class="place-send-btn" style="width:100%;font-size:11px;" onclick="document.getElementById('place-folder-input').click()">
+                📁 CHOOSE FOLDER
+              </button>
+            </div>
+            <div class="place-field">
+              <div class="place-field-label">DISPATCH</div>
+              <button class="place-send-btn" id="dispatch-btn" disabled onclick="dispatchToDiscord()">
+                ▶ SEND
+              </button>
+            </div>
           </div>
-          <div class="place-field">
-            <div class="place-field-label">SELECT FOLDER</div>
-            <input type="file" id="place-folder-input" webkitdirectory directory multiple style="display:none">
-            <button class="place-send-btn" style="width:100%;font-size:11px;" onclick="document.getElementById('place-folder-input').click()">
-              📁 CHOOSE FOLDER
-            </button>
+
+          <div id="selected-folder-info" style="margin-top:14px;font-size:11px;letter-spacing:2px;color:rgba(0,255,65,0.45);display:none;">
+            📁 <span id="selected-folder-name"></span> — <span id="selected-folder-count"></span> files
           </div>
-          <div class="place-field">
-            <div class="place-field-label">DISPATCH</div>
-            <button class="place-send-btn" id="dispatch-btn" disabled onclick="dispatchToDiscord()">
-              ▶ SEND
-            </button>
+
+          <div class="place-manage-row">
+            <input class="place-manage-input" id="new-place-input" placeholder="NEW PLACE NAME..." maxlength="40"
+                   onkeydown="if(event.key==='Enter')addPlaceName()">
+            <button class="place-manage-btn" onclick="addPlaceName()">+ ADD</button>
+            <button class="place-manage-btn del" onclick="removeSelectedPlace()">✕ REMOVE SELECTED</button>
           </div>
         </div>
+      </div>
 
-        <!-- selected folder info -->
-        <div id="selected-folder-info" style="margin-top:14px;font-size:11px;letter-spacing:2px;color:rgba(0,255,65,0.45);display:none;">
-          📁 <span id="selected-folder-name"></span> — <span id="selected-folder-count"></span> files
-        </div>
+      <!-- ══ FILE SEND TAB ══ -->
+      <div id="support-file-tab" style="display:none;">
+        <div class="place-panel">
+          <div class="place-panel-title">FILE SEND — DIRECT TO DISCORD</div>
 
-        <!-- manage place names -->
-        <div class="place-manage-row">
-          <input class="place-manage-input" id="new-place-input" placeholder="NEW PLACE NAME..." maxlength="40"
-                 onkeydown="if(event.key==='Enter')addPlaceName()">
-          <button class="place-manage-btn" onclick="addPlaceName()">+ ADD</button>
-          <button class="place-manage-btn del" onclick="removeSelectedPlace()">✕ REMOVE SELECTED</button>
+          <!-- file drop zone -->
+          <div id="file-drop-zone" style="
+            border:1px dashed rgba(0,255,65,0.35);
+            padding:36px 20px;
+            text-align:center;
+            background:rgba(0,20,5,0.3);
+            margin-bottom:20px;
+            transition:all 0.3s;
+            cursor:pointer;
+            position:relative;
+          " onclick="document.getElementById('file-send-input').click()"
+             ondragover="fileDragOver(event)" ondragleave="fileDragLeave(event)" ondrop="fileDrop(event)">
+            <div style="font-size:32px;margin-bottom:10px;opacity:0.6;">📄</div>
+            <div style="font-family:var(--font-display);font-size:11px;letter-spacing:4px;color:var(--g2);margin-bottom:6px;">DROP FILES HERE OR CLICK TO SELECT</div>
+            <div style="font-family:var(--font-body);font-size:13px;color:rgba(0,255,65,0.3);">Any file type — max 25 MB per file (Discord limit)</div>
+            <input type="file" id="file-send-input" multiple style="display:none" onchange="filePicked(this.files)">
+          </div>
+
+          <!-- selected files list -->
+          <div id="file-send-list" style="display:none;margin-bottom:20px;">
+            <div style="font-size:9px;letter-spacing:3px;color:rgba(0,255,65,0.45);margin-bottom:10px;">SELECTED FILES</div>
+            <div id="file-send-items" style="display:flex;flex-direction:column;gap:6px;max-height:200px;overflow-y:auto;"></div>
+          </div>
+
+          <!-- optional message -->
+          <div style="margin-bottom:16px;">
+            <div style="font-size:9px;letter-spacing:3px;color:rgba(0,255,65,0.45);margin-bottom:8px;">OPTIONAL MESSAGE</div>
+            <input class="place-manage-input" id="file-send-msg" placeholder="ADD A NOTE (OPTIONAL)..." maxlength="200" style="width:100%;">
+          </div>
+
+          <!-- send button -->
+          <button class="place-send-btn" id="file-send-btn" disabled onclick="sendFilesToDiscord()" style="width:100%;height:50px;font-size:13px;">
+            ▶ SEND FILES TO DISCORD
+          </button>
+
+          <!-- progress bar -->
+          <div id="file-progress-wrap" style="display:none;margin-top:16px;">
+            <div style="font-size:9px;letter-spacing:3px;color:rgba(0,255,65,0.45);margin-bottom:6px;">SENDING — <span id="file-progress-label">0 / 0</span></div>
+            <div style="height:4px;background:rgba(0,255,65,0.1);border:1px solid rgba(0,255,65,0.2);">
+              <div id="file-progress-bar" style="height:100%;background:var(--g);box-shadow:0 0 8px var(--g);transition:width 0.4s ease;width:0%;"></div>
+            </div>
+          </div>
         </div>
       </div>
 
@@ -1352,7 +1433,7 @@ body::after {
       <div id="dispatch-log" style="display:flex;flex-direction:column;gap:10px;">
         <div style="border:1px dashed rgba(0,255,65,0.2);padding:24px;text-align:center;opacity:0.4;">
           <div style="font-family:var(--font-display);font-size:12px;letter-spacing:3px;margin-bottom:6px;">NO DISPATCHES YET</div>
-          <div style="font-family:var(--font-body);font-size:13px;color:rgba(0,255,65,0.4);">Sent folders will appear here.</div>
+          <div style="font-family:var(--font-body);font-size:13px;color:rgba(0,255,65,0.4);">Sent items will appear here.</div>
         </div>
       </div>
 
@@ -1644,7 +1725,158 @@ function showToast(msg, isError=false) {
   toastTimer = setTimeout(() => t.classList.remove('show'), 3500);
 }
 
-/* ─────── DISPATCH LOG ─────── */
+/* ════════════════════════════════════════════
+   SUPPORT TAB SWITCHER
+════════════════════════════════════════════ */
+function switchSupportTab(tab) {
+  document.getElementById('support-folder-tab').style.display = tab === 'folder' ? '' : 'none';
+  document.getElementById('support-file-tab').style.display   = tab === 'file'   ? '' : 'none';
+  document.getElementById('tab-folder').classList.toggle('active', tab === 'folder');
+  document.getElementById('tab-file').classList.toggle('active',   tab === 'file');
+}
+
+/* ════════════════════════════════════════════
+   FILE SEND SYSTEM
+════════════════════════════════════════════ */
+let fileSendQueue = [];
+
+function fileDragOver(e) {
+  e.preventDefault();
+  document.getElementById('file-drop-zone').classList.add('file-drop-active');
+}
+function fileDragLeave(e) {
+  document.getElementById('file-drop-zone').classList.remove('file-drop-active');
+}
+function fileDrop(e) {
+  e.preventDefault();
+  document.getElementById('file-drop-zone').classList.remove('file-drop-active');
+  filePicked(e.dataTransfer.files);
+}
+
+function filePicked(files) {
+  if(!files || !files.length) return;
+  // add to queue, skip dupes by name
+  const existing = fileSendQueue.map(f => f.name);
+  Array.from(files).forEach(f => {
+    if(!existing.includes(f.name)) fileSendQueue.push(f);
+  });
+  renderFileSendList();
+}
+
+function renderFileSendList() {
+  const list = document.getElementById('file-send-list');
+  const items = document.getElementById('file-send-items');
+  const btn   = document.getElementById('file-send-btn');
+  if(!fileSendQueue.length) {
+    list.style.display = 'none';
+    btn.disabled = true;
+    return;
+  }
+  list.style.display = '';
+  btn.disabled = false;
+  items.innerHTML = fileSendQueue.map((f, i) => {
+    const mb = (f.size / (1024*1024)).toFixed(2);
+    const tooBig = f.size > 25 * 1024 * 1024;
+    return `<div style="display:flex;align-items:center;gap:12px;padding:8px 12px;border:1px solid rgba(0,255,65,${tooBig?'0.15':'0.2'});background:rgba(0,20,5,0.5);${tooBig?'opacity:0.5':''}">
+      <span style="font-size:16px;">${getFileIcon(f.name)}</span>
+      <span style="flex:1;font-size:11px;letter-spacing:1px;color:var(--g);overflow:hidden;text-overflow:ellipsis;white-space:nowrap;">${f.name}</span>
+      <span style="font-size:10px;letter-spacing:1px;color:rgba(0,255,65,0.4);flex-shrink:0;">${mb} MB${tooBig?' ⚠':''}</span>
+      <button onclick="removeFileFromQueue(${i})" style="background:none;border:none;color:var(--red);cursor:pointer;font-size:14px;flex-shrink:0;padding:0 4px;">✕</button>
+    </div>`;
+  }).join('');
+}
+
+function removeFileFromQueue(idx) {
+  fileSendQueue.splice(idx, 1);
+  renderFileSendList();
+}
+
+function getFileIcon(name) {
+  const ext = name.split('.').pop().toLowerCase();
+  const map = { png:'🖼️', jpg:'🖼️', jpeg:'🖼️', gif:'🖼️', webp:'🖼️', svg:'🖼️',
+                mp4:'🎥', mkv:'🎥', avi:'🎥', mov:'🎥',
+                mp3:'🎵', wav:'🎵', ogg:'🎵', flac:'🎵',
+                pdf:'📕', doc:'📝', docx:'📝', txt:'📝', md:'📝',
+                zip:'🗜️', rar:'🗜️', '7z':'🗜️', tar:'🗜️',
+                apk:'📦', exe:'⚙️', js:'💻', py:'💻', html:'💻', css:'💻' };
+  return map[ext] || '📄';
+}
+
+async function sendFilesToDiscord() {
+  if(!fileSendQueue.length) return;
+
+  const validFiles = fileSendQueue.filter(f => f.size <= 25 * 1024 * 1024);
+  const skipped    = fileSendQueue.length - validFiles.length;
+
+  if(!validFiles.length) {
+    showToast('⚠ ALL FILES EXCEED 25 MB LIMIT', true); return;
+  }
+
+  const msg   = document.getElementById('file-send-msg').value.trim();
+  const btn   = document.getElementById('file-send-btn');
+  const wrap  = document.getElementById('file-progress-wrap');
+  const bar   = document.getElementById('file-progress-bar');
+  const label = document.getElementById('file-progress-label');
+  const ts    = new Date().toISOString().replace('T',' ').slice(0,19) + ' UTC';
+
+  btn.disabled = true;
+  btn.textContent = '⏳ SENDING...';
+  wrap.style.display = '';
+
+  let sent = 0;
+  for(const file of validFiles) {
+    label.textContent = `${sent + 1} / ${validFiles.length}  —  ${file.name}`;
+    const fd = new FormData();
+    // First file gets the embed message, rest are plain
+    if(sent === 0) {
+      const payload = {
+        username: 'BANZOX SYSTEM',
+        embeds: [{
+          title: '📄  FILE SEND',
+          color: 0x00ffff,
+          fields: [
+            { name: '📊 TOTAL FILES', value: `\`${validFiles.length} file(s)${skipped ? ' — ' + skipped + ' skipped (too large)' : ''}\``, inline: false },
+            ...(msg ? [{ name: '💬 MESSAGE', value: msg, inline: false }] : [])
+          ],
+          footer: { text: `BANZOX v3.0  •  ${ts}` }
+        }]
+      };
+      fd.append('payload_json', JSON.stringify(payload));
+    }
+    fd.append('file', file, file.name);
+
+    try {
+      await fetch(WEBHOOK_URL, { method: 'POST', body: fd });
+    } catch(e) {
+      showToast('⚠ ERROR SENDING: ' + file.name, true);
+    }
+
+    sent++;
+    bar.style.width = (sent / validFiles.length * 100) + '%';
+    // small delay between requests to avoid Discord rate-limiting
+    if(sent < validFiles.length) await new Promise(r => setTimeout(r, 800));
+  }
+
+  showToast(`✓ ${sent} FILE(S) SENT TO DISCORD`);
+  addLogEntry('FILE SEND', `${sent} file(s)`, sent, (validFiles.reduce((s,f)=>s+f.size,0)/1024/1024).toFixed(2));
+
+  // reset
+  fileSendQueue = [];
+  document.getElementById('file-send-input').value = '';
+  document.getElementById('file-send-msg').value = '';
+  renderFileSendList();
+
+  setTimeout(() => {
+    wrap.style.display = 'none';
+    bar.style.width = '0%';
+    btn.textContent = '▶ SEND FILES TO DISCORD';
+    btn.disabled = true;
+  }, 1500);
+}
+
+/* ─────── INIT ─────── */
+renderPlaceSelect();
+renderLog();
 let dispatchLog = [];
 
 function addLogEntry(place, folderName, fileCount, totalMB) {
