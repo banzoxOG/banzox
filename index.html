@@ -260,11 +260,38 @@ body::after {
   letter-spacing:0.15em;
   color:var(--g);
   text-shadow:0 0 15px var(--g);
-  margin-right:auto;
   cursor:pointer;
   transition: text-shadow 0.3s;
+  flex-shrink:0;
 }
 .topbar-logo:hover { text-shadow:0 0 30px var(--g3), 0 0 60px var(--g); }
+
+/* ═══ LANGUAGE SWITCHER ═══ */
+.lang-switcher {
+  display:flex;
+  gap:0;
+  border:1px solid rgba(0,255,65,0.35);
+  margin-left:14px;
+  margin-right:auto;
+  clip-path:polygon(5px 0%,100% 0%,calc(100% - 5px) 100%,0% 100%);
+  flex-shrink:0;
+}
+.lang-btn {
+  font-family:var(--font-display);
+  font-size:10px;
+  font-weight:700;
+  letter-spacing:2px;
+  padding:0 14px;
+  background:transparent;
+  border:none;
+  color:rgba(0,255,65,0.45);
+  cursor:pointer;
+  transition:all 0.25s;
+  height:32px;
+}
+.lang-btn:first-child { border-right:1px solid rgba(0,255,65,0.25); }
+.lang-btn:hover { color:var(--g); background:rgba(0,255,65,0.08); }
+.lang-btn.active { color:#000; background:var(--g); box-shadow:0 0 12px var(--g); }
 
 .nav-links {
   display:flex;
@@ -611,9 +638,6 @@ body::after {
   box-shadow:0 0 20px var(--g);
 }
 
-/* ═══════════════════════════════════════════
-   PLACE NAME PANEL  — NEW
-═══════════════════════════════════════════ */
 .place-panel {
   border:1px solid rgba(0,255,65,0.25);
   background:rgba(0,15,5,0.7);
@@ -711,7 +735,6 @@ body::after {
   pointer-events:none;
 }
 
-/* manage names row */
 .place-manage-row {
   display:flex;
   gap:10px;
@@ -753,7 +776,6 @@ body::after {
 .place-manage-btn.del { border-color:rgba(255,34,68,0.4); color:var(--red); }
 .place-manage-btn.del:hover { background:rgba(255,34,68,0.12); border-color:var(--red); }
 
-/* toast notification */
 .toast {
   position:fixed;
   bottom:30px; right:30px;
@@ -847,9 +869,7 @@ body::after {
   font-size:20px;
   box-shadow:0 0 30px var(--g);
 }
-.video-info {
-  padding:16px 20px;
-}
+.video-info { padding:16px 20px; }
 .video-title {
   font-family:var(--font-display);
   font-size:13px;
@@ -858,11 +878,7 @@ body::after {
   color:var(--g);
   margin-bottom:6px;
 }
-.video-meta {
-  font-size:10px;
-  letter-spacing:2px;
-  color:rgba(0,255,65,0.35);
-}
+.video-meta { font-size:10px; letter-spacing:2px; color:rgba(0,255,65,0.35); }
 
 .apk-card {
   border:1px solid rgba(0,255,65,0.2);
@@ -897,14 +913,8 @@ body::after {
   color:var(--g);
   margin-bottom:4px;
 }
-.apk-version {
-  font-size:10px;
-  letter-spacing:2px;
-  color:rgba(0,255,65,0.4);
-}
-.apk-body {
-  padding:16px 20px;
-}
+.apk-version { font-size:10px; letter-spacing:2px; color:rgba(0,255,65,0.4); }
+.apk-body { padding:16px 20px; }
 .apk-desc {
   font-family:var(--font-body);
   font-size:14px;
@@ -912,12 +922,7 @@ body::after {
   line-height:1.6;
   margin-bottom:16px;
 }
-.apk-meta {
-  display:flex;
-  gap:16px;
-  flex-wrap:wrap;
-  margin-bottom:16px;
-}
+.apk-meta { display:flex; gap:16px; flex-wrap:wrap; margin-bottom:16px; }
 .apk-meta-item {
   font-size:9px;
   letter-spacing:2px;
@@ -926,10 +931,7 @@ body::after {
   flex-direction:column;
   gap:3px;
 }
-.apk-meta-val {
-  color:var(--g2);
-  font-size:11px;
-}
+.apk-meta-val { color:var(--g2); font-size:11px; }
 .apk-dl-btn {
   width:100%;
   padding:12px;
@@ -946,11 +948,7 @@ body::after {
   justify-content:center;
   gap:8px;
 }
-.apk-dl-btn:hover {
-  background:var(--g);
-  color:#000;
-  box-shadow:0 0 20px var(--g);
-}
+.apk-dl-btn:hover { background:var(--g); color:#000; box-shadow:0 0 20px var(--g); }
 
 .ticker-bar {
   background:rgba(0,255,65,0.05);
@@ -970,12 +968,7 @@ body::after {
   from { transform:translateX(0); }
   to   { transform:translateX(-50%); }
 }
-.ticker-item {
-  font-size:11px;
-  letter-spacing:2px;
-  color:rgba(0,255,65,0.4);
-  flex-shrink:0;
-}
+.ticker-item { font-size:11px; letter-spacing:2px; color:rgba(0,255,65,0.4); flex-shrink:0; }
 .ticker-item span { color:var(--g2); margin-right:4px; }
 
 .footer {
@@ -1011,7 +1004,6 @@ body::after {
 ::-webkit-scrollbar-track { background:#000; }
 ::-webkit-scrollbar-thumb { background:var(--g2); }
 
-/* support tabs */
 .support-tab {
   font-family:var(--font-display);
   font-size:11px;
@@ -1029,69 +1021,30 @@ body::after {
 .support-tab:hover { color:var(--g); background:rgba(0,255,65,0.06); }
 .support-tab.active { color:#000; background:var(--g); }
 
-/* file send drop highlight */
 .file-drop-active {
   border-color:var(--g) !important;
   background:rgba(0,50,15,0.4) !important;
   box-shadow:0 0 20px rgba(0,255,65,0.2);
 }
-
-/* ═══ LANGUAGE SWITCHER ═══ */
-.lang-switcher {
-  position:fixed;
-  bottom:30px;
-  left:30px;
-  z-index:9000;
-  display:flex;
-  gap:0;
-  border:1px solid rgba(0,255,65,0.4);
-  background:rgba(0,10,3,0.95);
-  backdrop-filter:blur(10px);
-  box-shadow:0 0 20px rgba(0,255,65,0.15);
-  clip-path:polygon(6px 0%,100% 0%,calc(100% - 6px) 100%,0% 100%);
-}
-.lang-btn {
-  font-family:var(--font-display);
-  font-size:12px;
-  font-weight:700;
-  letter-spacing:3px;
-  padding:10px 22px;
-  background:transparent;
-  border:none;
-  color:rgba(0,255,65,0.45);
-  cursor:pointer;
-  transition:all 0.25s;
-}
-.lang-btn:first-child { border-right:1px solid rgba(0,255,65,0.25); }
-.lang-btn:hover { color:var(--g); background:rgba(0,255,65,0.08); }
-.lang-btn.active { color:#000; background:var(--g); box-shadow:0 0 12px var(--g); }
 </style>
 </head>
 <body>
 
 <canvas id="matrix-bg"></canvas>
-
-<!-- Toast -->
 <div class="toast" id="toast"></div>
 
-<!-- ════════════════════════════════════════
-     LOGIN SCREEN
-════════════════════════════════════════ -->
+<!-- LOGIN SCREEN -->
 <div id="login-screen">
   <div class="login-logo glitch">BANZOX</div>
   <div class="login-tagline">[ SECURE SYSTEM ACCESS — AUTHORIZED ONLY ]</div>
-
   <div class="login-box">
     <div class="bracket-bl"></div>
     <div class="bracket-br"></div>
-
     <div class="login-label">ENTER ACCESS CODE</div>
     <input type="password" class="login-input" id="pwd" placeholder="• • • • • • • • • • • • • •"
            onkeydown="if(event.key==='Enter')doLogin()">
-
     <button class="access-btn" id="access-btn" onclick="doLogin()">ACCESS SYSTEM</button>
     <div class="error-msg" id="err-msg">⚠ ACCESS DENIED — INVALID CODE</div>
-
     <div class="status-bar">
       <span>SYS::ONLINE</span>
       <span id="clock-login"></span>
@@ -1100,19 +1053,24 @@ body::after {
   </div>
 </div>
 
-<!-- ════════════════════════════════════════
-     MAIN APP
-════════════════════════════════════════ -->
+<!-- MAIN APP -->
 <div id="app">
 
   <!-- TOP NAV -->
   <nav class="topbar">
     <div class="topbar-logo glitch" onclick="showPage('home')">BANZOX</div>
+
+    <!-- LANGUAGE SWITCHER — right next to logo -->
+    <div class="lang-switcher">
+      <button class="lang-btn active" id="lang-en" onclick="setLang('en')">EN</button>
+      <button class="lang-btn"        id="lang-ar" onclick="setLang('ar')">AR</button>
+    </div>
+
     <div class="nav-links">
-      <button class="nav-btn active" data-page="home"   onclick="showPage('home')">HOME</button>
-      <button class="nav-btn"        data-page="games"  onclick="showPage('games')">GAMES</button>
-      <button class="nav-btn"        data-page="videos" onclick="showPage('videos')">VIDEOS</button>
-      <button class="nav-btn"        data-page="apks"   onclick="showPage('apks')">APK FILES</button>
+      <button class="nav-btn active" data-page="home"    onclick="showPage('home')">HOME</button>
+      <button class="nav-btn"        data-page="games"   onclick="showPage('games')">GAMES</button>
+      <button class="nav-btn"        data-page="videos"  onclick="showPage('videos')">VIDEOS</button>
+      <button class="nav-btn"        data-page="apks"    onclick="showPage('apks')">APK FILES</button>
       <button class="nav-btn"        data-page="support" onclick="showPage('support')">SUPPORT</button>
     </div>
     <button class="disconnect-btn" onclick="doLogout()">◼ DISCONNECT</button>
@@ -1136,31 +1094,19 @@ body::after {
     </div>
   </div>
 
-  <!-- ──── HOME PAGE ──── -->
+  <!-- HOME PAGE -->
   <div class="page active" id="page-home">
     <div style="max-width:1300px;margin:0 auto;padding:0 24px;">
-
       <div class="page-hero">
         <div class="page-hero-label">DASHBOARD — MAIN INTERFACE</div>
         <div class="page-hero-title">WELCOME BACK</div>
         <div class="page-hero-sub">All systems online. Select a module to continue.</div>
       </div>
-
       <div class="home-banner">
-        <div class="stat-card">
-          <div class="stat-label">TOTAL GAMES</div>
-          <div class="stat-value">02</div>
-        </div>
-        <div class="stat-card">
-          <div class="stat-label">TOTAL VIDEOS</div>
-          <div class="stat-value">00</div>
-        </div>
-        <div class="stat-card">
-          <div class="stat-label">APK FILES</div>
-          <div class="stat-value">00</div>
-        </div>
+        <div class="stat-card"><div class="stat-label">TOTAL GAMES</div><div class="stat-value">02</div></div>
+        <div class="stat-card"><div class="stat-label">TOTAL VIDEOS</div><div class="stat-value">00</div></div>
+        <div class="stat-card"><div class="stat-label">APK FILES</div><div class="stat-value">00</div></div>
       </div>
-
       <div class="home-sections">
         <div class="home-section-card" onclick="showPage('games')">
           <div class="hsc-icon">🎮</div>
@@ -1181,33 +1127,28 @@ body::after {
           <div class="hsc-cta">ENTER MODULE</div>
         </div>
       </div>
-
     </div>
   </div>
 
-  <!-- ──── GAMES PAGE ──── -->
+  <!-- GAMES PAGE -->
   <div class="page" id="page-games">
     <div style="max-width:1300px;margin:0 auto;padding:0 24px;">
-
       <div class="page-hero">
         <div class="page-hero-label">MODULE — GAME STORAGE</div>
         <div class="page-hero-title">GAMES</div>
         <div class="page-hero-sub">Your game folders and resources.</div>
       </div>
-
       <div class="upload-zone" style="cursor:pointer;" onclick="goToSupportFile()">
         <div class="upload-zone-icon">📁</div>
         <div class="upload-zone-title">FOLDER UPLOAD ZONE</div>
         <div class="upload-zone-sub">Click to go to the Support page and send files</div>
         <button class="upload-btn">▲ UPLOAD FOLDER</button>
       </div>
-
       <div class="section-header">
         <div class="section-header-title">AVAILABLE GAMES</div>
         <div class="section-header-line"></div>
         <div class="section-header-count">02 ENTRIES</div>
       </div>
-
       <div class="grid-3">
         <a class="item-card" href="https://drive.google.com/drive/folders/15gCavognff4spuhXIjngF0THKIfB98jh?usp=drive_link" target="_blank" rel="noopener">
           <div class="item-card-badge badge-game">GAME</div>
@@ -1227,43 +1168,32 @@ body::after {
           <div class="item-card-desc">Upload a folder to populate this slot.</div>
         </div>
       </div>
-
     </div>
   </div>
 
-  <!-- ──── VIDEOS PAGE ──── -->
+  <!-- VIDEOS PAGE -->
   <div class="page" id="page-videos">
     <div style="max-width:1300px;margin:0 auto;padding:0 24px;">
-
       <div class="page-hero">
         <div class="page-hero-label">MODULE — VIDEO STORAGE</div>
         <div class="page-hero-title">VIDEOS</div>
         <div class="page-hero-sub">Browse, upload and manage your video content.</div>
       </div>
-
       <div class="upload-zone" style="cursor:pointer;" onclick="goToSupportFile()">
         <div class="upload-zone-icon">🎥</div>
         <div class="upload-zone-title">VIDEO UPLOAD ZONE</div>
         <div class="upload-zone-sub">Click to go to the Support page and send files</div>
         <button class="upload-btn">▲ UPLOAD VIDEO</button>
       </div>
-
       <div class="section-header">
         <div class="section-header-title">VIDEO LIBRARY</div>
         <div class="section-header-line"></div>
         <div class="section-header-count">00 ENTRIES</div>
       </div>
-
       <div class="grid-3" id="videos-grid">
         <div class="video-card" style="opacity:0.35;">
-          <div class="video-thumb">
-            <div class="video-thumb-inner">🎥</div>
-            <div class="video-thumb-overlay"><div class="play-icon">▶</div></div>
-          </div>
-          <div class="video-info">
-            <div class="video-title">NO VIDEOS YET</div>
-            <div class="video-meta">UPLOAD A VIDEO TO GET STARTED</div>
-          </div>
+          <div class="video-thumb"><div class="video-thumb-inner">🎥</div><div class="video-thumb-overlay"><div class="play-icon">▶</div></div></div>
+          <div class="video-info"><div class="video-title">NO VIDEOS YET</div><div class="video-meta">UPLOAD A VIDEO TO GET STARTED</div></div>
         </div>
         <div class="video-card" style="opacity:0.2;border-style:dashed;">
           <div class="video-thumb"><div class="video-thumb-inner">+</div></div>
@@ -1274,42 +1204,31 @@ body::after {
           <div class="video-info"><div class="video-title">EMPTY SLOT</div><div class="video-meta">AWAITING CONTENT</div></div>
         </div>
       </div>
-
     </div>
   </div>
 
-  <!-- ──── APK PAGE ──── -->
+  <!-- APK PAGE -->
   <div class="page" id="page-apks">
     <div style="max-width:1300px;margin:0 auto;padding:0 24px;">
-
       <div class="page-hero">
         <div class="page-hero-label">MODULE — APK DISTRIBUTION</div>
         <div class="page-hero-title">APK FILES</div>
         <div class="page-hero-sub">Manage and distribute your Android packages.</div>
       </div>
-
       <div class="upload-zone" style="cursor:pointer;" onclick="goToSupportFile()">
         <div class="upload-zone-icon">📦</div>
         <div class="upload-zone-title">APK UPLOAD ZONE</div>
         <div class="upload-zone-sub">Click to go to the Support page and send files</div>
         <button class="upload-btn">▲ UPLOAD APK</button>
       </div>
-
       <div class="section-header">
         <div class="section-header-title">APK PACKAGES</div>
         <div class="section-header-line"></div>
         <div class="section-header-count">00 ENTRIES</div>
       </div>
-
       <div class="grid-3" id="apk-grid">
         <div class="apk-card" style="opacity:0.35;">
-          <div class="apk-header">
-            <div class="apk-icon">📦</div>
-            <div>
-              <div class="apk-name">NO PACKAGES YET</div>
-              <div class="apk-version">v0.0.0</div>
-            </div>
-          </div>
+          <div class="apk-header"><div class="apk-icon">📦</div><div><div class="apk-name">NO PACKAGES YET</div><div class="apk-version">v0.0.0</div></div></div>
           <div class="apk-body">
             <div class="apk-desc">Upload an APK file to get started with your distribution.</div>
             <div class="apk-meta">
@@ -1321,127 +1240,81 @@ body::after {
           </div>
         </div>
         <div class="apk-card" style="opacity:0.2;border-style:dashed;">
-          <div class="apk-header">
-            <div class="apk-icon">+</div>
-            <div><div class="apk-name">EMPTY SLOT</div><div class="apk-version">AWAITING UPLOAD</div></div>
-          </div>
-          <div class="apk-body">
-            <div class="apk-desc">This slot is empty. Upload an APK to fill it.</div>
-            <button class="apk-dl-btn" disabled>⬇ DOWNLOAD APK</button>
-          </div>
+          <div class="apk-header"><div class="apk-icon">+</div><div><div class="apk-name">EMPTY SLOT</div><div class="apk-version">AWAITING UPLOAD</div></div></div>
+          <div class="apk-body"><div class="apk-desc">This slot is empty. Upload an APK to fill it.</div><button class="apk-dl-btn" disabled>⬇ DOWNLOAD APK</button></div>
         </div>
         <div class="apk-card" style="opacity:0.2;border-style:dashed;">
-          <div class="apk-header">
-            <div class="apk-icon">+</div>
-            <div><div class="apk-name">EMPTY SLOT</div><div class="apk-version">AWAITING UPLOAD</div></div>
-          </div>
-          <div class="apk-body">
-            <div class="apk-desc">This slot is empty. Upload an APK to fill it.</div>
-            <button class="apk-dl-btn" disabled>⬇ DOWNLOAD APK</button>
-          </div>
+          <div class="apk-header"><div class="apk-icon">+</div><div><div class="apk-name">EMPTY SLOT</div><div class="apk-version">AWAITING UPLOAD</div></div></div>
+          <div class="apk-body"><div class="apk-desc">This slot is empty. Upload an APK to fill it.</div><button class="apk-dl-btn" disabled>⬇ DOWNLOAD APK</button></div>
         </div>
       </div>
-
     </div>
   </div>
 
-  <!-- ──── SUPPORT PAGE ──── -->
+  <!-- SUPPORT PAGE -->
   <div class="page" id="page-support">
     <div style="max-width:1300px;margin:0 auto;padding:0 24px;">
-
       <div class="page-hero">
         <div class="page-hero-label">MODULE — DISPATCH CENTER</div>
         <div class="page-hero-title">SUPPORT</div>
         <div class="page-hero-sub">Send files directly to Discord.</div>
       </div>
-
-      <!-- TAB SWITCHER -->
       <div style="display:flex;gap:0;margin-bottom:28px;border:1px solid rgba(0,255,65,0.25);width:fit-content;">
         <button class="support-tab" id="tab-folder" onclick="switchSupportTab('folder')">📁 FOLDER DISPATCH</button>
         <button class="support-tab active" id="tab-file" onclick="switchSupportTab('file')">📄 FILE SEND</button>
       </div>
 
-      <!-- ══ FOLDER DISPATCH TAB ══ -->
+      <!-- FOLDER DISPATCH TAB -->
       <div id="support-folder-tab" style="display:none;">
         <div class="place-panel">
           <div class="place-panel-title">PLACE NAME — FOLDER DISPATCH</div>
-
           <div class="place-row">
             <div class="place-field">
               <div class="place-field-label">SELECT PLACE NAME</div>
-              <select class="place-select" id="place-select">
-                <option value="">— CHOOSE PLACE —</option>
-              </select>
+              <select class="place-select" id="place-select"><option value="">— CHOOSE PLACE —</option></select>
             </div>
             <div class="place-field">
               <div class="place-field-label">SELECT FOLDER</div>
               <input type="file" id="place-folder-input" webkitdirectory directory multiple style="display:none">
-              <button class="place-send-btn" style="width:100%;font-size:11px;" onclick="document.getElementById('place-folder-input').click()">
-                📁 CHOOSE FOLDER
-              </button>
+              <button class="place-send-btn" style="width:100%;font-size:11px;" onclick="document.getElementById('place-folder-input').click()">📁 CHOOSE FOLDER</button>
             </div>
             <div class="place-field">
               <div class="place-field-label">DISPATCH</div>
-              <button class="place-send-btn" id="dispatch-btn" disabled onclick="dispatchToDiscord()">
-                ▶ SEND
-              </button>
+              <button class="place-send-btn" id="dispatch-btn" disabled onclick="dispatchToDiscord()">▶ SEND</button>
             </div>
           </div>
-
           <div id="selected-folder-info" style="margin-top:14px;font-size:11px;letter-spacing:2px;color:rgba(0,255,65,0.45);display:none;">
             📁 <span id="selected-folder-name"></span> — <span id="selected-folder-count"></span> files
           </div>
-
           <div class="place-manage-row">
-            <input class="place-manage-input" id="new-place-input" placeholder="NEW PLACE NAME..." maxlength="40"
-                   onkeydown="if(event.key==='Enter')addPlaceName()">
+            <input class="place-manage-input" id="new-place-input" placeholder="NEW PLACE NAME..." maxlength="40" onkeydown="if(event.key==='Enter')addPlaceName()">
             <button class="place-manage-btn" onclick="addPlaceName()">+ ADD</button>
             <button class="place-manage-btn del" onclick="removeSelectedPlace()">✕ REMOVE SELECTED</button>
           </div>
         </div>
       </div>
 
-      <!-- ══ FILE SEND TAB ══ -->
+      <!-- FILE SEND TAB -->
       <div id="support-file-tab">
         <div class="place-panel">
           <div class="place-panel-title">FILE SEND — DIRECT TO DISCORD</div>
-
-          <!-- file drop zone -->
-          <div id="file-drop-zone" style="
-            border:1px dashed rgba(0,255,65,0.35);
-            padding:36px 20px;
-            text-align:center;
-            background:rgba(0,20,5,0.3);
-            margin-bottom:20px;
-            transition:all 0.3s;
-            cursor:pointer;
-            position:relative;
-          " onclick="document.getElementById('file-send-input').click()"
-             ondragover="fileDragOver(event)" ondragleave="fileDragLeave(event)" ondrop="fileDrop(event)">
+          <div id="file-drop-zone" style="border:1px dashed rgba(0,255,65,0.35);padding:36px 20px;text-align:center;background:rgba(0,20,5,0.3);margin-bottom:20px;transition:all 0.3s;cursor:pointer;position:relative;"
+               onclick="document.getElementById('file-send-input').click()"
+               ondragover="fileDragOver(event)" ondragleave="fileDragLeave(event)" ondrop="fileDrop(event)">
             <div style="font-size:32px;margin-bottom:10px;opacity:0.6;">📄</div>
             <div style="font-family:var(--font-display);font-size:11px;letter-spacing:4px;color:var(--g2);margin-bottom:6px;">DROP FILES HERE OR CLICK TO SELECT</div>
             <div style="font-family:var(--font-body);font-size:13px;color:rgba(0,255,65,0.3);">Any file type — max 25 MB per file (Discord limit)</div>
             <input type="file" id="file-send-input" multiple style="display:none" onchange="filePicked(this.files)">
           </div>
-
-          <!-- selected files list -->
           <div id="file-send-list" style="display:none;margin-bottom:20px;">
             <div style="font-size:9px;letter-spacing:3px;color:rgba(0,255,65,0.45);margin-bottom:10px;">SELECTED FILES</div>
             <div id="file-send-items" style="display:flex;flex-direction:column;gap:6px;max-height:200px;overflow-y:auto;"></div>
           </div>
-
-          <!-- optional message -->
           <div style="margin-bottom:16px;">
             <div style="font-size:9px;letter-spacing:3px;color:rgba(0,255,65,0.45);margin-bottom:8px;">OPTIONAL MESSAGE</div>
             <input class="place-manage-input" id="file-send-msg" placeholder="ADD A NOTE (OPTIONAL)..." maxlength="200" style="width:100%;">
           </div>
-
-          <!-- send button -->
-          <button class="place-send-btn" id="file-send-btn" disabled onclick="sendFilesToDiscord()" style="width:100%;height:50px;font-size:13px;">
-            ▶ SEND FILES TO DISCORD
-          </button>
-
-          <!-- progress bar -->
+          <button class="place-send-btn" id="file-send-btn" disabled onclick="sendFilesToDiscord()" style="width:100%;height:50px;font-size:13px;">▶ SEND FILES TO DISCORD</button>
           <div id="file-progress-wrap" style="display:none;margin-top:16px;">
             <div style="font-size:9px;letter-spacing:3px;color:rgba(0,255,65,0.45);margin-bottom:6px;">SENDING — <span id="file-progress-label">0 / 0</span></div>
             <div style="height:4px;background:rgba(0,255,65,0.1);border:1px solid rgba(0,255,65,0.2);">
@@ -1451,24 +1324,20 @@ body::after {
         </div>
       </div>
 
-      <!-- history log -->
       <div class="section-header">
         <div class="section-header-title">DISPATCH LOG</div>
         <div class="section-header-line"></div>
         <div class="section-header-count" id="log-count">00 ENTRIES</div>
       </div>
-
       <div id="dispatch-log" style="display:flex;flex-direction:column;gap:10px;">
         <div style="border:1px dashed rgba(0,255,65,0.2);padding:24px;text-align:center;opacity:0.4;">
           <div style="font-family:var(--font-display);font-size:12px;letter-spacing:3px;margin-bottom:6px;">NO DISPATCHES YET</div>
           <div style="font-family:var(--font-body);font-size:13px;color:rgba(0,255,65,0.4);">Sent items will appear here.</div>
         </div>
       </div>
-
     </div>
   </div>
 
-  <!-- FOOTER -->
   <footer class="footer">
     <div class="footer-logo">BANZOX</div>
     <div>SECURE SYSTEM — ALL DATA ENCRYPTED</div>
@@ -1481,326 +1350,178 @@ body::after {
 /* ─────── MATRIX RAIN ─────── */
 const canvas = document.getElementById('matrix-bg');
 const ctx    = canvas.getContext('2d');
-function resizeCanvas() {
-  canvas.width  = window.innerWidth;
-  canvas.height = window.innerHeight;
-}
+function resizeCanvas() { canvas.width=window.innerWidth; canvas.height=window.innerHeight; }
 resizeCanvas();
 window.addEventListener('resize', resizeCanvas);
-const chars   = 'アイウエオカキクケコ0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ@#$%';
-const fs      = 14;
+const chars = 'アイウエオカキクケコ0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ@#$%';
+const fs = 14;
 let drops = [];
-function initDrops() {
-  const cols = Math.floor(canvas.width / fs);
-  drops = Array(cols).fill(1);
-}
+function initDrops() { drops = Array(Math.floor(canvas.width/fs)).fill(1); }
 initDrops();
 window.addEventListener('resize', initDrops);
 function drawMatrix() {
-  ctx.fillStyle = 'rgba(0,0,0,0.05)';
+  ctx.fillStyle='rgba(0,0,0,0.05)';
   ctx.fillRect(0,0,canvas.width,canvas.height);
-  ctx.font = fs + 'px monospace';
+  ctx.font=fs+'px monospace';
   for(let i=0;i<drops.length;i++){
-    const bright = Math.random() > 0.95;
-    ctx.fillStyle = bright ? '#ffffff' : '#00ff41';
-    ctx.fillText(chars[Math.floor(Math.random()*chars.length)], i*fs, drops[i]*fs);
-    if(drops[i]*fs > canvas.height && Math.random()>0.975) drops[i]=0;
+    ctx.fillStyle=Math.random()>0.95?'#ffffff':'#00ff41';
+    ctx.fillText(chars[Math.floor(Math.random()*chars.length)],i*fs,drops[i]*fs);
+    if(drops[i]*fs>canvas.height&&Math.random()>0.975)drops[i]=0;
     drops[i]++;
   }
 }
-setInterval(drawMatrix, 35);
+setInterval(drawMatrix,35);
 
 /* ─────── CLOCK ─────── */
-function updateClock() {
-  const now = new Date();
-  const str = now.toLocaleTimeString('en-US',{hour12:false});
-  const el1 = document.getElementById('clock-login');
-  const el2 = document.getElementById('clock-footer');
-  if(el1) el1.textContent = str;
-  if(el2) el2.textContent = str;
+function updateClock(){
+  const s=new Date().toLocaleTimeString('en-US',{hour12:false});
+  const a=document.getElementById('clock-login');
+  const b=document.getElementById('clock-footer');
+  if(a)a.textContent=s; if(b)b.textContent=s;
 }
-setInterval(updateClock, 1000);
-updateClock();
+setInterval(updateClock,1000); updateClock();
 
 /* ─────── AUTH ─────── */
-const PASS = 'ilyassbanzox23';
-
-function doLogin() {
-  const val = document.getElementById('pwd').value;
-  const err = document.getElementById('err-msg');
-  const btn = document.getElementById('access-btn');
-
-  if(val === PASS) {
+const PASS='ilyassbanzox23';
+function doLogin(){
+  const val=document.getElementById('pwd').value;
+  const err=document.getElementById('err-msg');
+  const btn=document.getElementById('access-btn');
+  if(val===PASS){
     document.getElementById('login-screen').classList.add('hidden');
-    setTimeout(()=>{
-      document.getElementById('login-screen').style.display='none';
-      document.getElementById('app').classList.add('active');
-    }, 600);
+    setTimeout(()=>{ document.getElementById('login-screen').style.display='none'; document.getElementById('app').classList.add('active'); },600);
   } else {
     err.classList.add('show');
-    document.getElementById('pwd').value = '';
-    const vw = window.innerWidth;
-    const vh = window.innerHeight;
-    const bw = btn.offsetWidth;
-    const bh = btn.offsetHeight;
-    const rx = 20 + Math.random()*(vw - bw - 40);
-    const ry = 20 + Math.random()*(vh - bh - 40);
-    btn.style.position='fixed';
-    btn.style.left=rx+'px';
-    btn.style.top=ry+'px';
-    btn.style.width=bw+'px';
-    btn.style.margin='0';
-    btn.style.zIndex='9999';
+    document.getElementById('pwd').value='';
+    const vw=window.innerWidth,vh=window.innerHeight,bw=btn.offsetWidth,bh=btn.offsetHeight;
+    btn.style.position='fixed'; btn.style.left=(20+Math.random()*(vw-bw-40))+'px';
+    btn.style.top=(20+Math.random()*(vh-bh-40))+'px'; btn.style.width=bw+'px';
+    btn.style.margin='0'; btn.style.zIndex='9999';
     btn.style.clipPath='polygon(8px 0%, 100% 0%, calc(100% - 8px) 100%, 0% 100%)';
-    setTimeout(()=>err.classList.remove('show'), 3000);
+    setTimeout(()=>err.classList.remove('show'),3000);
   }
 }
-
-function doLogout() {
+function doLogout(){
   document.getElementById('app').classList.remove('active');
-  const ls = document.getElementById('login-screen');
-  ls.style.display='flex';
-  requestAnimationFrame(()=>ls.classList.remove('hidden'));
+  const ls=document.getElementById('login-screen');
+  ls.style.display='flex'; requestAnimationFrame(()=>ls.classList.remove('hidden'));
   document.getElementById('pwd').value='';
-  const btn = document.getElementById('access-btn');
-  btn.style.position='';
-  btn.style.left='';
-  btn.style.top='';
-  btn.style.width='';
-  btn.style.margin='';
+  const btn=document.getElementById('access-btn');
+  btn.style.position=''; btn.style.left=''; btn.style.top=''; btn.style.width=''; btn.style.margin='';
 }
 
 /* ─────── PAGE ROUTER ─────── */
-function showPage(name) {
+function showPage(name){
   document.querySelectorAll('.page').forEach(p=>p.classList.remove('active'));
   document.querySelectorAll('.nav-btn').forEach(b=>b.classList.remove('active'));
   document.getElementById('page-'+name).classList.add('active');
   document.querySelector('[data-page="'+name+'"]').classList.add('active');
-  window.scrollTo({top:0, behavior:'smooth'});
+  window.scrollTo({top:0,behavior:'smooth'});
 }
+function goToSupportFile(){ showPage('support'); switchSupportTab('file'); }
 
-/* ─────── FILE INPUTS ─────── */
-// Upload zones on all pages now redirect to Support > File Send tab
-function goToSupportFile() {
-  showPage('support');
-  switchSupportTab('file');
-}
+/* ─────── PLACE NAME SYSTEM ─────── */
+const WEBHOOK_URL='https://discord.com/api/webhooks/1448849190988808223/tZETwDo54A6YEZQObh8hu_zbJiIjgQbBoKQp7io-07z9t3tI8NWKkRD53-iXalLm8a2x';
+const STORAGE_KEY='banzox_places';
+let selectedFiles=null;
 
-/* ════════════════════════════════════════════
-   PLACE NAME SYSTEM
-════════════════════════════════════════════ */
-const WEBHOOK_URL = 'https://discord.com/api/webhooks/1448849190988808223/tZETwDo54A6YEZQObh8hu_zbJiIjgQbBoKQp7io-07z9t3tI8NWKkRD53-iXalLm8a2x';
-const STORAGE_KEY = 'banzox_places';
-
-let selectedFiles = null;
-
-/* Load saved place names from localStorage */
-function loadPlaces() {
-  try {
-    const raw = localStorage.getItem(STORAGE_KEY);
-    return raw ? JSON.parse(raw) : [];
-  } catch(e) { return []; }
-}
-
-function savePlaces(list) {
-  localStorage.setItem(STORAGE_KEY, JSON.stringify(list));
-}
-
-function renderPlaceSelect() {
-  const sel = document.getElementById('place-select');
-  const places = loadPlaces();
-  const current = sel.value;
-  // rebuild options
-  sel.innerHTML = '<option value="">— CHOOSE PLACE —</option>';
-  places.forEach(p => {
-    const opt = document.createElement('option');
-    opt.value = p;
-    opt.textContent = p.toUpperCase();
-    sel.appendChild(opt);
-  });
-  // restore selection if still valid
-  if(places.includes(current)) sel.value = current;
+function loadPlaces(){ try{ const r=localStorage.getItem(STORAGE_KEY); return r?JSON.parse(r):[]; }catch(e){return[];} }
+function savePlaces(list){ localStorage.setItem(STORAGE_KEY,JSON.stringify(list)); }
+function renderPlaceSelect(){
+  const sel=document.getElementById('place-select');
+  const places=loadPlaces(); const current=sel.value;
+  sel.innerHTML='<option value="">— CHOOSE PLACE —</option>';
+  places.forEach(p=>{ const o=document.createElement('option'); o.value=p; o.textContent=p.toUpperCase(); sel.appendChild(o); });
+  if(places.includes(current))sel.value=current;
   checkDispatchReady();
 }
-
-function addPlaceName() {
-  const inp = document.getElementById('new-place-input');
-  const name = inp.value.trim();
-  if(!name) { showToast('⚠ ENTER A PLACE NAME FIRST', true); return; }
-  const places = loadPlaces();
-  if(places.map(p=>p.toLowerCase()).includes(name.toLowerCase())) {
-    showToast('⚠ PLACE ALREADY EXISTS', true); return;
-  }
-  places.push(name);
-  savePlaces(places);
-  inp.value = '';
-  renderPlaceSelect();
-  // auto-select the newly added place
-  document.getElementById('place-select').value = name;
-  checkDispatchReady();
-  showToast('✓ PLACE ADDED: ' + name.toUpperCase());
+function addPlaceName(){
+  const inp=document.getElementById('new-place-input'); const name=inp.value.trim();
+  if(!name){showToast('⚠ ENTER A PLACE NAME FIRST',true);return;}
+  const places=loadPlaces();
+  if(places.map(p=>p.toLowerCase()).includes(name.toLowerCase())){showToast('⚠ PLACE ALREADY EXISTS',true);return;}
+  places.push(name); savePlaces(places); inp.value=''; renderPlaceSelect();
+  document.getElementById('place-select').value=name; checkDispatchReady();
+  showToast('✓ PLACE ADDED: '+name.toUpperCase());
 }
-
-function removeSelectedPlace() {
-  const sel = document.getElementById('place-select');
-  const val = sel.value;
-  if(!val) { showToast('⚠ SELECT A PLACE TO REMOVE FIRST', true); return; }
-  const places = loadPlaces().filter(p => p !== val);
-  savePlaces(places);
-  renderPlaceSelect();
-  showToast('✓ PLACE REMOVED: ' + val.toUpperCase());
+function removeSelectedPlace(){
+  const sel=document.getElementById('place-select'); const val=sel.value;
+  if(!val){showToast('⚠ SELECT A PLACE TO REMOVE FIRST',true);return;}
+  savePlaces(loadPlaces().filter(p=>p!==val)); renderPlaceSelect();
+  showToast('✓ PLACE REMOVED: '+val.toUpperCase());
 }
-
-/* Watch place select changes */
-document.getElementById('place-select').addEventListener('change', checkDispatchReady);
-
-/* Folder selection for dispatch */
-document.getElementById('place-folder-input').addEventListener('change', function(e) {
-  const files = e.target.files;
-  if(!files || !files.length) return;
-  selectedFiles = files;
-  // Get folder name from first file's path
-  const firstPath = files[0].webkitRelativePath || files[0].name;
-  const folderName = firstPath.split('/')[0] || files[0].name;
-  document.getElementById('selected-folder-name').textContent = folderName.toUpperCase();
-  document.getElementById('selected-folder-count').textContent = files.length;
-  document.getElementById('selected-folder-info').style.display = 'block';
+document.getElementById('place-select').addEventListener('change',checkDispatchReady);
+document.getElementById('place-folder-input').addEventListener('change',function(e){
+  const files=e.target.files; if(!files||!files.length)return;
+  selectedFiles=files;
+  const fp=files[0].webkitRelativePath||files[0].name;
+  document.getElementById('selected-folder-name').textContent=(fp.split('/')[0]||files[0].name).toUpperCase();
+  document.getElementById('selected-folder-count').textContent=files.length;
+  document.getElementById('selected-folder-info').style.display='block';
   checkDispatchReady();
 });
-
-function checkDispatchReady() {
-  const place = document.getElementById('place-select').value;
-  const btn = document.getElementById('dispatch-btn');
-  btn.disabled = !(place && selectedFiles && selectedFiles.length > 0);
+function checkDispatchReady(){
+  const place=document.getElementById('place-select').value;
+  document.getElementById('dispatch-btn').disabled=!(place&&selectedFiles&&selectedFiles.length>0);
 }
-
-async function dispatchToDiscord() {
-  const place = document.getElementById('place-select').value;
-  if(!place || !selectedFiles) return;
-
-  const btn = document.getElementById('dispatch-btn');
-  btn.disabled = true;
-  btn.textContent = '⏳ SENDING...';
-
-  const folderName = (selectedFiles[0].webkitRelativePath || selectedFiles[0].name).split('/')[0];
-  const fileCount  = selectedFiles.length;
-  const totalBytes = Array.from(selectedFiles).reduce((s, f) => s + f.size, 0);
-  const totalMB    = (totalBytes / (1024*1024)).toFixed(2);
-  const timestamp  = new Date().toISOString().replace('T',' ').slice(0,19) + ' UTC';
-
-  // Build file list (up to 20 entries)
-  const fileList = Array.from(selectedFiles)
-    .slice(0, 20)
-    .map(f => `\`${f.name}\``)
-    .join('\n');
-  const more = fileCount > 20 ? `\n*...and ${fileCount - 20} more files*` : '';
-
-  const payload = {
-    username: 'BANZOX SYSTEM',
-    avatar_url: 'https://i.imgur.com/4M34hi2.png',
-    embeds: [{
-      title: '📁  FOLDER DISPATCH',
-      color: 0x00ff41,
-      fields: [
-        { name: '📍 PLACE NAME',   value: `\`\`\`${place.toUpperCase()}\`\`\``, inline: true  },
-        { name: '📂 FOLDER',       value: `\`\`\`${folderName}\`\`\``,           inline: true  },
-        { name: '📊 TOTAL FILES',  value: `\`${fileCount} files — ${totalMB} MB\``, inline: false },
-        { name: '📄 FILE LIST',    value: fileList + more,                        inline: false },
-      ],
-      footer: { text: `BANZOX v3.0  •  ${timestamp}` },
-      thumbnail: { url: 'https://cdn.discordapp.com/emojis/749221429843968001.png' }
-    }]
-  };
-
-  try {
-    const res = await fetch(WEBHOOK_URL, {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify(payload)
-    });
-    if(res.ok || res.status === 204) {
-      showToast('✓ DISPATCHED TO DISCORD — ' + place.toUpperCase());
-      addLogEntry(place, folderName, fileCount, totalMB);
-      // reset
-      selectedFiles = null;
-      document.getElementById('place-folder-input').value = '';
-      document.getElementById('selected-folder-info').style.display = 'none';
-      document.getElementById('place-select').value = '';
-    } else {
-      showToast('⚠ DISPATCH FAILED — STATUS ' + res.status, true);
-    }
-  } catch(err) {
-    showToast('⚠ NETWORK ERROR — ' + err.message, true);
-  }
-
-  btn.textContent = '▶ SEND';
-  checkDispatchReady();
+async function dispatchToDiscord(){
+  const place=document.getElementById('place-select').value; if(!place||!selectedFiles)return;
+  const btn=document.getElementById('dispatch-btn'); btn.disabled=true; btn.textContent='⏳ SENDING...';
+  const folderName=(selectedFiles[0].webkitRelativePath||selectedFiles[0].name).split('/')[0];
+  const fileCount=selectedFiles.length;
+  const totalMB=(Array.from(selectedFiles).reduce((s,f)=>s+f.size,0)/(1024*1024)).toFixed(2);
+  const timestamp=new Date().toISOString().replace('T',' ').slice(0,19)+' UTC';
+  const fileList=Array.from(selectedFiles).slice(0,20).map(f=>`\`${f.name}\``).join('\n');
+  const more=fileCount>20?`\n*...and ${fileCount-20} more files*`:'';
+  const payload={username:'BANZOX SYSTEM',avatar_url:'https://i.imgur.com/4M34hi2.png',embeds:[{title:'📁  FOLDER DISPATCH',color:0x00ff41,fields:[{name:'📍 PLACE NAME',value:`\`\`\`${place.toUpperCase()}\`\`\``,inline:true},{name:'📂 FOLDER',value:`\`\`\`${folderName}\`\`\``,inline:true},{name:'📊 TOTAL FILES',value:`\`${fileCount} files — ${totalMB} MB\``,inline:false},{name:'📄 FILE LIST',value:fileList+more,inline:false}],footer:{text:`BANZOX v3.0  •  ${timestamp}`},thumbnail:{url:'https://cdn.discordapp.com/emojis/749221429843968001.png'}}]};
+  try{
+    const res=await fetch(WEBHOOK_URL,{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify(payload)});
+    if(res.ok||res.status===204){
+      showToast('✓ DISPATCHED TO DISCORD — '+place.toUpperCase());
+      addLogEntry(place,folderName,fileCount,totalMB);
+      selectedFiles=null; document.getElementById('place-folder-input').value='';
+      document.getElementById('selected-folder-info').style.display='none';
+      document.getElementById('place-select').value='';
+    } else { showToast('⚠ DISPATCH FAILED — STATUS '+res.status,true); }
+  }catch(err){ showToast('⚠ NETWORK ERROR — '+err.message,true); }
+  btn.textContent='▶ SEND'; checkDispatchReady();
 }
 
 /* ─────── TOAST ─────── */
 let toastTimer;
-function showToast(msg, isError=false) {
-  const t = document.getElementById('toast');
-  t.textContent = msg;
-  t.className = 'toast' + (isError ? ' err' : '');
-  void t.offsetWidth;
-  t.classList.add('show');
-  clearTimeout(toastTimer);
-  toastTimer = setTimeout(() => t.classList.remove('show'), 3500);
+function showToast(msg,isError=false){
+  const t=document.getElementById('toast'); t.textContent=msg;
+  t.className='toast'+(isError?' err':''); void t.offsetWidth; t.classList.add('show');
+  clearTimeout(toastTimer); toastTimer=setTimeout(()=>t.classList.remove('show'),3500);
 }
 
-/* ════════════════════════════════════════════
-   SUPPORT TAB SWITCHER
-════════════════════════════════════════════ */
-function switchSupportTab(tab) {
-  document.getElementById('support-folder-tab').style.display = tab === 'folder' ? '' : 'none';
-  document.getElementById('support-file-tab').style.display   = tab === 'file'   ? '' : 'none';
-  document.getElementById('tab-folder').classList.toggle('active', tab === 'folder');
-  document.getElementById('tab-file').classList.toggle('active',   tab === 'file');
+/* ─────── SUPPORT TABS ─────── */
+function switchSupportTab(tab){
+  document.getElementById('support-folder-tab').style.display=tab==='folder'?'':'none';
+  document.getElementById('support-file-tab').style.display=tab==='file'?'':'none';
+  document.getElementById('tab-folder').classList.toggle('active',tab==='folder');
+  document.getElementById('tab-file').classList.toggle('active',tab==='file');
 }
 
-/* ════════════════════════════════════════════
-   FILE SEND SYSTEM
-════════════════════════════════════════════ */
-let fileSendQueue = [];
-
-function fileDragOver(e) {
-  e.preventDefault();
-  document.getElementById('file-drop-zone').classList.add('file-drop-active');
-}
-function fileDragLeave(e) {
-  document.getElementById('file-drop-zone').classList.remove('file-drop-active');
-}
-function fileDrop(e) {
-  e.preventDefault();
-  document.getElementById('file-drop-zone').classList.remove('file-drop-active');
-  filePicked(e.dataTransfer.files);
-}
-
-function filePicked(files) {
-  if(!files || !files.length) return;
-  // add to queue, skip dupes by name
-  const existing = fileSendQueue.map(f => f.name);
-  Array.from(files).forEach(f => {
-    if(!existing.includes(f.name)) fileSendQueue.push(f);
-  });
+/* ─────── FILE SEND SYSTEM ─────── */
+let fileSendQueue=[];
+function fileDragOver(e){e.preventDefault();document.getElementById('file-drop-zone').classList.add('file-drop-active');}
+function fileDragLeave(e){document.getElementById('file-drop-zone').classList.remove('file-drop-active');}
+function fileDrop(e){e.preventDefault();document.getElementById('file-drop-zone').classList.remove('file-drop-active');filePicked(e.dataTransfer.files);}
+function filePicked(files){
+  if(!files||!files.length)return;
+  const existing=fileSendQueue.map(f=>f.name);
+  Array.from(files).forEach(f=>{if(!existing.includes(f.name))fileSendQueue.push(f);});
   renderFileSendList();
 }
-
-function renderFileSendList() {
-  const list = document.getElementById('file-send-list');
-  const items = document.getElementById('file-send-items');
-  const btn   = document.getElementById('file-send-btn');
-  if(!fileSendQueue.length) {
-    list.style.display = 'none';
-    btn.disabled = true;
-    return;
-  }
-  list.style.display = '';
-  btn.disabled = false;
-  items.innerHTML = fileSendQueue.map((f, i) => {
-    const mb = (f.size / (1024*1024)).toFixed(2);
-    const tooBig = f.size > 25 * 1024 * 1024;
+function renderFileSendList(){
+  const list=document.getElementById('file-send-list');
+  const items=document.getElementById('file-send-items');
+  const btn=document.getElementById('file-send-btn');
+  if(!fileSendQueue.length){list.style.display='none';btn.disabled=true;return;}
+  list.style.display=''; btn.disabled=false;
+  items.innerHTML=fileSendQueue.map((f,i)=>{
+    const mb=(f.size/(1024*1024)).toFixed(2); const tooBig=f.size>25*1024*1024;
     return `<div style="display:flex;align-items:center;gap:12px;padding:8px 12px;border:1px solid rgba(0,255,65,${tooBig?'0.15':'0.2'});background:rgba(0,20,5,0.5);${tooBig?'opacity:0.5':''}">
       <span style="font-size:16px;">${getFileIcon(f.name)}</span>
       <span style="flex:1;font-size:11px;letter-spacing:1px;color:var(--g);overflow:hidden;text-overflow:ellipsis;white-space:nowrap;">${f.name}</span>
@@ -1809,171 +1530,87 @@ function renderFileSendList() {
     </div>`;
   }).join('');
 }
-
-function removeFileFromQueue(idx) {
-  fileSendQueue.splice(idx, 1);
-  renderFileSendList();
+function removeFileFromQueue(idx){fileSendQueue.splice(idx,1);renderFileSendList();}
+function getFileIcon(name){
+  const ext=name.split('.').pop().toLowerCase();
+  const map={png:'🖼️',jpg:'🖼️',jpeg:'🖼️',gif:'🖼️',webp:'🖼️',svg:'🖼️',mp4:'🎥',mkv:'🎥',avi:'🎥',mov:'🎥',mp3:'🎵',wav:'🎵',ogg:'🎵',flac:'🎵',pdf:'📕',doc:'📝',docx:'📝',txt:'📝',md:'📝',zip:'🗜️',rar:'🗜️','7z':'🗜️',tar:'🗜️',apk:'📦',exe:'⚙️',js:'💻',py:'💻',html:'💻',css:'💻'};
+  return map[ext]||'📄';
 }
-
-function getFileIcon(name) {
-  const ext = name.split('.').pop().toLowerCase();
-  const map = { png:'🖼️', jpg:'🖼️', jpeg:'🖼️', gif:'🖼️', webp:'🖼️', svg:'🖼️',
-                mp4:'🎥', mkv:'🎥', avi:'🎥', mov:'🎥',
-                mp3:'🎵', wav:'🎵', ogg:'🎵', flac:'🎵',
-                pdf:'📕', doc:'📝', docx:'📝', txt:'📝', md:'📝',
-                zip:'🗜️', rar:'🗜️', '7z':'🗜️', tar:'🗜️',
-                apk:'📦', exe:'⚙️', js:'💻', py:'💻', html:'💻', css:'💻' };
-  return map[ext] || '📄';
-}
-
-async function sendFilesToDiscord() {
-  if(!fileSendQueue.length) return;
-
-  const validFiles = fileSendQueue.filter(f => f.size <= 25 * 1024 * 1024);
-  const skipped    = fileSendQueue.length - validFiles.length;
-
-  if(!validFiles.length) {
-    showToast('⚠ ALL FILES EXCEED 25 MB LIMIT', true); return;
-  }
-
-  const msg   = document.getElementById('file-send-msg').value.trim();
-  const btn   = document.getElementById('file-send-btn');
-  const wrap  = document.getElementById('file-progress-wrap');
-  const bar   = document.getElementById('file-progress-bar');
-  const label = document.getElementById('file-progress-label');
-  const ts    = new Date().toISOString().replace('T',' ').slice(0,19) + ' UTC';
-
-  btn.disabled = true;
-  btn.textContent = '⏳ SENDING...';
-  wrap.style.display = '';
-
-  let sent = 0;
-  for(const file of validFiles) {
-    label.textContent = `${sent + 1} / ${validFiles.length}  —  ${file.name}`;
-    const fd = new FormData();
-    // First file gets the embed message, rest are plain
-    if(sent === 0) {
-      const payload = {
-        username: 'BANZOX SYSTEM',
-        embeds: [{
-          title: '📄  FILE SEND',
-          color: 0x00ffff,
-          fields: [
-            { name: '📊 TOTAL FILES', value: `\`${validFiles.length} file(s)${skipped ? ' — ' + skipped + ' skipped (too large)' : ''}\``, inline: false },
-            ...(msg ? [{ name: '💬 MESSAGE', value: msg, inline: false }] : [])
-          ],
-          footer: { text: `BANZOX v3.0  •  ${ts}` }
-        }]
-      };
-      fd.append('payload_json', JSON.stringify(payload));
+async function sendFilesToDiscord(){
+  if(!fileSendQueue.length)return;
+  const validFiles=fileSendQueue.filter(f=>f.size<=25*1024*1024);
+  const skipped=fileSendQueue.length-validFiles.length;
+  if(!validFiles.length){showToast('⚠ ALL FILES EXCEED 25 MB LIMIT',true);return;}
+  const msg=document.getElementById('file-send-msg').value.trim();
+  const btn=document.getElementById('file-send-btn');
+  const wrap=document.getElementById('file-progress-wrap');
+  const bar=document.getElementById('file-progress-bar');
+  const label=document.getElementById('file-progress-label');
+  const ts=new Date().toISOString().replace('T',' ').slice(0,19)+' UTC';
+  btn.disabled=true; btn.textContent='⏳ SENDING...'; wrap.style.display='';
+  let sent=0;
+  for(const file of validFiles){
+    label.textContent=`${sent+1} / ${validFiles.length}  —  ${file.name}`;
+    const fd=new FormData();
+    if(sent===0){
+      const payload={username:'BANZOX SYSTEM',embeds:[{title:'📄  FILE SEND',color:0x00ffff,fields:[{name:'📊 TOTAL FILES',value:`\`${validFiles.length} file(s)${skipped?' — '+skipped+' skipped (too large)':''}\``,inline:false},...(msg?[{name:'💬 MESSAGE',value:msg,inline:false}]:[])],footer:{text:`BANZOX v3.0  •  ${ts}`}}]};
+      fd.append('payload_json',JSON.stringify(payload));
     }
-    fd.append('file', file, file.name);
-
-    try {
-      await fetch(WEBHOOK_URL, { method: 'POST', body: fd });
-    } catch(e) {
-      showToast('⚠ ERROR SENDING: ' + file.name, true);
-    }
-
-    sent++;
-    bar.style.width = (sent / validFiles.length * 100) + '%';
-    // small delay between requests to avoid Discord rate-limiting
-    if(sent < validFiles.length) await new Promise(r => setTimeout(r, 800));
+    fd.append('file',file,file.name);
+    try{await fetch(WEBHOOK_URL,{method:'POST',body:fd});}catch(e){showToast('⚠ ERROR SENDING: '+file.name,true);}
+    sent++; bar.style.width=(sent/validFiles.length*100)+'%';
+    if(sent<validFiles.length)await new Promise(r=>setTimeout(r,800));
   }
-
   showToast(`✓ ${sent} FILE(S) SENT TO DISCORD`);
-  addLogEntry('FILE SEND', `${sent} file(s)`, sent, (validFiles.reduce((s,f)=>s+f.size,0)/1024/1024).toFixed(2));
-
-  // reset
-  fileSendQueue = [];
-  document.getElementById('file-send-input').value = '';
-  document.getElementById('file-send-msg').value = '';
+  addLogEntry('FILE SEND',`${sent} file(s)`,sent,(validFiles.reduce((s,f)=>s+f.size,0)/1024/1024).toFixed(2));
+  fileSendQueue=[]; document.getElementById('file-send-input').value=''; document.getElementById('file-send-msg').value='';
   renderFileSendList();
-
-  setTimeout(() => {
-    wrap.style.display = 'none';
-    bar.style.width = '0%';
-    btn.textContent = '▶ SEND FILES TO DISCORD';
-    btn.disabled = true;
-  }, 1500);
+  setTimeout(()=>{ wrap.style.display='none'; bar.style.width='0%'; btn.textContent='▶ SEND FILES TO DISCORD'; btn.disabled=true; },1500);
 }
 
-/* ─────── INIT ─────── */
-renderPlaceSelect();
-renderLog();
-let dispatchLog = [];
-
-function addLogEntry(place, folderName, fileCount, totalMB) {
-  const ts = new Date().toLocaleString('en-US',{hour12:false});
-  dispatchLog.unshift({ place, folderName, fileCount, totalMB, ts });
+/* ─────── LOG ─────── */
+let dispatchLog=[];
+function addLogEntry(place,folderName,fileCount,totalMB){
+  dispatchLog.unshift({place,folderName,fileCount,totalMB,ts:new Date().toLocaleString('en-US',{hour12:false})});
   renderLog();
 }
-
-function renderLog() {
-  const container = document.getElementById('dispatch-log');
-  const countEl   = document.getElementById('log-count');
-  if(!container) return;
-  countEl.textContent = String(dispatchLog.length).padStart(2,'0') + ' ENTRIES';
-  if(!dispatchLog.length) {
-    container.innerHTML = `<div style="border:1px dashed rgba(0,255,65,0.2);padding:24px;text-align:center;opacity:0.4;">
-      <div style="font-family:var(--font-display);font-size:12px;letter-spacing:3px;margin-bottom:6px;">NO DISPATCHES YET</div>
-      <div style="font-family:var(--font-body);font-size:13px;color:rgba(0,255,65,0.4);">Sent folders will appear here.</div>
-    </div>`;
+function renderLog(){
+  const container=document.getElementById('dispatch-log');
+  const countEl=document.getElementById('log-count');
+  if(!container)return;
+  countEl.textContent=String(dispatchLog.length).padStart(2,'0')+' ENTRIES';
+  if(!dispatchLog.length){
+    container.innerHTML=`<div style="border:1px dashed rgba(0,255,65,0.2);padding:24px;text-align:center;opacity:0.4;"><div style="font-family:var(--font-display);font-size:12px;letter-spacing:3px;margin-bottom:6px;">NO DISPATCHES YET</div><div style="font-family:var(--font-body);font-size:13px;color:rgba(0,255,65,0.4);">Sent folders will appear here.</div></div>`;
     return;
   }
-  container.innerHTML = dispatchLog.map((e,i) => `
+  container.innerHTML=dispatchLog.map((e,i)=>`
     <div style="border:1px solid rgba(0,255,65,0.2);background:var(--panel);padding:18px 22px;display:flex;align-items:center;gap:20px;flex-wrap:wrap;transition:all 0.3s;" onmouseover="this.style.borderColor='var(--g)'" onmouseout="this.style.borderColor='rgba(0,255,65,0.2)'">
       <div style="font-family:var(--font-display);font-size:11px;letter-spacing:2px;color:rgba(0,255,65,0.4);min-width:24px;">${String(i+1).padStart(2,'0')}</div>
-      <div style="flex:1;min-width:120px;">
-        <div style="font-size:9px;letter-spacing:3px;color:rgba(0,255,65,0.4);margin-bottom:4px;">PLACE NAME</div>
-        <div style="font-family:var(--font-display);font-size:13px;letter-spacing:2px;color:var(--g);">${e.place.toUpperCase()}</div>
-      </div>
-      <div style="flex:1;min-width:120px;">
-        <div style="font-size:9px;letter-spacing:3px;color:rgba(0,255,65,0.4);margin-bottom:4px;">FOLDER</div>
-        <div style="font-size:13px;letter-spacing:1px;">📁 ${e.folderName}</div>
-      </div>
-      <div style="min-width:80px;">
-        <div style="font-size:9px;letter-spacing:3px;color:rgba(0,255,65,0.4);margin-bottom:4px;">FILES</div>
-        <div style="font-size:12px;color:var(--g2);">${e.fileCount} — ${e.totalMB} MB</div>
-      </div>
-      <div style="min-width:140px;text-align:right;">
-        <div style="font-size:9px;letter-spacing:2px;color:rgba(0,255,65,0.3);">${e.ts}</div>
-        <div style="font-size:9px;letter-spacing:2px;color:var(--g2);margin-top:3px;">✓ DISPATCHED</div>
-      </div>
+      <div style="flex:1;min-width:120px;"><div style="font-size:9px;letter-spacing:3px;color:rgba(0,255,65,0.4);margin-bottom:4px;">PLACE NAME</div><div style="font-family:var(--font-display);font-size:13px;letter-spacing:2px;color:var(--g);">${e.place.toUpperCase()}</div></div>
+      <div style="flex:1;min-width:120px;"><div style="font-size:9px;letter-spacing:3px;color:rgba(0,255,65,0.4);margin-bottom:4px;">FOLDER</div><div style="font-size:13px;letter-spacing:1px;">📁 ${e.folderName}</div></div>
+      <div style="min-width:80px;"><div style="font-size:9px;letter-spacing:3px;color:rgba(0,255,65,0.4);margin-bottom:4px;">FILES</div><div style="font-size:12px;color:var(--g2);">${e.fileCount} — ${e.totalMB} MB</div></div>
+      <div style="min-width:140px;text-align:right;"><div style="font-size:9px;letter-spacing:2px;color:rgba(0,255,65,0.3);">${e.ts}</div><div style="font-size:9px;letter-spacing:2px;color:var(--g2);margin-top:3px;">✓ DISPATCHED</div></div>
     </div>`).join('');
 }
-
-/* ─────── INIT ─────── */
-renderPlaceSelect();
-renderLog();
 
 /* ════════════════════════════════════════════
    LANGUAGE SYSTEM
 ════════════════════════════════════════════ */
-const ar = {
+const translations = {
   '[ SECURE SYSTEM ACCESS — AUTHORIZED ONLY ]':'[ وصول آمن للنظام — للمصرح لهم فقط ]',
   'ENTER ACCESS CODE':'أدخل رمز الوصول',
   'ACCESS SYSTEM':'دخول النظام',
   '⚠ ACCESS DENIED — INVALID CODE':'⚠ تم رفض الوصول — رمز غير صالح',
-  'SYS::ONLINE':'النظام::متصل',
-  'SEC::ENABLED':'الحماية::مفعلة',
-  'HOME':'الرئيسية',
-  'GAMES':'الألعاب',
-  'VIDEOS':'الفيديوهات',
-  'APK FILES':'ملفات APK',
-  'SUPPORT':'الدعم',
+  'SYS::ONLINE':'النظام::متصل','SEC::ENABLED':'الحماية::مفعلة',
+  'HOME':'الرئيسية','GAMES':'الألعاب','VIDEOS':'الفيديوهات','APK FILES':'ملفات APK','SUPPORT':'الدعم',
   '◼ DISCONNECT':'◼ قطع الاتصال',
-  'ALL SYSTEMS OPERATIONAL':'جميع الأنظمة تعمل',
-  'ENCRYPTION ACTIVE':'التشفير نشط',
-  'BANZOX SYSTEM v3.0':'نظام BANZOX v3.0',
-  'SECURE STORAGE ONLINE':'التخزين الآمن متصل',
-  'CONNECTION ESTABLISHED':'تم إنشاء الاتصال',
-  'ACCESS GRANTED':'تم منح الوصول',
+  'ALL SYSTEMS OPERATIONAL':'جميع الأنظمة تعمل','ENCRYPTION ACTIVE':'التشفير نشط',
+  'BANZOX SYSTEM v3.0':'نظام BANZOX v3.0','SECURE STORAGE ONLINE':'التخزين الآمن متصل',
+  'CONNECTION ESTABLISHED':'تم إنشاء الاتصال','ACCESS GRANTED':'تم منح الوصول',
   'DASHBOARD — MAIN INTERFACE':'لوحة التحكم — الواجهة الرئيسية',
   'WELCOME BACK':'مرحباً بعودتك',
   'All systems online. Select a module to continue.':'جميع الأنظمة متصلة. اختر وحدة للمتابعة.',
-  'TOTAL GAMES':'إجمالي الألعاب',
-  'TOTAL VIDEOS':'إجمالي الفيديوهات',
+  'TOTAL GAMES':'إجمالي الألعاب','TOTAL VIDEOS':'إجمالي الفيديوهات',
   'Access your game folders and resources stored in the system.':'الوصول إلى مجلدات الألعاب والموارد المخزنة في النظام.',
   'ENTER MODULE':'دخول الوحدة',
   'Browse and upload your video content to secure storage.':'تصفح وارفع محتوى الفيديو إلى التخزين الآمن.',
@@ -1982,126 +1619,85 @@ const ar = {
   'Your game folders and resources.':'مجلدات الألعاب والموارد الخاصة بك.',
   'FOLDER UPLOAD ZONE':'منطقة رفع المجلدات',
   'Click to go to the Support page and send files':'انقر للذهاب إلى صفحة الدعم وإرسال الملفات',
-  '▲ UPLOAD FOLDER':'▲ رفع مجلد',
-  'AVAILABLE GAMES':'الألعاب المتاحة',
-  '02 ENTRIES':'02 إدخالات',
+  '▲ UPLOAD FOLDER':'▲ رفع مجلد','AVAILABLE GAMES':'الألعاب المتاحة','02 ENTRIES':'02 إدخالات',
   'GAME':'لعبة',
   'Google Drive folder containing Geometry Dash files and resources.':'مجلد Google Drive يحتوي على ملفات Geometry Dash.',
   '▶ OPEN FOLDER':'▶ فتح المجلد',
   'Google Drive folder containing Getting Over It files and resources.':'مجلد Google Drive يحتوي على ملفات Getting Over It.',
-  'EMPTY':'فارغ',
-  '+ ADD NEW GAME':'+ إضافة لعبة جديدة',
+  'EMPTY':'فارغ','+ ADD NEW GAME':'+ إضافة لعبة جديدة',
   'Upload a folder to populate this slot.':'ارفع مجلداً لملء هذه الخانة.',
   'MODULE — VIDEO STORAGE':'الوحدة — تخزين الفيديو',
   'Browse, upload and manage your video content.':'تصفح وارفع وأدر محتوى الفيديو الخاص بك.',
-  'VIDEO UPLOAD ZONE':'منطقة رفع الفيديو',
-  '▲ UPLOAD VIDEO':'▲ رفع فيديو',
-  'VIDEO LIBRARY':'مكتبة الفيديو',
-  '00 ENTRIES':'00 إدخالات',
-  'NO VIDEOS YET':'لا توجد فيديوهات بعد',
-  'UPLOAD A VIDEO TO GET STARTED':'ارفع فيديو للبدء',
-  'EMPTY SLOT':'خانة فارغة',
-  'AWAITING CONTENT':'في انتظار المحتوى',
+  'VIDEO UPLOAD ZONE':'منطقة رفع الفيديو','▲ UPLOAD VIDEO':'▲ رفع فيديو',
+  'VIDEO LIBRARY':'مكتبة الفيديو','00 ENTRIES':'00 إدخالات',
+  'NO VIDEOS YET':'لا توجد فيديوهات بعد','UPLOAD A VIDEO TO GET STARTED':'ارفع فيديو للبدء',
+  'EMPTY SLOT':'خانة فارغة','AWAITING CONTENT':'في انتظار المحتوى',
   'MODULE — APK DISTRIBUTION':'الوحدة — توزيع APK',
   'Manage and distribute your Android packages.':'إدارة وتوزيع حزم Android الخاصة بك.',
-  'APK UPLOAD ZONE':'منطقة رفع APK',
-  '▲ UPLOAD APK':'▲ رفع APK',
-  'APK PACKAGES':'حزم APK',
-  'NO PACKAGES YET':'لا توجد حزم بعد',
+  'APK UPLOAD ZONE':'منطقة رفع APK','▲ UPLOAD APK':'▲ رفع APK',
+  'APK PACKAGES':'حزم APK','NO PACKAGES YET':'لا توجد حزم بعد',
   'Upload an APK file to get started with your distribution.':'ارفع ملف APK للبدء في التوزيع.',
-  'SIZE':'الحجم',
-  'PLATFORM':'المنصة',
-  'STATUS':'الحالة',
-  'PENDING':'قيد الانتظار',
-  '⬇ DOWNLOAD APK':'⬇ تحميل APK',
-  'AWAITING UPLOAD':'في انتظار الرفع',
+  'SIZE':'الحجم','PLATFORM':'المنصة','STATUS':'الحالة','PENDING':'قيد الانتظار',
+  '⬇ DOWNLOAD APK':'⬇ تحميل APK','AWAITING UPLOAD':'في انتظار الرفع',
   'This slot is empty. Upload an APK to fill it.':'هذه الخانة فارغة. ارفع ملف APK لملئها.',
   'MODULE — DISPATCH CENTER':'الوحدة — مركز الإرسال',
   'Send files directly to Discord.':'إرسال الملفات مباشرة إلى Discord.',
-  '📁 FOLDER DISPATCH':'📁 إرسال المجلد',
-  '📄 FILE SEND':'📄 إرسال الملفات',
+  '📁 FOLDER DISPATCH':'📁 إرسال المجلد','📄 FILE SEND':'📄 إرسال الملفات',
   'PLACE NAME — FOLDER DISPATCH':'اسم المكان — إرسال المجلد',
-  'SELECT PLACE NAME':'اختر اسم المكان',
-  'SELECT FOLDER':'اختر مجلداً',
-  '📁 CHOOSE FOLDER':'📁 اختيار المجلد',
-  'DISPATCH':'إرسال',
-  '▶ SEND':'▶ إرسال',
-  '+ ADD':'+ إضافة',
-  '✕ REMOVE SELECTED':'✕ حذف المحدد',
+  'SELECT PLACE NAME':'اختر اسم المكان','SELECT FOLDER':'اختر مجلداً',
+  '📁 CHOOSE FOLDER':'📁 اختيار المجلد','DISPATCH':'إرسال',
+  '▶ SEND':'▶ إرسال','+ ADD':'+ إضافة','✕ REMOVE SELECTED':'✕ حذف المحدد',
   'FILE SEND — DIRECT TO DISCORD':'إرسال الملفات — مباشرة إلى Discord',
   'DROP FILES HERE OR CLICK TO SELECT':'أسقط الملفات هنا أو انقر للاختيار',
   'Any file type — max 25 MB per file (Discord limit)':'أي نوع ملف — الحد الأقصى 25 ميجابايت لكل ملف',
-  'SELECTED FILES':'الملفات المحددة',
-  'OPTIONAL MESSAGE':'رسالة اختيارية',
+  'SELECTED FILES':'الملفات المحددة','OPTIONAL MESSAGE':'رسالة اختيارية',
   '▶ SEND FILES TO DISCORD':'▶ إرسال الملفات إلى Discord',
-  'DISPATCH LOG':'سجل الإرسال',
-  'NO DISPATCHES YET':'لا توجد إرسالات بعد',
+  'DISPATCH LOG':'سجل الإرسال','NO DISPATCHES YET':'لا توجد إرسالات بعد',
   'Sent items will appear here.':'ستظهر العناصر المرسلة هنا.',
   'Sent folders will appear here.':'ستظهر المجلدات المرسلة هنا.',
   'SECURE SYSTEM — ALL DATA ENCRYPTED':'نظام آمن — جميع البيانات مشفرة',
+  '— CHOOSE PLACE —':'— اختر المكان —',
 };
-
-const arPlaceholders = {
+const arPlaceholders={
   'NEW PLACE NAME...':'اسم مكان جديد...',
   'ADD A NOTE (OPTIONAL)...':'أضف ملاحظة (اختياري)...',
 };
 
-let _textNodes = null;
-let _inputs    = null;
-let currentLang = 'en';
+let _nodes=null, _phs=null, currentLang='en';
 
-function _collectNodes() {
-  _textNodes = [];
-  const walker = document.createTreeWalker(
-    document.body,
-    NodeFilter.SHOW_TEXT,
-    { acceptNode: n => n.textContent.trim() ? NodeFilter.FILTER_ACCEPT : NodeFilter.FILTER_REJECT }
-  );
-  while (walker.nextNode()) {
-    const node    = walker.currentNode;
-    const trimmed = node.textContent.trim();
-    if (ar[trimmed] !== undefined) {
-      _textNodes.push({ node, original: trimmed, full: node.textContent });
-    }
+function _collect(){
+  _nodes=[];
+  const w=document.createTreeWalker(document.body,NodeFilter.SHOW_TEXT,{acceptNode:n=>n.textContent.trim()?NodeFilter.FILTER_ACCEPT:NodeFilter.FILTER_REJECT});
+  while(w.nextNode()){
+    const n=w.currentNode, t=n.textContent.trim();
+    if(translations[t]!==undefined) _nodes.push({node:n,orig:t,full:n.textContent});
   }
-  _inputs = Array.from(document.querySelectorAll('[placeholder]'))
-    .filter(el => arPlaceholders[el.placeholder])
-    .map(el => ({ el, original: el.placeholder }));
+  _phs=Array.from(document.querySelectorAll('[placeholder]'))
+    .filter(el=>arPlaceholders[el.placeholder])
+    .map(el=>({el,orig:el.placeholder}));
 }
 
-function setLang(lang) {
-  if (!_textNodes) _collectNodes();
-  currentLang = lang;
-
-  if (lang === 'ar') {
-    _textNodes.forEach(({ node, original, full }) => {
-      node.textContent = full.replace(original, ar[original]);
-    });
-    _inputs.forEach(({ el, original }) => {
-      el.placeholder = arPlaceholders[original] || original;
-    });
-    document.body.setAttribute('dir', 'rtl');
-    document.documentElement.lang = 'ar';
+function setLang(lang){
+  if(!_nodes) _collect();
+  currentLang=lang;
+  if(lang==='ar'){
+    _nodes.forEach(({node,orig,full})=>{ node.textContent=full.replace(orig,translations[orig]); });
+    _phs.forEach(({el,orig})=>{ el.placeholder=arPlaceholders[orig]||orig; });
+    document.body.setAttribute('dir','rtl');
+    document.documentElement.lang='ar';
   } else {
-    _textNodes.forEach(({ node, original, full }) => {
-      node.textContent = full;
-    });
-    _inputs.forEach(({ el, original }) => {
-      el.placeholder = original;
-    });
+    _nodes.forEach(({node,orig,full})=>{ node.textContent=full; });
+    _phs.forEach(({el,orig})=>{ el.placeholder=orig; });
     document.body.removeAttribute('dir');
-    document.documentElement.lang = 'en';
+    document.documentElement.lang='en';
   }
-
-  document.getElementById('lang-en').classList.toggle('active', lang === 'en');
-  document.getElementById('lang-ar').classList.toggle('active', lang === 'ar');
+  document.getElementById('lang-en').classList.toggle('active',lang==='en');
+  document.getElementById('lang-ar').classList.toggle('active',lang==='ar');
 }
 
-<!-- LANGUAGE SWITCHER -->
-<div class="lang-switcher">
-  <button class="lang-btn active" id="lang-en" onclick="setLang('en')">EN</button>
-  <button class="lang-btn"        id="lang-ar" onclick="setLang('ar')">AR</button>
-</div>
-
+/* ─────── INIT ─────── */
+renderPlaceSelect();
+renderLog();
+</script>
 </body>
 </html>
