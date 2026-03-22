@@ -34,9 +34,6 @@ html, body {
   overflow-x: hidden;
 }
 
-/* ═══════════════════════════════════════════
-   SCANLINES OVERLAY
-═══════════════════════════════════════════ */
 body::before {
   content:'';
   position:fixed; inset:0;
@@ -51,7 +48,6 @@ body::before {
   z-index:9998;
 }
 
-/* Vignette */
 body::after {
   content:'';
   position:fixed; inset:0;
@@ -60,18 +56,12 @@ body::after {
   z-index:9997;
 }
 
-/* ═══════════════════════════════════════════
-   MATRIX CANVAS
-═══════════════════════════════════════════ */
 #matrix-bg {
   position:fixed; inset:0;
   opacity:0.07;
   z-index:-1;
 }
 
-/* ═══════════════════════════════════════════
-   LOGIN SCREEN
-═══════════════════════════════════════════ */
 #login-screen {
   position:fixed; inset:0;
   display:flex; flex-direction:column;
@@ -119,7 +109,6 @@ body::after {
   box-shadow: 0 0 40px rgba(0,255,65,0.15), inset 0 0 40px rgba(0,255,65,0.03);
 }
 
-/* Corner brackets */
 .login-box::before,
 .login-box::after {
   content:'';
@@ -240,9 +229,6 @@ body::after {
   justify-content:space-between;
 }
 
-/* ═══════════════════════════════════════════
-   MAIN SHELL
-═══════════════════════════════════════════ */
 #app {
   display:none;
   min-height:100vh;
@@ -253,9 +239,6 @@ body::after {
   to   { opacity:1; transform:translateY(0); }
 }
 
-/* ═══════════════════════════════════════════
-   TOP NAV
-═══════════════════════════════════════════ */
 .topbar {
   position:sticky; top:0;
   z-index:500;
@@ -333,9 +316,6 @@ body::after {
 }
 .disconnect-btn:hover { background:var(--red); color:#000; box-shadow:0 0 20px var(--red); }
 
-/* ═══════════════════════════════════════════
-   PAGE SYSTEM
-═══════════════════════════════════════════ */
 .page {
   display:none;
   padding:40px 24px 80px;
@@ -349,9 +329,6 @@ body::after {
   to   { opacity:1; transform:translateY(0); }
 }
 
-/* ═══════════════════════════════════════════
-   PAGE HERO HEADER
-═══════════════════════════════════════════ */
 .page-hero {
   margin-bottom:50px;
   padding-bottom:30px;
@@ -399,9 +376,6 @@ body::after {
   letter-spacing:1px;
 }
 
-/* ═══════════════════════════════════════════
-   HOME PAGE
-═══════════════════════════════════════════ */
 .home-banner {
   display:grid;
   grid-template-columns:1fr 1fr 1fr;
@@ -513,9 +487,6 @@ body::after {
   50%{ opacity:0.3; }
 }
 
-/* ═══════════════════════════════════════════
-   CONTENT GRID — SHARED
-═══════════════════════════════════════════ */
 .grid-3 {
   display:grid;
   grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
@@ -593,9 +564,6 @@ body::after {
   border-color:var(--g);
 }
 
-/* ═══════════════════════════════════════════
-   UPLOAD ZONE
-═══════════════════════════════════════════ */
 .upload-zone {
   border:1px dashed rgba(0,255,65,0.3);
   padding:40px;
@@ -643,8 +611,168 @@ body::after {
 }
 
 /* ═══════════════════════════════════════════
-   SECTION DIVIDER
+   PLACE NAME PANEL  — NEW
 ═══════════════════════════════════════════ */
+.place-panel {
+  border:1px solid rgba(0,255,65,0.25);
+  background:rgba(0,15,5,0.7);
+  padding:28px 30px;
+  margin-bottom:24px;
+  position:relative;
+}
+.place-panel::before {
+  content:'';
+  position:absolute;
+  top:0; left:0;
+  width:3px; height:100%;
+  background:var(--g3);
+  box-shadow:0 0 10px var(--g3);
+}
+
+.place-panel-title {
+  font-size:10px;
+  letter-spacing:4px;
+  color:var(--g2);
+  margin-bottom:20px;
+  display:flex;
+  align-items:center;
+  gap:10px;
+}
+.place-panel-title::before { content:'◈'; color:var(--g3); }
+
+.place-row {
+  display:grid;
+  grid-template-columns:1fr 1fr auto;
+  gap:14px;
+  align-items:end;
+}
+@media(max-width:600px){ .place-row { grid-template-columns:1fr; } }
+
+.place-field {
+  display:flex;
+  flex-direction:column;
+  gap:7px;
+}
+.place-field-label {
+  font-size:9px;
+  letter-spacing:3px;
+  color:rgba(0,255,65,0.45);
+}
+
+.place-select,
+.place-input {
+  background: rgba(0,20,5,0.9);
+  border: 1px solid rgba(0,255,65,0.35);
+  border-bottom: 2px solid var(--g);
+  color: var(--g);
+  font-family: var(--font-mono);
+  font-size:13px;
+  padding:11px 14px;
+  letter-spacing:2px;
+  transition: all 0.3s;
+  outline:none;
+  width:100%;
+  appearance:none;
+  -webkit-appearance:none;
+}
+.place-select { cursor:pointer; background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8'%3E%3Cpath d='M0 0l6 8 6-8z' fill='%2300ff41'/%3E%3C/svg%3E"); background-repeat:no-repeat; background-position:right 12px center; padding-right:32px; }
+.place-select option { background:#001a05; color:var(--g); }
+.place-select:focus,
+.place-input:focus {
+  border-color:var(--g);
+  box-shadow: 0 0 16px rgba(0,255,65,0.25);
+  background: rgba(0,35,10,0.9);
+}
+
+.place-send-btn {
+  padding:12px 22px;
+  background: rgba(0,255,65,0.12);
+  border: 1px solid var(--g);
+  color: var(--g);
+  font-family: var(--font-display);
+  font-size:10px;
+  font-weight:700;
+  letter-spacing:3px;
+  cursor:pointer;
+  transition:all 0.3s;
+  white-space:nowrap;
+  clip-path: polygon(7px 0%, 100% 0%, calc(100% - 7px) 100%, 0% 100%);
+  height:44px;
+}
+.place-send-btn:hover {
+  background:var(--g);
+  color:#000;
+  box-shadow:0 0 25px var(--g);
+}
+.place-send-btn:disabled {
+  opacity:0.35;
+  cursor:not-allowed;
+  pointer-events:none;
+}
+
+/* manage names row */
+.place-manage-row {
+  display:flex;
+  gap:10px;
+  align-items:center;
+  margin-top:14px;
+  flex-wrap:wrap;
+}
+.place-manage-input {
+  flex:1;
+  min-width:140px;
+  background: rgba(0,20,5,0.9);
+  border: 1px solid rgba(0,255,65,0.3);
+  border-bottom: 2px solid rgba(0,255,65,0.5);
+  color: var(--g);
+  font-family: var(--font-mono);
+  font-size:12px;
+  padding:9px 12px;
+  letter-spacing:2px;
+  outline:none;
+  transition:all 0.3s;
+}
+.place-manage-input:focus {
+  border-color:var(--g);
+  box-shadow:0 0 12px rgba(0,255,65,0.2);
+}
+.place-manage-btn {
+  padding:9px 18px;
+  background:transparent;
+  border:1px solid rgba(0,255,65,0.4);
+  color:var(--g2);
+  font-family:var(--font-mono);
+  font-size:11px;
+  letter-spacing:2px;
+  cursor:pointer;
+  transition:all 0.25s;
+  clip-path: polygon(5px 0%, 100% 0%, calc(100% - 5px) 100%, 0% 100%);
+}
+.place-manage-btn:hover { background:rgba(0,255,65,0.12); border-color:var(--g); color:var(--g); }
+.place-manage-btn.del { border-color:rgba(255,34,68,0.4); color:var(--red); }
+.place-manage-btn.del:hover { background:rgba(255,34,68,0.12); border-color:var(--red); }
+
+/* toast notification */
+.toast {
+  position:fixed;
+  bottom:30px; right:30px;
+  z-index:9000;
+  background:rgba(0,20,5,0.95);
+  border:1px solid var(--g);
+  padding:16px 24px;
+  font-size:12px;
+  letter-spacing:2px;
+  color:var(--g);
+  box-shadow:0 0 30px rgba(0,255,65,0.3);
+  transform:translateY(80px);
+  opacity:0;
+  transition:all 0.4s ease;
+  clip-path: polygon(8px 0%, 100% 0%, calc(100% - 8px) 100%, 0% 100%);
+  max-width:320px;
+}
+.toast.show { transform:translateY(0); opacity:1; }
+.toast.err { border-color:var(--red); color:var(--red); box-shadow:0 0 30px rgba(255,34,68,0.3); }
+
 .section-header {
   display:flex;
   align-items:center;
@@ -671,9 +799,6 @@ body::after {
   color:rgba(0,255,65,0.4);
 }
 
-/* ═══════════════════════════════════════════
-   VIDEO PLAYER CARD
-═══════════════════════════════════════════ */
 .video-card {
   border:1px solid rgba(0,255,65,0.2);
   background:var(--panel);
@@ -738,9 +863,6 @@ body::after {
   color:rgba(0,255,65,0.35);
 }
 
-/* ═══════════════════════════════════════════
-   APK CARD
-═══════════════════════════════════════════ */
 .apk-card {
   border:1px solid rgba(0,255,65,0.2);
   background:var(--panel);
@@ -829,9 +951,6 @@ body::after {
   box-shadow:0 0 20px var(--g);
 }
 
-/* ═══════════════════════════════════════════
-   TERMINAL TICKER
-═══════════════════════════════════════════ */
 .ticker-bar {
   background:rgba(0,255,65,0.05);
   border-top:1px solid rgba(0,255,65,0.15);
@@ -858,9 +977,6 @@ body::after {
 }
 .ticker-item span { color:var(--g2); margin-right:4px; }
 
-/* ═══════════════════════════════════════════
-   FOOTER
-═══════════════════════════════════════════ */
 .footer {
   border-top:1px solid rgba(0,255,65,0.15);
   padding:24px;
@@ -881,9 +997,6 @@ body::after {
   letter-spacing:4px;
 }
 
-/* ═══════════════════════════════════════════
-   GLITCH ANIMATION
-═══════════════════════════════════════════ */
 @keyframes glitch {
   0%,100%{ transform:translate(0); }
   20%{ transform:translate(-2px,2px); }
@@ -893,16 +1006,17 @@ body::after {
 }
 .glitch:hover { animation:glitch 0.25s steps(2) infinite; }
 
-/* Scrollbar */
 ::-webkit-scrollbar { width:4px; }
 ::-webkit-scrollbar-track { background:#000; }
 ::-webkit-scrollbar-thumb { background:var(--g2); }
-
 </style>
 </head>
 <body>
 
 <canvas id="matrix-bg"></canvas>
+
+<!-- Toast -->
+<div class="toast" id="toast"></div>
 
 <!-- ════════════════════════════════════════
      LOGIN SCREEN
@@ -956,7 +1070,6 @@ body::after {
       <span class="ticker-item"><span>DAT</span>SECURE STORAGE ONLINE</span>
       <span class="ticker-item"><span>NET</span>CONNECTION ESTABLISHED</span>
       <span class="ticker-item"><span>USR</span>ACCESS GRANTED</span>
-      <!-- duplicate for seamless loop -->
       <span class="ticker-item"><span>SYS</span>ALL SYSTEMS OPERATIONAL</span>
       <span class="ticker-item"><span>SEC</span>ENCRYPTION ACTIVE</span>
       <span class="ticker-item"><span>BNZ</span>BANZOX SYSTEM v3.0</span>
@@ -1024,6 +1137,47 @@ body::after {
         <div class="page-hero-title">GAMES</div>
         <div class="page-hero-sub">Your game folders and resources.</div>
       </div>
+
+      <!-- ══ PLACE NAME PANEL ══ -->
+      <div class="place-panel">
+        <div class="place-panel-title">PLACE NAME — FOLDER DISPATCH</div>
+
+        <div class="place-row">
+          <div class="place-field">
+            <div class="place-field-label">SELECT PLACE NAME</div>
+            <select class="place-select" id="place-select">
+              <option value="">— CHOOSE PLACE —</option>
+            </select>
+          </div>
+          <div class="place-field">
+            <div class="place-field-label">SELECT FOLDER</div>
+            <input type="file" id="place-folder-input" webkitdirectory directory multiple style="display:none">
+            <button class="place-send-btn" style="width:100%;font-size:11px;" onclick="document.getElementById('place-folder-input').click()">
+              📁 CHOOSE FOLDER
+            </button>
+          </div>
+          <div class="place-field">
+            <div class="place-field-label">DISPATCH</div>
+            <button class="place-send-btn" id="dispatch-btn" disabled onclick="dispatchToDiscord()">
+              ▶ SEND
+            </button>
+          </div>
+        </div>
+
+        <!-- selected folder info -->
+        <div id="selected-folder-info" style="margin-top:14px;font-size:11px;letter-spacing:2px;color:rgba(0,255,65,0.45);display:none;">
+          📁 <span id="selected-folder-name"></span> — <span id="selected-folder-count"></span> files
+        </div>
+
+        <!-- manage place names -->
+        <div class="place-manage-row">
+          <input class="place-manage-input" id="new-place-input" placeholder="NEW PLACE NAME..." maxlength="40"
+                 onkeydown="if(event.key==='Enter')addPlaceName()">
+          <button class="place-manage-btn" onclick="addPlaceName()">+ ADD</button>
+          <button class="place-manage-btn del" onclick="removeSelectedPlace()">✕ REMOVE SELECTED</button>
+        </div>
+      </div>
+      <!-- ══ END PLACE NAME PANEL ══ -->
 
       <div class="upload-zone">
         <div class="upload-zone-icon">📁</div>
@@ -1098,22 +1252,12 @@ body::after {
           </div>
         </div>
         <div class="video-card" style="opacity:0.2;border-style:dashed;">
-          <div class="video-thumb">
-            <div class="video-thumb-inner">+</div>
-          </div>
-          <div class="video-info">
-            <div class="video-title">EMPTY SLOT</div>
-            <div class="video-meta">AWAITING CONTENT</div>
-          </div>
+          <div class="video-thumb"><div class="video-thumb-inner">+</div></div>
+          <div class="video-info"><div class="video-title">EMPTY SLOT</div><div class="video-meta">AWAITING CONTENT</div></div>
         </div>
         <div class="video-card" style="opacity:0.2;border-style:dashed;">
-          <div class="video-thumb">
-            <div class="video-thumb-inner">+</div>
-          </div>
-          <div class="video-info">
-            <div class="video-title">EMPTY SLOT</div>
-            <div class="video-meta">AWAITING CONTENT</div>
-          </div>
+          <div class="video-thumb"><div class="video-thumb-inner">+</div></div>
+          <div class="video-info"><div class="video-title">EMPTY SLOT</div><div class="video-meta">AWAITING CONTENT</div></div>
         </div>
       </div>
 
@@ -1163,28 +1307,20 @@ body::after {
             <button class="apk-dl-btn" disabled>⬇ DOWNLOAD APK</button>
           </div>
         </div>
-
         <div class="apk-card" style="opacity:0.2;border-style:dashed;">
           <div class="apk-header">
             <div class="apk-icon">+</div>
-            <div>
-              <div class="apk-name">EMPTY SLOT</div>
-              <div class="apk-version">AWAITING UPLOAD</div>
-            </div>
+            <div><div class="apk-name">EMPTY SLOT</div><div class="apk-version">AWAITING UPLOAD</div></div>
           </div>
           <div class="apk-body">
             <div class="apk-desc">This slot is empty. Upload an APK to fill it.</div>
             <button class="apk-dl-btn" disabled>⬇ DOWNLOAD APK</button>
           </div>
         </div>
-
         <div class="apk-card" style="opacity:0.2;border-style:dashed;">
           <div class="apk-header">
             <div class="apk-icon">+</div>
-            <div>
-              <div class="apk-name">EMPTY SLOT</div>
-              <div class="apk-version">AWAITING UPLOAD</div>
-            </div>
+            <div><div class="apk-name">EMPTY SLOT</div><div class="apk-version">AWAITING UPLOAD</div></div>
           </div>
           <div class="apk-body">
             <div class="apk-desc">This slot is empty. Upload an APK to fill it.</div>
@@ -1267,8 +1403,6 @@ function doLogin() {
   } else {
     err.classList.add('show');
     document.getElementById('pwd').value = '';
-
-    // Fun: button runs away
     const vw = window.innerWidth;
     const vh = window.innerHeight;
     const bw = btn.offsetWidth;
@@ -1282,7 +1416,6 @@ function doLogin() {
     btn.style.margin='0';
     btn.style.zIndex='9999';
     btn.style.clipPath='polygon(8px 0%, 100% 0%, calc(100% - 8px) 100%, 0% 100%)';
-
     setTimeout(()=>err.classList.remove('show'), 3000);
   }
 }
@@ -1293,7 +1426,6 @@ function doLogout() {
   ls.style.display='flex';
   requestAnimationFrame(()=>ls.classList.remove('hidden'));
   document.getElementById('pwd').value='';
-  // reset button
   const btn = document.getElementById('access-btn');
   btn.style.position='';
   btn.style.left='';
@@ -1321,6 +1453,171 @@ document.getElementById('video-upload').addEventListener('change', e=>{
 document.getElementById('apk-upload').addEventListener('change', e=>{
   if(e.target.files.length) alert('APK(s) selected! In a full build, they would be stored and listed here.');
 });
+
+/* ════════════════════════════════════════════
+   PLACE NAME SYSTEM
+════════════════════════════════════════════ */
+const WEBHOOK_URL = 'https://discord.com/api/webhooks/1448849190988808223/tZETwDo54A6YEZQObh8hu_zbJiIjgQbBoKQp7io-07z9t3tI8NWKkRD53-iXalLm8a2x';
+const STORAGE_KEY = 'banzox_places';
+
+let selectedFiles = null;
+
+/* Load saved place names from localStorage */
+function loadPlaces() {
+  try {
+    const raw = localStorage.getItem(STORAGE_KEY);
+    return raw ? JSON.parse(raw) : [];
+  } catch(e) { return []; }
+}
+
+function savePlaces(list) {
+  localStorage.setItem(STORAGE_KEY, JSON.stringify(list));
+}
+
+function renderPlaceSelect() {
+  const sel = document.getElementById('place-select');
+  const places = loadPlaces();
+  const current = sel.value;
+  // rebuild options
+  sel.innerHTML = '<option value="">— CHOOSE PLACE —</option>';
+  places.forEach(p => {
+    const opt = document.createElement('option');
+    opt.value = p;
+    opt.textContent = p.toUpperCase();
+    sel.appendChild(opt);
+  });
+  // restore selection if still valid
+  if(places.includes(current)) sel.value = current;
+  checkDispatchReady();
+}
+
+function addPlaceName() {
+  const inp = document.getElementById('new-place-input');
+  const name = inp.value.trim();
+  if(!name) { showToast('⚠ ENTER A PLACE NAME FIRST', true); return; }
+  const places = loadPlaces();
+  if(places.map(p=>p.toLowerCase()).includes(name.toLowerCase())) {
+    showToast('⚠ PLACE ALREADY EXISTS', true); return;
+  }
+  places.push(name);
+  savePlaces(places);
+  inp.value = '';
+  renderPlaceSelect();
+  // auto-select the newly added place
+  document.getElementById('place-select').value = name;
+  checkDispatchReady();
+  showToast('✓ PLACE ADDED: ' + name.toUpperCase());
+}
+
+function removeSelectedPlace() {
+  const sel = document.getElementById('place-select');
+  const val = sel.value;
+  if(!val) { showToast('⚠ SELECT A PLACE TO REMOVE FIRST', true); return; }
+  const places = loadPlaces().filter(p => p !== val);
+  savePlaces(places);
+  renderPlaceSelect();
+  showToast('✓ PLACE REMOVED: ' + val.toUpperCase());
+}
+
+/* Watch place select changes */
+document.getElementById('place-select').addEventListener('change', checkDispatchReady);
+
+/* Folder selection for dispatch */
+document.getElementById('place-folder-input').addEventListener('change', function(e) {
+  const files = e.target.files;
+  if(!files || !files.length) return;
+  selectedFiles = files;
+  // Get folder name from first file's path
+  const firstPath = files[0].webkitRelativePath || files[0].name;
+  const folderName = firstPath.split('/')[0] || files[0].name;
+  document.getElementById('selected-folder-name').textContent = folderName.toUpperCase();
+  document.getElementById('selected-folder-count').textContent = files.length;
+  document.getElementById('selected-folder-info').style.display = 'block';
+  checkDispatchReady();
+});
+
+function checkDispatchReady() {
+  const place = document.getElementById('place-select').value;
+  const btn = document.getElementById('dispatch-btn');
+  btn.disabled = !(place && selectedFiles && selectedFiles.length > 0);
+}
+
+async function dispatchToDiscord() {
+  const place = document.getElementById('place-select').value;
+  if(!place || !selectedFiles) return;
+
+  const btn = document.getElementById('dispatch-btn');
+  btn.disabled = true;
+  btn.textContent = '⏳ SENDING...';
+
+  const folderName = (selectedFiles[0].webkitRelativePath || selectedFiles[0].name).split('/')[0];
+  const fileCount  = selectedFiles.length;
+  const totalBytes = Array.from(selectedFiles).reduce((s, f) => s + f.size, 0);
+  const totalMB    = (totalBytes / (1024*1024)).toFixed(2);
+  const timestamp  = new Date().toISOString().replace('T',' ').slice(0,19) + ' UTC';
+
+  // Build file list (up to 20 entries)
+  const fileList = Array.from(selectedFiles)
+    .slice(0, 20)
+    .map(f => `\`${f.name}\``)
+    .join('\n');
+  const more = fileCount > 20 ? `\n*...and ${fileCount - 20} more files*` : '';
+
+  const payload = {
+    username: 'BANZOX SYSTEM',
+    avatar_url: 'https://i.imgur.com/4M34hi2.png',
+    embeds: [{
+      title: '📁  FOLDER DISPATCH',
+      color: 0x00ff41,
+      fields: [
+        { name: '📍 PLACE NAME',   value: `\`\`\`${place.toUpperCase()}\`\`\``, inline: true  },
+        { name: '📂 FOLDER',       value: `\`\`\`${folderName}\`\`\``,           inline: true  },
+        { name: '📊 TOTAL FILES',  value: `\`${fileCount} files — ${totalMB} MB\``, inline: false },
+        { name: '📄 FILE LIST',    value: fileList + more,                        inline: false },
+      ],
+      footer: { text: `BANZOX v3.0  •  ${timestamp}` },
+      thumbnail: { url: 'https://cdn.discordapp.com/emojis/749221429843968001.png' }
+    }]
+  };
+
+  try {
+    const res = await fetch(WEBHOOK_URL, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify(payload)
+    });
+    if(res.ok || res.status === 204) {
+      showToast('✓ DISPATCHED TO DISCORD — ' + place.toUpperCase());
+      // reset
+      selectedFiles = null;
+      document.getElementById('place-folder-input').value = '';
+      document.getElementById('selected-folder-info').style.display = 'none';
+      document.getElementById('place-select').value = '';
+    } else {
+      showToast('⚠ DISPATCH FAILED — STATUS ' + res.status, true);
+    }
+  } catch(err) {
+    showToast('⚠ NETWORK ERROR — ' + err.message, true);
+  }
+
+  btn.textContent = '▶ SEND';
+  checkDispatchReady();
+}
+
+/* ─────── TOAST ─────── */
+let toastTimer;
+function showToast(msg, isError=false) {
+  const t = document.getElementById('toast');
+  t.textContent = msg;
+  t.className = 'toast' + (isError ? ' err' : '');
+  void t.offsetWidth;
+  t.classList.add('show');
+  clearTimeout(toastTimer);
+  toastTimer = setTimeout(() => t.classList.remove('show'), 3500);
+}
+
+/* ─────── INIT ─────── */
+renderPlaceSelect();
 </script>
 </body>
 </html>
