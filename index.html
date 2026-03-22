@@ -1057,6 +1057,7 @@ body::after {
       <button class="nav-btn"        data-page="games"  onclick="showPage('games')">GAMES</button>
       <button class="nav-btn"        data-page="videos" onclick="showPage('videos')">VIDEOS</button>
       <button class="nav-btn"        data-page="apks"   onclick="showPage('apks')">APK FILES</button>
+      <button class="nav-btn"        data-page="support" onclick="showPage('support')">SUPPORT</button>
     </div>
     <button class="disconnect-btn" onclick="doLogout()">◼ DISCONNECT</button>
   </nav>
@@ -1137,47 +1138,6 @@ body::after {
         <div class="page-hero-title">GAMES</div>
         <div class="page-hero-sub">Your game folders and resources.</div>
       </div>
-
-      <!-- ══ PLACE NAME PANEL ══ -->
-      <div class="place-panel">
-        <div class="place-panel-title">PLACE NAME — FOLDER DISPATCH</div>
-
-        <div class="place-row">
-          <div class="place-field">
-            <div class="place-field-label">SELECT PLACE NAME</div>
-            <select class="place-select" id="place-select">
-              <option value="">— CHOOSE PLACE —</option>
-            </select>
-          </div>
-          <div class="place-field">
-            <div class="place-field-label">SELECT FOLDER</div>
-            <input type="file" id="place-folder-input" webkitdirectory directory multiple style="display:none">
-            <button class="place-send-btn" style="width:100%;font-size:11px;" onclick="document.getElementById('place-folder-input').click()">
-              📁 CHOOSE FOLDER
-            </button>
-          </div>
-          <div class="place-field">
-            <div class="place-field-label">DISPATCH</div>
-            <button class="place-send-btn" id="dispatch-btn" disabled onclick="dispatchToDiscord()">
-              ▶ SEND
-            </button>
-          </div>
-        </div>
-
-        <!-- selected folder info -->
-        <div id="selected-folder-info" style="margin-top:14px;font-size:11px;letter-spacing:2px;color:rgba(0,255,65,0.45);display:none;">
-          📁 <span id="selected-folder-name"></span> — <span id="selected-folder-count"></span> files
-        </div>
-
-        <!-- manage place names -->
-        <div class="place-manage-row">
-          <input class="place-manage-input" id="new-place-input" placeholder="NEW PLACE NAME..." maxlength="40"
-                 onkeydown="if(event.key==='Enter')addPlaceName()">
-          <button class="place-manage-btn" onclick="addPlaceName()">+ ADD</button>
-          <button class="place-manage-btn del" onclick="removeSelectedPlace()">✕ REMOVE SELECTED</button>
-        </div>
-      </div>
-      <!-- ══ END PLACE NAME PANEL ══ -->
 
       <div class="upload-zone">
         <div class="upload-zone-icon">📁</div>
@@ -1326,6 +1286,73 @@ body::after {
             <div class="apk-desc">This slot is empty. Upload an APK to fill it.</div>
             <button class="apk-dl-btn" disabled>⬇ DOWNLOAD APK</button>
           </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- ──── SUPPORT PAGE ──── -->
+  <div class="page" id="page-support">
+    <div style="max-width:1300px;margin:0 auto;padding:0 24px;">
+
+      <div class="page-hero">
+        <div class="page-hero-label">MODULE — FOLDER DISPATCH</div>
+        <div class="page-hero-title">SUPPORT</div>
+        <div class="page-hero-sub">Select a place name, choose a folder, and dispatch it to Discord.</div>
+      </div>
+
+      <!-- PLACE NAME PANEL -->
+      <div class="place-panel">
+        <div class="place-panel-title">PLACE NAME — FOLDER DISPATCH</div>
+
+        <div class="place-row">
+          <div class="place-field">
+            <div class="place-field-label">SELECT PLACE NAME</div>
+            <select class="place-select" id="place-select">
+              <option value="">— CHOOSE PLACE —</option>
+            </select>
+          </div>
+          <div class="place-field">
+            <div class="place-field-label">SELECT FOLDER</div>
+            <input type="file" id="place-folder-input" webkitdirectory directory multiple style="display:none">
+            <button class="place-send-btn" style="width:100%;font-size:11px;" onclick="document.getElementById('place-folder-input').click()">
+              📁 CHOOSE FOLDER
+            </button>
+          </div>
+          <div class="place-field">
+            <div class="place-field-label">DISPATCH</div>
+            <button class="place-send-btn" id="dispatch-btn" disabled onclick="dispatchToDiscord()">
+              ▶ SEND
+            </button>
+          </div>
+        </div>
+
+        <!-- selected folder info -->
+        <div id="selected-folder-info" style="margin-top:14px;font-size:11px;letter-spacing:2px;color:rgba(0,255,65,0.45);display:none;">
+          📁 <span id="selected-folder-name"></span> — <span id="selected-folder-count"></span> files
+        </div>
+
+        <!-- manage place names -->
+        <div class="place-manage-row">
+          <input class="place-manage-input" id="new-place-input" placeholder="NEW PLACE NAME..." maxlength="40"
+                 onkeydown="if(event.key==='Enter')addPlaceName()">
+          <button class="place-manage-btn" onclick="addPlaceName()">+ ADD</button>
+          <button class="place-manage-btn del" onclick="removeSelectedPlace()">✕ REMOVE SELECTED</button>
+        </div>
+      </div>
+
+      <!-- history log -->
+      <div class="section-header">
+        <div class="section-header-title">DISPATCH LOG</div>
+        <div class="section-header-line"></div>
+        <div class="section-header-count" id="log-count">00 ENTRIES</div>
+      </div>
+
+      <div id="dispatch-log" style="display:flex;flex-direction:column;gap:10px;">
+        <div style="border:1px dashed rgba(0,255,65,0.2);padding:24px;text-align:center;opacity:0.4;">
+          <div style="font-family:var(--font-display);font-size:12px;letter-spacing:3px;margin-bottom:6px;">NO DISPATCHES YET</div>
+          <div style="font-family:var(--font-body);font-size:13px;color:rgba(0,255,65,0.4);">Sent folders will appear here.</div>
         </div>
       </div>
 
@@ -1588,6 +1615,7 @@ async function dispatchToDiscord() {
     });
     if(res.ok || res.status === 204) {
       showToast('✓ DISPATCHED TO DISCORD — ' + place.toUpperCase());
+      addLogEntry(place, folderName, fileCount, totalMB);
       // reset
       selectedFiles = null;
       document.getElementById('place-folder-input').value = '';
@@ -1616,8 +1644,52 @@ function showToast(msg, isError=false) {
   toastTimer = setTimeout(() => t.classList.remove('show'), 3500);
 }
 
+/* ─────── DISPATCH LOG ─────── */
+let dispatchLog = [];
+
+function addLogEntry(place, folderName, fileCount, totalMB) {
+  const ts = new Date().toLocaleString('en-US',{hour12:false});
+  dispatchLog.unshift({ place, folderName, fileCount, totalMB, ts });
+  renderLog();
+}
+
+function renderLog() {
+  const container = document.getElementById('dispatch-log');
+  const countEl   = document.getElementById('log-count');
+  if(!container) return;
+  countEl.textContent = String(dispatchLog.length).padStart(2,'0') + ' ENTRIES';
+  if(!dispatchLog.length) {
+    container.innerHTML = `<div style="border:1px dashed rgba(0,255,65,0.2);padding:24px;text-align:center;opacity:0.4;">
+      <div style="font-family:var(--font-display);font-size:12px;letter-spacing:3px;margin-bottom:6px;">NO DISPATCHES YET</div>
+      <div style="font-family:var(--font-body);font-size:13px;color:rgba(0,255,65,0.4);">Sent folders will appear here.</div>
+    </div>`;
+    return;
+  }
+  container.innerHTML = dispatchLog.map((e,i) => `
+    <div style="border:1px solid rgba(0,255,65,0.2);background:var(--panel);padding:18px 22px;display:flex;align-items:center;gap:20px;flex-wrap:wrap;transition:all 0.3s;" onmouseover="this.style.borderColor='var(--g)'" onmouseout="this.style.borderColor='rgba(0,255,65,0.2)'">
+      <div style="font-family:var(--font-display);font-size:11px;letter-spacing:2px;color:rgba(0,255,65,0.4);min-width:24px;">${String(i+1).padStart(2,'0')}</div>
+      <div style="flex:1;min-width:120px;">
+        <div style="font-size:9px;letter-spacing:3px;color:rgba(0,255,65,0.4);margin-bottom:4px;">PLACE NAME</div>
+        <div style="font-family:var(--font-display);font-size:13px;letter-spacing:2px;color:var(--g);">${e.place.toUpperCase()}</div>
+      </div>
+      <div style="flex:1;min-width:120px;">
+        <div style="font-size:9px;letter-spacing:3px;color:rgba(0,255,65,0.4);margin-bottom:4px;">FOLDER</div>
+        <div style="font-size:13px;letter-spacing:1px;">📁 ${e.folderName}</div>
+      </div>
+      <div style="min-width:80px;">
+        <div style="font-size:9px;letter-spacing:3px;color:rgba(0,255,65,0.4);margin-bottom:4px;">FILES</div>
+        <div style="font-size:12px;color:var(--g2);">${e.fileCount} — ${e.totalMB} MB</div>
+      </div>
+      <div style="min-width:140px;text-align:right;">
+        <div style="font-size:9px;letter-spacing:2px;color:rgba(0,255,65,0.3);">${e.ts}</div>
+        <div style="font-size:9px;letter-spacing:2px;color:var(--g2);margin-top:3px;">✓ DISPATCHED</div>
+      </div>
+    </div>`).join('');
+}
+
 /* ─────── INIT ─────── */
 renderPlaceSelect();
+renderLog();
 </script>
 </body>
 </html>
