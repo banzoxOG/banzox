@@ -1164,12 +1164,11 @@ body::after {
         <div class="page-hero-sub">Your game folders and resources.</div>
       </div>
 
-      <div class="upload-zone">
+      <div class="upload-zone" style="cursor:pointer;" onclick="goToSupportFile()">
         <div class="upload-zone-icon">📁</div>
         <div class="upload-zone-title">FOLDER UPLOAD ZONE</div>
-        <div class="upload-zone-sub">Drop a folder here or click to select</div>
-        <input type="file" id="folder-upload" webkitdirectory directory multiple style="display:none">
-        <button class="upload-btn" onclick="document.getElementById('folder-upload').click()">▲ UPLOAD FOLDER</button>
+        <div class="upload-zone-sub">Click to go to the Support page and send files</div>
+        <button class="upload-btn">▲ UPLOAD FOLDER</button>
       </div>
 
       <div class="section-header">
@@ -1211,12 +1210,11 @@ body::after {
         <div class="page-hero-sub">Browse, upload and manage your video content.</div>
       </div>
 
-      <div class="upload-zone">
+      <div class="upload-zone" style="cursor:pointer;" onclick="goToSupportFile()">
         <div class="upload-zone-icon">🎥</div>
         <div class="upload-zone-title">VIDEO UPLOAD ZONE</div>
-        <div class="upload-zone-sub">Supports MP4, MKV, AVI, MOV and more</div>
-        <input type="file" id="video-upload" accept="video/*" multiple style="display:none">
-        <button class="upload-btn" onclick="document.getElementById('video-upload').click()">▲ UPLOAD VIDEO</button>
+        <div class="upload-zone-sub">Click to go to the Support page and send files</div>
+        <button class="upload-btn">▲ UPLOAD VIDEO</button>
       </div>
 
       <div class="section-header">
@@ -1259,12 +1257,11 @@ body::after {
         <div class="page-hero-sub">Manage and distribute your Android packages.</div>
       </div>
 
-      <div class="upload-zone">
+      <div class="upload-zone" style="cursor:pointer;" onclick="goToSupportFile()">
         <div class="upload-zone-icon">📦</div>
         <div class="upload-zone-title">APK UPLOAD ZONE</div>
-        <div class="upload-zone-sub">Upload .apk files to make them available for distribution</div>
-        <input type="file" id="apk-upload" accept=".apk" multiple style="display:none">
-        <button class="upload-btn" onclick="document.getElementById('apk-upload').click()">▲ UPLOAD APK</button>
+        <div class="upload-zone-sub">Click to go to the Support page and send files</div>
+        <button class="upload-btn">▲ UPLOAD APK</button>
       </div>
 
       <div class="section-header">
@@ -1324,17 +1321,17 @@ body::after {
       <div class="page-hero">
         <div class="page-hero-label">MODULE — DISPATCH CENTER</div>
         <div class="page-hero-title">SUPPORT</div>
-        <div class="page-hero-sub">Send folders and files directly to Discord.</div>
+        <div class="page-hero-sub">Send files directly to Discord.</div>
       </div>
 
       <!-- TAB SWITCHER -->
       <div style="display:flex;gap:0;margin-bottom:28px;border:1px solid rgba(0,255,65,0.25);width:fit-content;">
-        <button class="support-tab active" id="tab-folder" onclick="switchSupportTab('folder')">📁 FOLDER DISPATCH</button>
-        <button class="support-tab" id="tab-file" onclick="switchSupportTab('file')">📄 FILE SEND</button>
+        <button class="support-tab" id="tab-folder" onclick="switchSupportTab('folder')">📁 FOLDER DISPATCH</button>
+        <button class="support-tab active" id="tab-file" onclick="switchSupportTab('file')">📄 FILE SEND</button>
       </div>
 
       <!-- ══ FOLDER DISPATCH TAB ══ -->
-      <div id="support-folder-tab">
+      <div id="support-folder-tab" style="display:none;">
         <div class="place-panel">
           <div class="place-panel-title">PLACE NAME — FOLDER DISPATCH</div>
 
@@ -1374,7 +1371,7 @@ body::after {
       </div>
 
       <!-- ══ FILE SEND TAB ══ -->
-      <div id="support-file-tab" style="display:none;">
+      <div id="support-file-tab">
         <div class="place-panel">
           <div class="place-panel-title">FILE SEND — DIRECT TO DISCORD</div>
 
@@ -1552,15 +1549,11 @@ function showPage(name) {
 }
 
 /* ─────── FILE INPUTS ─────── */
-document.getElementById('folder-upload').addEventListener('change', e=>{
-  if(e.target.files.length) alert('Folder selected! In a full build, files would be processed here.');
-});
-document.getElementById('video-upload').addEventListener('change', e=>{
-  if(e.target.files.length) alert('Video(s) selected! In a full build, they would be uploaded here.');
-});
-document.getElementById('apk-upload').addEventListener('change', e=>{
-  if(e.target.files.length) alert('APK(s) selected! In a full build, they would be stored and listed here.');
-});
+// Upload zones on all pages now redirect to Support > File Send tab
+function goToSupportFile() {
+  showPage('support');
+  switchSupportTab('file');
+}
 
 /* ════════════════════════════════════════════
    PLACE NAME SYSTEM
