@@ -1035,6 +1035,36 @@ body::after {
   background:rgba(0,50,15,0.4) !important;
   box-shadow:0 0 20px rgba(0,255,65,0.2);
 }
+
+/* ═══ LANGUAGE SWITCHER ═══ */
+.lang-switcher {
+  position:fixed;
+  bottom:30px;
+  left:30px;
+  z-index:9000;
+  display:flex;
+  gap:0;
+  border:1px solid rgba(0,255,65,0.4);
+  background:rgba(0,10,3,0.95);
+  backdrop-filter:blur(10px);
+  box-shadow:0 0 20px rgba(0,255,65,0.15);
+  clip-path:polygon(6px 0%,100% 0%,calc(100% - 6px) 100%,0% 100%);
+}
+.lang-btn {
+  font-family:var(--font-display);
+  font-size:12px;
+  font-weight:700;
+  letter-spacing:3px;
+  padding:10px 22px;
+  background:transparent;
+  border:none;
+  color:rgba(0,255,65,0.45);
+  cursor:pointer;
+  transition:all 0.25s;
+}
+.lang-btn:first-child { border-right:1px solid rgba(0,255,65,0.25); }
+.lang-btn:hover { color:var(--g); background:rgba(0,255,65,0.08); }
+.lang-btn.active { color:#000; background:var(--g); box-shadow:0 0 12px var(--g); }
 </style>
 </head>
 <body>
@@ -1916,6 +1946,162 @@ function renderLog() {
 /* ─────── INIT ─────── */
 renderPlaceSelect();
 renderLog();
-</script>
+
+/* ════════════════════════════════════════════
+   LANGUAGE SYSTEM
+════════════════════════════════════════════ */
+const ar = {
+  '[ SECURE SYSTEM ACCESS — AUTHORIZED ONLY ]':'[ وصول آمن للنظام — للمصرح لهم فقط ]',
+  'ENTER ACCESS CODE':'أدخل رمز الوصول',
+  'ACCESS SYSTEM':'دخول النظام',
+  '⚠ ACCESS DENIED — INVALID CODE':'⚠ تم رفض الوصول — رمز غير صالح',
+  'SYS::ONLINE':'النظام::متصل',
+  'SEC::ENABLED':'الحماية::مفعلة',
+  'HOME':'الرئيسية',
+  'GAMES':'الألعاب',
+  'VIDEOS':'الفيديوهات',
+  'APK FILES':'ملفات APK',
+  'SUPPORT':'الدعم',
+  '◼ DISCONNECT':'◼ قطع الاتصال',
+  'ALL SYSTEMS OPERATIONAL':'جميع الأنظمة تعمل',
+  'ENCRYPTION ACTIVE':'التشفير نشط',
+  'BANZOX SYSTEM v3.0':'نظام BANZOX v3.0',
+  'SECURE STORAGE ONLINE':'التخزين الآمن متصل',
+  'CONNECTION ESTABLISHED':'تم إنشاء الاتصال',
+  'ACCESS GRANTED':'تم منح الوصول',
+  'DASHBOARD — MAIN INTERFACE':'لوحة التحكم — الواجهة الرئيسية',
+  'WELCOME BACK':'مرحباً بعودتك',
+  'All systems online. Select a module to continue.':'جميع الأنظمة متصلة. اختر وحدة للمتابعة.',
+  'TOTAL GAMES':'إجمالي الألعاب',
+  'TOTAL VIDEOS':'إجمالي الفيديوهات',
+  'Access your game folders and resources stored in the system.':'الوصول إلى مجلدات الألعاب والموارد المخزنة في النظام.',
+  'ENTER MODULE':'دخول الوحدة',
+  'Browse and upload your video content to secure storage.':'تصفح وارفع محتوى الفيديو إلى التخزين الآمن.',
+  'Manage and distribute your Android APK packages.':'إدارة وتوزيع حزم Android APK الخاصة بك.',
+  'MODULE — GAME STORAGE':'الوحدة — تخزين الألعاب',
+  'Your game folders and resources.':'مجلدات الألعاب والموارد الخاصة بك.',
+  'FOLDER UPLOAD ZONE':'منطقة رفع المجلدات',
+  'Click to go to the Support page and send files':'انقر للذهاب إلى صفحة الدعم وإرسال الملفات',
+  '▲ UPLOAD FOLDER':'▲ رفع مجلد',
+  'AVAILABLE GAMES':'الألعاب المتاحة',
+  '02 ENTRIES':'02 إدخالات',
+  'GAME':'لعبة',
+  'Google Drive folder containing Geometry Dash files and resources.':'مجلد Google Drive يحتوي على ملفات Geometry Dash.',
+  '▶ OPEN FOLDER':'▶ فتح المجلد',
+  'Google Drive folder containing Getting Over It files and resources.':'مجلد Google Drive يحتوي على ملفات Getting Over It.',
+  'EMPTY':'فارغ',
+  '+ ADD NEW GAME':'+ إضافة لعبة جديدة',
+  'Upload a folder to populate this slot.':'ارفع مجلداً لملء هذه الخانة.',
+  'MODULE — VIDEO STORAGE':'الوحدة — تخزين الفيديو',
+  'Browse, upload and manage your video content.':'تصفح وارفع وأدر محتوى الفيديو الخاص بك.',
+  'VIDEO UPLOAD ZONE':'منطقة رفع الفيديو',
+  '▲ UPLOAD VIDEO':'▲ رفع فيديو',
+  'VIDEO LIBRARY':'مكتبة الفيديو',
+  '00 ENTRIES':'00 إدخالات',
+  'NO VIDEOS YET':'لا توجد فيديوهات بعد',
+  'UPLOAD A VIDEO TO GET STARTED':'ارفع فيديو للبدء',
+  'EMPTY SLOT':'خانة فارغة',
+  'AWAITING CONTENT':'في انتظار المحتوى',
+  'MODULE — APK DISTRIBUTION':'الوحدة — توزيع APK',
+  'Manage and distribute your Android packages.':'إدارة وتوزيع حزم Android الخاصة بك.',
+  'APK UPLOAD ZONE':'منطقة رفع APK',
+  '▲ UPLOAD APK':'▲ رفع APK',
+  'APK PACKAGES':'حزم APK',
+  'NO PACKAGES YET':'لا توجد حزم بعد',
+  'Upload an APK file to get started with your distribution.':'ارفع ملف APK للبدء في التوزيع.',
+  'SIZE':'الحجم',
+  'PLATFORM':'المنصة',
+  'STATUS':'الحالة',
+  'PENDING':'قيد الانتظار',
+  '⬇ DOWNLOAD APK':'⬇ تحميل APK',
+  'AWAITING UPLOAD':'في انتظار الرفع',
+  'This slot is empty. Upload an APK to fill it.':'هذه الخانة فارغة. ارفع ملف APK لملئها.',
+  'MODULE — DISPATCH CENTER':'الوحدة — مركز الإرسال',
+  'Send files directly to Discord.':'إرسال الملفات مباشرة إلى Discord.',
+  '📁 FOLDER DISPATCH':'📁 إرسال المجلد',
+  '📄 FILE SEND':'📄 إرسال الملفات',
+  'PLACE NAME — FOLDER DISPATCH':'اسم المكان — إرسال المجلد',
+  'SELECT PLACE NAME':'اختر اسم المكان',
+  'SELECT FOLDER':'اختر مجلداً',
+  '📁 CHOOSE FOLDER':'📁 اختيار المجلد',
+  'DISPATCH':'إرسال',
+  '▶ SEND':'▶ إرسال',
+  '+ ADD':'+ إضافة',
+  '✕ REMOVE SELECTED':'✕ حذف المحدد',
+  'FILE SEND — DIRECT TO DISCORD':'إرسال الملفات — مباشرة إلى Discord',
+  'DROP FILES HERE OR CLICK TO SELECT':'أسقط الملفات هنا أو انقر للاختيار',
+  'Any file type — max 25 MB per file (Discord limit)':'أي نوع ملف — الحد الأقصى 25 ميجابايت لكل ملف',
+  'SELECTED FILES':'الملفات المحددة',
+  'OPTIONAL MESSAGE':'رسالة اختيارية',
+  '▶ SEND FILES TO DISCORD':'▶ إرسال الملفات إلى Discord',
+  'DISPATCH LOG':'سجل الإرسال',
+  'NO DISPATCHES YET':'لا توجد إرسالات بعد',
+  'Sent items will appear here.':'ستظهر العناصر المرسلة هنا.',
+  'Sent folders will appear here.':'ستظهر المجلدات المرسلة هنا.',
+  'SECURE SYSTEM — ALL DATA ENCRYPTED':'نظام آمن — جميع البيانات مشفرة',
+};
+
+const arPlaceholders = {
+  'NEW PLACE NAME...':'اسم مكان جديد...',
+  'ADD A NOTE (OPTIONAL)...':'أضف ملاحظة (اختياري)...',
+};
+
+let _textNodes = null;
+let _inputs    = null;
+let currentLang = 'en';
+
+function _collectNodes() {
+  _textNodes = [];
+  const walker = document.createTreeWalker(
+    document.body,
+    NodeFilter.SHOW_TEXT,
+    { acceptNode: n => n.textContent.trim() ? NodeFilter.FILTER_ACCEPT : NodeFilter.FILTER_REJECT }
+  );
+  while (walker.nextNode()) {
+    const node    = walker.currentNode;
+    const trimmed = node.textContent.trim();
+    if (ar[trimmed] !== undefined) {
+      _textNodes.push({ node, original: trimmed, full: node.textContent });
+    }
+  }
+  _inputs = Array.from(document.querySelectorAll('[placeholder]'))
+    .filter(el => arPlaceholders[el.placeholder])
+    .map(el => ({ el, original: el.placeholder }));
+}
+
+function setLang(lang) {
+  if (!_textNodes) _collectNodes();
+  currentLang = lang;
+
+  if (lang === 'ar') {
+    _textNodes.forEach(({ node, original, full }) => {
+      node.textContent = full.replace(original, ar[original]);
+    });
+    _inputs.forEach(({ el, original }) => {
+      el.placeholder = arPlaceholders[original] || original;
+    });
+    document.body.setAttribute('dir', 'rtl');
+    document.documentElement.lang = 'ar';
+  } else {
+    _textNodes.forEach(({ node, original, full }) => {
+      node.textContent = full;
+    });
+    _inputs.forEach(({ el, original }) => {
+      el.placeholder = original;
+    });
+    document.body.removeAttribute('dir');
+    document.documentElement.lang = 'en';
+  }
+
+  document.getElementById('lang-en').classList.toggle('active', lang === 'en');
+  document.getElementById('lang-ar').classList.toggle('active', lang === 'ar');
+}
+
+<!-- LANGUAGE SWITCHER -->
+<div class="lang-switcher">
+  <button class="lang-btn active" id="lang-en" onclick="setLang('en')">EN</button>
+  <button class="lang-btn"        id="lang-ar" onclick="setLang('ar')">AR</button>
+</div>
+
 </body>
 </html>
