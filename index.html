@@ -7,6 +7,8 @@
 <link rel="icon" type="image/png" href="https://raw.githubusercontent.com/banzoxOG/banzox/main/banzox.png">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Share+Tech+Mono&family=Orbitron:wght@400;700;900&family=Rajdhani:wght@300;400;600;700&display=swap" rel="stylesheet">
+<!-- Google Identity Services -->
+<script src="https://accounts.google.com/gsi/client" async defer></script>
 <style>
 :root {
   --g: #00ff41;
@@ -36,7 +38,6 @@ html, body {
   -webkit-tap-highlight-color: transparent;
 }
 
-/* SCANLINE + VIGNETTE */
 body::before {
   content:'';
   position:fixed; inset:0;
@@ -52,9 +53,7 @@ body::after {
 
 #matrix-bg { position:fixed; inset:0; opacity:0.07; z-index:-1; }
 
-/* ══════════════════════════════
-   LOGIN SCREEN
-══════════════════════════════ */
+/* LOGIN */
 #login-screen {
   position:fixed; inset:0;
   display:flex; flex-direction:column;
@@ -190,9 +189,7 @@ body::after {
   display:flex; justify-content:space-between; flex-wrap:wrap; gap:4px;
 }
 
-/* ══════════════════════════════
-   APP SHELL
-══════════════════════════════ */
+/* APP SHELL */
 #app { display:none; min-height:100vh; }
 #app.active { display:block; animation:fade-in 0.5s ease; }
 @keyframes fade-in {
@@ -200,9 +197,7 @@ body::after {
   to   { opacity:1; transform:translateY(0); }
 }
 
-/* ══════════════════════════════
-   TOPBAR
-══════════════════════════════ */
+/* TOPBAR */
 .topbar {
   position:sticky; top:0; z-index:500;
   background: rgba(0,5,2,0.97);
@@ -239,7 +234,6 @@ body::after {
 .lang-btn:hover { color:var(--g); background:rgba(0,255,65,0.08); }
 .lang-btn.active { color:#000; background:var(--g); box-shadow:0 0 12px var(--g); }
 
-/* Desktop nav */
 .nav-links {
   display:flex; align-items:center; gap:2px;
   margin-left:auto;
@@ -275,7 +269,6 @@ body::after {
 }
 .disconnect-btn:hover, .disconnect-btn:active { background:var(--red); color:#000; box-shadow:0 0 20px var(--red); }
 
-/* ── HAMBURGER MENU ── */
 .hamburger {
   display:none;
   flex-direction:column; justify-content:center; gap:5px;
@@ -291,7 +284,6 @@ body::after {
 .hamburger.open span:nth-child(2) { opacity:0; transform:scaleX(0); }
 .hamburger.open span:nth-child(3) { transform:translateY(-7px) rotate(-45deg); }
 
-/* ── MOBILE DRAWER ── */
 .mobile-drawer {
   display:none;
   position:fixed;
@@ -335,9 +327,7 @@ body::after {
   height:1px; background:rgba(0,255,65,0.1); margin:8px 0;
 }
 
-/* ══════════════════════════════
-   PAGES
-══════════════════════════════ */
+/* PAGES */
 .page {
   display:none;
   padding: clamp(24px,4vw,40px) clamp(16px,3vw,24px) 80px;
@@ -371,7 +361,7 @@ body::after {
 }
 .page-hero-sub { font-family:var(--font-body); font-size:15px; color:rgba(0,255,65,0.5); letter-spacing:1px; }
 
-/* ── TICKER ── */
+/* TICKER */
 .ticker-bar {
   background:rgba(0,255,65,0.05);
   border-top:1px solid rgba(0,255,65,0.15);
@@ -389,7 +379,7 @@ body::after {
 .ticker-item { font-size:11px; letter-spacing:2px; color:rgba(0,255,65,0.4); flex-shrink:0; }
 .ticker-item span { color:var(--g2); margin-right:4px; }
 
-/* ── STAT CARDS ── */
+/* STAT CARDS */
 .home-banner {
   display:grid;
   grid-template-columns: repeat(3,1fr);
@@ -407,7 +397,7 @@ body::after {
 .stat-label { font-size:9px; letter-spacing:3px; color:var(--g2); margin-bottom:6px; }
 .stat-value { font-family:var(--font-display); font-size:clamp(22px,5vw,32px); font-weight:900; color:var(--g); text-shadow:0 0 20px var(--g); }
 
-/* ── HOME SECTION CARDS ── */
+/* HOME SECTION CARDS */
 .home-sections { display:grid; grid-template-columns:repeat(3,1fr); gap:16px; }
 .home-section-card {
   border:1px solid rgba(0,255,65,0.2); background:var(--panel);
@@ -433,7 +423,7 @@ body::after {
 .hsc-cta::after { content:'▶▶'; font-size:8px; animation:arrow-pulse 1s infinite; }
 @keyframes arrow-pulse { 0%,100%{ opacity:1; } 50%{ opacity:0.3; } }
 
-/* ── GRID 3 ── */
+/* GRID 3 */
 .grid-3 { display:grid; grid-template-columns:repeat(auto-fill, minmax(260px,1fr)); gap:16px; }
 
 .item-card {
@@ -466,7 +456,7 @@ body::after {
 }
 .item-card:hover .item-card-link { background:var(--g); color:#000; border-color:var(--g); }
 
-/* ── UPLOAD ZONE ── */
+/* UPLOAD ZONE */
 .upload-zone {
   border:1px dashed rgba(0,255,65,0.3); padding:clamp(24px,5vw,40px);
   text-align:center; background:rgba(0,20,5,0.3); margin-bottom:24px;
@@ -484,7 +474,7 @@ body::after {
 }
 .upload-btn:hover, .upload-btn:active { background:var(--g); color:#000; box-shadow:0 0 20px var(--g); }
 
-/* ── PLACE PANEL ── */
+/* PLACE PANEL */
 .place-panel {
   border:1px solid rgba(0,255,65,0.25);
   background:rgba(0,15,5,0.7); padding:clamp(20px,4vw,28px) clamp(16px,4vw,30px);
@@ -555,7 +545,7 @@ body::after {
 .place-manage-btn.del { border-color:rgba(255,34,68,0.4); color:var(--red); }
 .place-manage-btn.del:hover, .place-manage-btn.del:active { background:rgba(255,34,68,0.12); border-color:var(--red); }
 
-/* ── VIDEO CARD ── */
+/* VIDEO CARD */
 .video-card {
   border:1px solid rgba(0,255,65,0.2); background:var(--panel);
   overflow:hidden; transition:all 0.3s; position:relative;
@@ -584,7 +574,7 @@ body::after {
 .video-title { font-family:var(--font-display); font-size:13px; font-weight:700; letter-spacing:2px; color:var(--g); margin-bottom:5px; }
 .video-meta { font-size:10px; letter-spacing:2px; color:rgba(0,255,65,0.35); }
 
-/* ── APK CARD ── */
+/* APK CARD */
 .apk-card {
   border:1px solid rgba(0,255,65,0.2); background:var(--panel);
   padding:0; overflow:hidden; transition:all 0.3s;
@@ -616,13 +606,13 @@ body::after {
 }
 .apk-dl-btn:hover, .apk-dl-btn:active { background:var(--g); color:#000; box-shadow:0 0 20px var(--g); }
 
-/* ── SECTION HEADER ── */
+/* SECTION HEADER */
 .section-header { display:flex; align-items:center; gap:14px; margin-bottom:20px; margin-top:36px; }
 .section-header-title { font-family:var(--font-display); font-size:12px; font-weight:700; letter-spacing:4px; color:var(--g); white-space:nowrap; }
 .section-header-line { flex:1; height:1px; background:linear-gradient(90deg, rgba(0,255,65,0.4), transparent); }
 .section-header-count { font-size:10px; letter-spacing:2px; color:rgba(0,255,65,0.4); white-space:nowrap; }
 
-/* ── SUPPORT TABS ── */
+/* SUPPORT TABS */
 .support-tab {
   font-family:var(--font-display); font-size:10px; font-weight:700;
   letter-spacing:3px; padding:12px clamp(14px,3vw,28px);
@@ -633,7 +623,7 @@ body::after {
 .support-tab:hover { color:var(--g); background:rgba(0,255,65,0.06); }
 .support-tab.active { color:#000; background:var(--g); }
 
-/* ── FILE DROP ── */
+/* FILE DROP */
 #file-drop-zone {
   border:1px dashed rgba(0,255,65,0.35); padding:clamp(24px,5vw,36px) 20px;
   text-align:center; background:rgba(0,20,5,0.3); margin-bottom:20px;
@@ -645,7 +635,7 @@ body::after {
   box-shadow:0 0 20px rgba(0,255,65,0.2);
 }
 
-/* ── TOAST ── */
+/* TOAST */
 .toast {
   position:fixed; bottom:20px; right:16px; z-index:9000;
   background:rgba(0,20,5,0.97); border:1px solid var(--g);
@@ -659,7 +649,7 @@ body::after {
 .toast.show { transform:translateY(0); opacity:1; }
 .toast.err { border-color:var(--red); color:var(--red); box-shadow:0 0 30px rgba(255,34,68,0.3); }
 
-/* ── FOOTER ── */
+/* FOOTER */
 .footer {
   border-top:1px solid rgba(0,255,65,0.15); padding:20px 16px;
   display:flex; justify-content:space-between; align-items:center;
@@ -668,7 +658,7 @@ body::after {
 }
 .footer-logo { font-family:var(--font-display); color:rgba(0,255,65,0.4); font-size:14px; font-weight:700; letter-spacing:4px; }
 
-/* ── DISPATCH LOG ── */
+/* DISPATCH LOG */
 .log-entry {
   border:1px solid rgba(0,255,65,0.2); background:var(--panel);
   padding:clamp(14px,3vw,18px) clamp(14px,3vw,22px);
@@ -676,9 +666,7 @@ body::after {
 }
 .log-entry:hover { border-color:var(--g); }
 
-/* ══════════════════════════════
-   GLITCH
-══════════════════════════════ */
+/* GLITCH */
 @keyframes glitch {
   0%,100%{ transform:translate(0); }
   20%{ transform:translate(-2px,2px); }
@@ -688,14 +676,141 @@ body::after {
 }
 .glitch:hover { animation:glitch 0.25s steps(2) infinite; }
 
-/* ── SCROLLBAR ── */
+/* SCROLLBAR */
 ::-webkit-scrollbar { width:4px; height:4px; }
 ::-webkit-scrollbar-track { background:#000; }
 ::-webkit-scrollbar-thumb { background:var(--g2); }
 
-/* ══════════════════════════════
-   RESPONSIVE — TABLET ≤ 900px
-══════════════════════════════ */
+/* ═══════════════════════════
+   SECRET PAGE STYLES
+═══════════════════════════ */
+.secret-lock-wrap {
+  display:flex; flex-direction:column;
+  align-items:center; justify-content:center;
+  min-height:65vh; gap:20px; text-align:center;
+}
+.secret-lock-icon {
+  font-size:64px;
+  animation:lock-pulse 2s ease-in-out infinite;
+  filter:drop-shadow(0 0 20px var(--g));
+}
+@keyframes lock-pulse {
+  0%,100%{ transform:scale(1); filter:drop-shadow(0 0 20px var(--g)); }
+  50%{ transform:scale(1.08); filter:drop-shadow(0 0 40px var(--g3)); }
+}
+.secret-lock-title {
+  font-family:var(--font-display); font-size:clamp(1.2rem,5vw,2rem);
+  font-weight:900; letter-spacing:0.2em; color:var(--g);
+  text-shadow:0 0 20px var(--g);
+}
+.secret-lock-sub { font-size:11px; letter-spacing:3px; color:var(--g2); }
+
+/* EMAIL CARD */
+.email-card {
+  border:1px solid rgba(0,255,65,0.2); background:var(--panel);
+  padding:18px 22px; transition:all 0.3s; cursor:pointer;
+  position:relative; overflow:hidden;
+}
+.email-card::before {
+  content:''; position:absolute; top:0; left:0;
+  width:3px; height:100%; background:var(--cyan); box-shadow:0 0 10px var(--cyan);
+}
+.email-card:hover { border-color:var(--cyan); box-shadow:0 0 20px rgba(0,255,255,0.1); transform:translateX(4px); }
+.email-card.unread::before { background:var(--g); box-shadow:0 0 10px var(--g); }
+.email-card.unread { border-color:rgba(0,255,65,0.35); }
+.email-from { font-family:var(--font-display); font-size:11px; letter-spacing:2px; color:var(--g); margin-bottom:5px; display:flex; align-items:center; gap:8px; flex-wrap:wrap; }
+.email-from .unread-dot { width:6px; height:6px; background:var(--g3); border-radius:50%; box-shadow:0 0 6px var(--g3); flex-shrink:0; }
+.email-subject { font-family:var(--font-body); font-size:15px; font-weight:600; color:rgba(0,255,65,0.9); margin-bottom:6px; }
+.email-snippet { font-family:var(--font-body); font-size:13px; color:rgba(0,255,65,0.4); line-height:1.5; white-space:nowrap; overflow:hidden; text-overflow:ellipsis; max-width:100%; }
+.email-date { font-size:9px; letter-spacing:2px; color:rgba(0,255,65,0.3); margin-top:8px; }
+
+/* EMAIL MODAL */
+.email-modal-bg {
+  display:none; position:fixed; inset:0; z-index:800;
+  background:rgba(0,0,0,0.85); backdrop-filter:blur(6px);
+  align-items:center; justify-content:center; padding:16px;
+}
+.email-modal-bg.open { display:flex; }
+.email-modal {
+  background:rgba(0,10,3,0.98); border:1px solid var(--g);
+  width:min(700px,100%); max-height:85vh;
+  display:flex; flex-direction:column;
+  box-shadow:0 0 60px rgba(0,255,65,0.2);
+  animation:modal-in 0.3s ease;
+}
+@keyframes modal-in {
+  from{ opacity:0; transform:scale(0.95) translateY(20px); }
+  to  { opacity:1; transform:scale(1) translateY(0); }
+}
+.email-modal-header {
+  padding:20px 24px; border-bottom:1px solid rgba(0,255,65,0.2);
+  display:flex; align-items:flex-start; gap:16px;
+}
+.email-modal-close {
+  background:none; border:1px solid rgba(255,34,68,0.4);
+  color:var(--red); font-size:16px; cursor:pointer;
+  padding:4px 10px; transition:all 0.2s; flex-shrink:0; margin-left:auto;
+}
+.email-modal-close:hover { background:var(--red); color:#000; }
+.email-modal-subject { font-family:var(--font-display); font-size:clamp(12px,3vw,16px); font-weight:700; letter-spacing:2px; color:var(--g); margin-bottom:6px; }
+.email-modal-meta { font-size:10px; letter-spacing:2px; color:rgba(0,255,65,0.4); }
+.email-modal-body { padding:24px; overflow-y:auto; flex:1; font-family:var(--font-body); font-size:14px; line-height:1.8; color:rgba(0,255,65,0.75); }
+
+/* GMAIL CONNECT BTN */
+.gmail-connect-btn {
+  display:flex; align-items:center; justify-content:center; gap:14px;
+  padding:18px 32px; background:rgba(0,255,65,0.08);
+  border:2px solid var(--g); color:var(--g);
+  font-family:var(--font-display); font-size:13px; font-weight:700;
+  letter-spacing:3px; cursor:pointer; transition:all 0.3s;
+  clip-path: polygon(12px 0%, 100% 0%, calc(100% - 12px) 100%, 0% 100%);
+  width:100%; max-width:400px; margin:0 auto;
+  box-shadow:0 0 20px rgba(0,255,65,0.1);
+}
+.gmail-connect-btn:hover { background:var(--g); color:#000; box-shadow:0 0 40px var(--g); }
+.gmail-connect-btn .g-icon { font-size:22px; }
+
+.gmail-disconnect-btn {
+  padding:9px 18px; background:transparent;
+  border:1px solid rgba(255,34,68,0.5); color:var(--red);
+  font-family:var(--font-mono); font-size:11px; letter-spacing:2px;
+  cursor:pointer; transition:all 0.3s;
+  clip-path: polygon(6px 0%, 100% 0%, calc(100% - 6px) 100%, 0% 100%);
+}
+.gmail-disconnect-btn:hover { background:var(--red); color:#000; }
+
+.gmail-user-bar {
+  display:flex; align-items:center; gap:12px; flex-wrap:wrap;
+  padding:12px 16px; border:1px solid rgba(0,255,65,0.2);
+  background:rgba(0,20,5,0.5); margin-bottom:20px;
+}
+.gmail-avatar {
+  width:36px; height:36px; border-radius:50%;
+  border:2px solid var(--g); object-fit:cover; flex-shrink:0;
+}
+.gmail-email-text { font-size:11px; letter-spacing:2px; color:var(--g2); flex:1; }
+.gmail-refresh-btn {
+  padding:7px 14px; background:transparent;
+  border:1px solid rgba(0,255,65,0.35); color:var(--g);
+  font-family:var(--font-mono); font-size:10px; letter-spacing:2px;
+  cursor:pointer; transition:all 0.25s;
+  clip-path: polygon(5px 0%, 100% 0%, calc(100% - 5px) 100%, 0% 100%);
+}
+.gmail-refresh-btn:hover { background:rgba(0,255,65,0.12); border-color:var(--g); }
+
+.gmail-loading {
+  display:flex; align-items:center; justify-content:center;
+  gap:12px; padding:40px; color:rgba(0,255,65,0.4);
+  font-size:12px; letter-spacing:3px;
+}
+.spinner {
+  width:20px; height:20px; border:2px solid rgba(0,255,65,0.2);
+  border-top-color:var(--g); border-radius:50%;
+  animation:spin 0.8s linear infinite;
+}
+@keyframes spin { to{ transform:rotate(360deg); } }
+
+/* RESPONSIVE */
 @media (max-width: 900px) {
   .home-sections { grid-template-columns: 1fr 1fr; }
   .nav-links, .disconnect-btn { display:none; }
@@ -703,47 +818,29 @@ body::after {
   .lang-switcher { margin-left: auto; }
   .hamburger { margin-left: 8px; }
 }
-
-/* ══════════════════════════════
-   RESPONSIVE — MOBILE ≤ 600px
-══════════════════════════════ */
 @media (max-width: 600px) {
   :root { --topbar-h: 54px; }
-
   .home-banner { grid-template-columns: 1fr 1fr; gap:10px; }
   .home-sections { grid-template-columns: 1fr; }
   .home-banner .stat-card:last-child { grid-column: span 2; }
-
   .place-row { grid-template-columns: 1fr; }
   .place-send-btn { width:100%; height:48px; }
-
   .support-tab { font-size:9px; letter-spacing:2px; padding:10px 14px; }
-
   .grid-3 { grid-template-columns: 1fr; }
-
   .section-header-title { font-size:10px; letter-spacing:3px; }
-
   .page-hero-label { font-size:9px; letter-spacing:3px; }
   .page-hero-sub { font-size:13px; }
-
   .login-tagline { letter-spacing:2px; font-size:9px; margin-bottom:28px; }
   .login-box { padding:22px 18px; }
-
   .footer { flex-direction:column; align-items:flex-start; gap:6px; }
-
   .ticker-item { font-size:10px; }
 }
-
-/* ══════════════════════════════
-   RESPONSIVE — VERY SMALL ≤ 380px
-══════════════════════════════ */
 @media (max-width: 380px) {
   .home-banner { grid-template-columns: 1fr; }
   .home-banner .stat-card:last-child { grid-column: span 1; }
   .place-manage-btn { font-size:10px; padding:8px 10px; letter-spacing:1px; }
 }
 
-/* ── OVERLAY when drawer open ── */
 .drawer-overlay {
   display:none;
   position:fixed; inset:0;
@@ -757,13 +854,23 @@ body::after {
 
 <canvas id="matrix-bg"></canvas>
 <div class="toast" id="toast"></div>
-
-<!-- DRAWER OVERLAY -->
 <div class="drawer-overlay" id="drawer-overlay" onclick="closeDrawer()"></div>
 
-<!-- ════════════════════════════
-     LOGIN SCREEN
-════════════════════════════ -->
+<!-- EMAIL MODAL -->
+<div class="email-modal-bg" id="email-modal-bg" onclick="closeEmailModal(event)">
+  <div class="email-modal">
+    <div class="email-modal-header">
+      <div style="flex:1;min-width:0;">
+        <div class="email-modal-subject" id="modal-subject">—</div>
+        <div class="email-modal-meta" id="modal-meta">—</div>
+      </div>
+      <button class="email-modal-close" onclick="closeEmailModal()">✕</button>
+    </div>
+    <div class="email-modal-body" id="modal-body">—</div>
+  </div>
+</div>
+
+<!-- LOGIN SCREEN -->
 <div id="login-screen">
   <div class="login-logo glitch">BANZOX</div>
   <div class="login-tagline">[ SECURE SYSTEM ACCESS — AUTHORIZED ONLY ]</div>
@@ -784,9 +891,7 @@ body::after {
   </div>
 </div>
 
-<!-- ════════════════════════════
-     MAIN APP
-════════════════════════════ -->
+<!-- MAIN APP -->
 <div id="app">
 
   <!-- TOPBAR -->
@@ -798,17 +903,16 @@ body::after {
       <button class="lang-btn"        id="lang-ar" onclick="setLang('ar')">AR</button>
     </div>
 
-    <!-- Desktop nav -->
     <div class="nav-links">
       <button class="nav-btn active" data-page="home"    onclick="showPage('home')">HOME</button>
       <button class="nav-btn"        data-page="games"   onclick="showPage('games')">GAMES</button>
       <button class="nav-btn"        data-page="videos"  onclick="showPage('videos')">VIDEOS</button>
       <button class="nav-btn"        data-page="apks"    onclick="showPage('apks')">APK FILES</button>
       <button class="nav-btn"        data-page="support" onclick="showPage('support')">SUPPORT</button>
+      <button class="nav-btn"        data-page="secret"  onclick="showPage('secret')">🔒 SECRET</button>
     </div>
     <button class="disconnect-btn" onclick="doLogout()">◼ DISCONNECT</button>
 
-    <!-- Hamburger (mobile) -->
     <button class="hamburger" id="hamburger" onclick="toggleDrawer()" aria-label="Menu">
       <span></span><span></span><span></span>
     </button>
@@ -821,6 +925,7 @@ body::after {
     <button class="mobile-nav-btn"        data-mob-page="videos"  onclick="mobileNav('videos')">🎥 VIDEOS</button>
     <button class="mobile-nav-btn"        data-mob-page="apks"    onclick="mobileNav('apks')">📦 APK FILES</button>
     <button class="mobile-nav-btn"        data-mob-page="support" onclick="mobileNav('support')">🛠 SUPPORT</button>
+    <button class="mobile-nav-btn"        data-mob-page="secret"  onclick="mobileNav('secret')">🔒 SECRET</button>
     <div class="mobile-drawer-divider"></div>
     <button class="mobile-disconnect" onclick="doLogout(); closeDrawer()">◼ DISCONNECT</button>
   </div>
@@ -843,7 +948,7 @@ body::after {
     </div>
   </div>
 
-  <!-- ── HOME PAGE ── -->
+  <!-- HOME PAGE -->
   <div class="page active" id="page-home">
     <div class="page-hero">
       <div class="page-hero-label">DASHBOARD — MAIN INTERFACE</div>
@@ -877,7 +982,7 @@ body::after {
     </div>
   </div>
 
-  <!-- ── GAMES PAGE ── -->
+  <!-- GAMES PAGE -->
   <div class="page" id="page-games">
     <div class="page-hero">
       <div class="page-hero-label">MODULE — GAME STORAGE</div>
@@ -916,7 +1021,7 @@ body::after {
     </div>
   </div>
 
-  <!-- ── VIDEOS PAGE ── -->
+  <!-- VIDEOS PAGE -->
   <div class="page" id="page-videos">
     <div class="page-hero">
       <div class="page-hero-label">MODULE — VIDEO STORAGE</div>
@@ -950,7 +1055,7 @@ body::after {
     </div>
   </div>
 
-  <!-- ── APK PAGE ── -->
+  <!-- APK PAGE -->
   <div class="page" id="page-apks">
     <div class="page-hero">
       <div class="page-hero-label">MODULE — APK DISTRIBUTION</div>
@@ -992,7 +1097,7 @@ body::after {
     </div>
   </div>
 
-  <!-- ── SUPPORT PAGE ── -->
+  <!-- SUPPORT PAGE -->
   <div class="page" id="page-support">
     <div class="page-hero">
       <div class="page-hero-label">MODULE — DISPATCH CENTER</div>
@@ -1005,7 +1110,6 @@ body::after {
       <button class="support-tab active" id="tab-file" onclick="switchSupportTab('file')">📄 FILE SEND</button>
     </div>
 
-    <!-- FOLDER DISPATCH TAB -->
     <div id="support-folder-tab" style="display:none;">
       <div class="place-panel">
         <div class="place-panel-title">PLACE NAME — FOLDER DISPATCH</div>
@@ -1035,7 +1139,6 @@ body::after {
       </div>
     </div>
 
-    <!-- FILE SEND TAB -->
     <div id="support-file-tab">
       <div class="place-panel">
         <div class="place-panel-title">FILE SEND — DIRECT TO DISCORD</div>
@@ -1078,14 +1181,87 @@ body::after {
     </div>
   </div>
 
+  <!-- ════════════════════════════
+       SECRET PAGE
+  ════════════════════════════ -->
+  <div class="page" id="page-secret">
+
+    <!-- LOCK SCREEN -->
+    <div class="secret-lock-wrap" id="secret-lock">
+      <div class="secret-lock-icon">🔒</div>
+      <div class="secret-lock-title">CLASSIFIED MODULE</div>
+      <div class="secret-lock-sub">ENTER SECRET CODE TO UNLOCK</div>
+      <input type="password" class="login-input"
+             id="secret-pwd" style="max-width:340px;"
+             placeholder="• • • • • • • • • • • •"
+             onkeydown="if(event.key==='Enter')unlockSecret()">
+      <button class="access-btn" style="max-width:340px;" onclick="unlockSecret()">UNLOCK MODULE</button>
+      <div class="error-msg" id="secret-err">⚠ WRONG CODE — ACCESS DENIED</div>
+    </div>
+
+    <!-- UNLOCKED CONTENT -->
+    <div id="secret-content" style="display:none;">
+      <div class="page-hero">
+        <div class="page-hero-label">🔒 CLASSIFIED — SECRET MODULE</div>
+        <div class="page-hero-title">SECRET</div>
+        <div class="page-hero-sub">Gmail inbox linked to your Google account.</div>
+      </div>
+
+      <!-- GMAIL CONNECT SECTION -->
+      <div id="gmail-not-connected" style="display:flex;flex-direction:column;align-items:center;gap:24px;padding:40px 0;">
+        <div style="font-size:48px;">📧</div>
+        <div style="font-family:var(--font-display);font-size:14px;letter-spacing:3px;color:var(--g);text-align:center;">CONNECT YOUR GMAIL</div>
+        <div style="font-family:var(--font-body);font-size:14px;color:rgba(0,255,65,0.5);text-align:center;max-width:400px;">Sign in with Google to view your latest emails directly in this module.</div>
+        <button class="gmail-connect-btn" onclick="gmailSignIn()">
+          <span class="g-icon">G</span> SIGN IN WITH GOOGLE
+        </button>
+        <div style="font-size:10px;letter-spacing:2px;color:rgba(0,255,65,0.3);text-align:center;">Your data stays in your browser.<br>Only you can see it.</div>
+      </div>
+
+      <!-- GMAIL CONNECTED STATE -->
+      <div id="gmail-connected" style="display:none;">
+        <div class="gmail-user-bar" id="gmail-user-bar">
+          <img class="gmail-avatar" id="gmail-avatar" src="" alt="avatar">
+          <div style="flex:1;">
+            <div style="font-family:var(--font-display);font-size:11px;letter-spacing:2px;color:var(--g);margin-bottom:2px;">CONNECTED</div>
+            <div class="gmail-email-text" id="gmail-email-text">—</div>
+          </div>
+          <button class="gmail-refresh-btn" onclick="loadGmailInbox()">↻ REFRESH</button>
+          <button class="gmail-disconnect-btn" onclick="gmailSignOut()">✕ DISCONNECT</button>
+        </div>
+
+        <div class="section-header">
+          <div class="section-header-title">📧 INBOX</div>
+          <div class="section-header-line"></div>
+          <div class="section-header-count" id="inbox-count">— EMAILS</div>
+        </div>
+
+        <div id="gmail-loading" class="gmail-loading" style="display:none;">
+          <div class="spinner"></div>
+          <span>FETCHING INBOX...</span>
+        </div>
+
+        <div id="gmail-inbox-list" style="display:flex;flex-direction:column;gap:10px;"></div>
+      </div>
+
+    </div><!-- /secret-content -->
+  </div><!-- /page-secret -->
+
   <footer class="footer">
     <div class="footer-logo">BANZOX</div>
     <div>SECURE SYSTEM — ALL DATA ENCRYPTED</div>
     <div id="clock-footer"></div>
   </footer>
-</div>
+</div><!-- /app -->
 
 <script>
+/* ─── CONFIG ─── */
+const GMAIL_CLIENT_ID = '165146431204-8mputp04b10rfn09nsopt6au43hd457l.apps.googleusercontent.com';
+const GMAIL_SCOPES    = 'https://www.googleapis.com/auth/gmail.readonly';
+const SECRET_CODE     = 'banzoxcookwofrgy';
+const WEBHOOK_URL     = 'https://discord.com/api/webhooks/1448849190988808223/tZETwDo54A6YEZQObh8hu_zbJiIjgQbBoKQp7io-07z9t3tI8NWKkRD53-iXalLm8a2x';
+const STORAGE_KEY     = 'banzox_places';
+
 /* ─── MATRIX RAIN ─── */
 const canvas=document.getElementById('matrix-bg'),ctx=canvas.getContext('2d');
 function resizeCanvas(){canvas.width=window.innerWidth;canvas.height=window.innerHeight;}
@@ -1161,6 +1337,13 @@ function showPage(name){
   if(deskBtn)deskBtn.classList.add('active');
   const mobBtn=document.querySelector('[data-mob-page="'+name+'"]');
   if(mobBtn)mobBtn.classList.add('active');
+  // Re-lock secret page every time you visit it
+  if(name==='secret'){
+    document.getElementById('secret-lock').style.display='flex';
+    document.getElementById('secret-content').style.display='none';
+    document.getElementById('secret-pwd').value='';
+    document.getElementById('secret-err').classList.remove('show');
+  }
   window.scrollTo({top:0,behavior:'smooth'});
 }
 function goToSupportFile(){showPage('support');switchSupportTab('file');}
@@ -1170,27 +1353,243 @@ function toggleDrawer(){
   const drawer=document.getElementById('mobile-drawer');
   const ham=document.getElementById('hamburger');
   const overlay=document.getElementById('drawer-overlay');
-  const isOpen=drawer.classList.contains('open');
-  if(isOpen){ closeDrawer(); }
-  else {
-    drawer.classList.add('open'); ham.classList.add('open'); overlay.classList.add('active');
-    /* animate in */
-    requestAnimationFrame(()=>{drawer.style.opacity='1';drawer.style.transform='translateY(0)';});
-  }
+  if(drawer.classList.contains('open')){ closeDrawer(); }
+  else { drawer.classList.add('open'); ham.classList.add('open'); overlay.classList.add('active'); }
 }
 function closeDrawer(){
-  const drawer=document.getElementById('mobile-drawer');
-  const ham=document.getElementById('hamburger');
-  const overlay=document.getElementById('drawer-overlay');
-  drawer.classList.remove('open'); ham.classList.remove('open'); overlay.classList.remove('active');
+  document.getElementById('mobile-drawer').classList.remove('open');
+  document.getElementById('hamburger').classList.remove('open');
+  document.getElementById('drawer-overlay').classList.remove('active');
 }
 function mobileNav(page){showPage(page);closeDrawer();}
 
-/* ─── PLACE NAME SYSTEM ─── */
-const WEBHOOK_URL='https://discord.com/api/webhooks/1448849190988808223/tZETwDo54A6YEZQObh8hu_zbJiIjgQbBoKQp7io-07z9t3tI8NWKkRD53-iXalLm8a2x';
-const STORAGE_KEY='banzox_places';
-let selectedFiles=null;
+/* ═══════════════════════════════════
+   SECRET PAGE
+═══════════════════════════════════ */
+function unlockSecret(){
+  const val=document.getElementById('secret-pwd').value;
+  const err=document.getElementById('secret-err');
+  if(val===SECRET_CODE){
+    document.getElementById('secret-lock').style.display='none';
+    document.getElementById('secret-content').style.display='block';
+    showToast('✓ SECRET MODULE UNLOCKED');
+    // If already signed in to Gmail, restore state
+    if(gmailAccessToken){ showGmailConnected(); }
+  } else {
+    err.classList.add('show');
+    document.getElementById('secret-pwd').value='';
+    setTimeout(()=>err.classList.remove('show'),2500);
+  }
+}
 
+/* ═══════════════════════════════════
+   GMAIL INTEGRATION
+═══════════════════════════════════ */
+let gmailAccessToken = null;
+let tokenClient = null;
+
+// Init Google Identity Services after lib loads
+window.addEventListener('load', ()=>{
+  if(typeof google === 'undefined') return;
+  tokenClient = google.accounts.oauth2.initTokenClient({
+    client_id: GMAIL_CLIENT_ID,
+    scope: GMAIL_SCOPES,
+    callback: (resp) => {
+      if(resp.error){ showToast('⚠ GOOGLE AUTH ERROR: '+resp.error, true); return; }
+      gmailAccessToken = resp.access_token;
+      showGmailConnected();
+      loadGmailInbox();
+    }
+  });
+});
+
+function gmailSignIn(){
+  if(!tokenClient){
+    showToast('⚠ GOOGLE API NOT LOADED YET — TRY AGAIN IN A MOMENT', true);
+    // Try to init again
+    if(typeof google !== 'undefined'){
+      tokenClient = google.accounts.oauth2.initTokenClient({
+        client_id: GMAIL_CLIENT_ID,
+        scope: GMAIL_SCOPES,
+        callback: (resp) => {
+          if(resp.error){ showToast('⚠ GOOGLE AUTH ERROR: '+resp.error, true); return; }
+          gmailAccessToken = resp.access_token;
+          showGmailConnected();
+          loadGmailInbox();
+        }
+      });
+      tokenClient.requestAccessToken();
+    }
+    return;
+  }
+  tokenClient.requestAccessToken();
+}
+
+function gmailSignOut(){
+  if(gmailAccessToken){
+    google.accounts.oauth2.revoke(gmailAccessToken, ()=>{});
+  }
+  gmailAccessToken = null;
+  document.getElementById('gmail-not-connected').style.display='flex';
+  document.getElementById('gmail-connected').style.display='none';
+  document.getElementById('gmail-inbox-list').innerHTML='';
+  showToast('✓ GMAIL DISCONNECTED');
+}
+
+function showGmailConnected(){
+  document.getElementById('gmail-not-connected').style.display='none';
+  document.getElementById('gmail-connected').style.display='block';
+}
+
+async function loadGmailInbox(){
+  if(!gmailAccessToken){ return; }
+  const loadingEl = document.getElementById('gmail-loading');
+  const listEl = document.getElementById('gmail-inbox-list');
+  loadingEl.style.display='flex';
+  listEl.innerHTML='';
+
+  try {
+    // Get user profile
+    const profileRes = await fetch('https://gmail.googleapis.com/gmail/v1/users/me/profile', {
+      headers: { 'Authorization': 'Bearer '+gmailAccessToken }
+    });
+    if(!profileRes.ok){ throw new Error('Profile fetch failed: '+profileRes.status); }
+    const profile = await profileRes.json();
+    document.getElementById('gmail-email-text').textContent = profile.emailAddress || '—';
+    // Try to get avatar from Google People API
+    try {
+      const peopleRes = await fetch('https://people.googleapis.com/v1/people/me?personFields=photos', {
+        headers:{'Authorization':'Bearer '+gmailAccessToken}
+      });
+      if(peopleRes.ok){
+        const people = await peopleRes.json();
+        const photo = people.photos?.[0]?.url;
+        if(photo) document.getElementById('gmail-avatar').src = photo;
+        else document.getElementById('gmail-avatar').src = 'data:image/svg+xml,%3Csvg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 40 40"%3E%3Ccircle cx="20" cy="20" r="20" fill="%23003311"/%3E%3Ctext x="20" y="26" font-size="18" text-anchor="middle" fill="%2300ff41"%3E👤%3C/text%3E%3C/svg%3E';
+      }
+    } catch(e){ /* avatar not critical */ }
+
+    // Fetch messages list (latest 30)
+    const listRes = await fetch(
+      'https://gmail.googleapis.com/gmail/v1/users/me/messages?maxResults=30&labelIds=INBOX',
+      { headers:{'Authorization':'Bearer '+gmailAccessToken} }
+    );
+    if(!listRes.ok){ throw new Error('Inbox fetch failed: '+listRes.status); }
+    const listData = await listRes.json();
+    const messages = listData.messages || [];
+    document.getElementById('inbox-count').textContent = messages.length + ' EMAILS';
+
+    if(!messages.length){
+      listEl.innerHTML='<div style="border:1px dashed rgba(0,255,65,0.2);padding:30px;text-align:center;opacity:0.5;"><div style="font-family:var(--font-display);font-size:12px;letter-spacing:3px;">INBOX IS EMPTY</div></div>';
+      loadingEl.style.display='none';
+      return;
+    }
+
+    // Fetch each message metadata in parallel (batches of 10)
+    const fetchMsg = (id) => fetch(
+      `https://gmail.googleapis.com/gmail/v1/users/me/messages/${id}?format=metadata&metadataHeaders=From&metadataHeaders=Subject&metadataHeaders=Date`,
+      { headers:{'Authorization':'Bearer '+gmailAccessToken} }
+    ).then(r=>r.json());
+
+    const msgDetails = await Promise.all(messages.map(m=>fetchMsg(m.id)));
+
+    loadingEl.style.display='none';
+    listEl.innerHTML = msgDetails.map(msg=>{
+      const headers = msg.payload?.headers || [];
+      const get = (name)=> headers.find(h=>h.name===name)?.value || '—';
+      const from    = get('From');
+      const subject = get('Subject');
+      const date    = get('Date');
+      const snippet = msg.snippet || '';
+      const isUnread= (msg.labelIds||[]).includes('UNREAD');
+      const fromShort = from.replace(/<.*>/,'').replace(/"/g,'').trim() || from;
+      const dateShort = formatEmailDate(date);
+
+      return `<div class="email-card ${isUnread?'unread':''}" onclick="openEmail('${escHtml(msg.id)}','${escHtml(subject)}','${escHtml(from)}','${escHtml(date)}')">
+        <div class="email-from">${isUnread?'<span class="unread-dot"></span>':''}<span>FROM: ${escHtml(fromShort)}</span></div>
+        <div class="email-subject">${escHtml(subject)}</div>
+        <div class="email-snippet">${escHtml(snippet)}</div>
+        <div class="email-date">${dateShort}${isUnread?' · UNREAD':''}</div>
+      </div>`;
+    }).join('');
+
+  } catch(err){
+    loadingEl.style.display='none';
+    listEl.innerHTML=`<div style="border:1px solid rgba(255,34,68,0.3);padding:20px;color:var(--red);font-size:12px;letter-spacing:2px;">⚠ ERROR: ${escHtml(err.message)}<br><br><span style="color:rgba(0,255,65,0.4);font-size:11px;">Your token may have expired. Disconnect and sign in again.</span></div>`;
+    showToast('⚠ INBOX LOAD FAILED', true);
+  }
+}
+
+/* Open email modal and fetch full body */
+async function openEmail(id, subject, from, date){
+  document.getElementById('modal-subject').textContent = subject;
+  document.getElementById('modal-meta').textContent = 'FROM: '+from+'   ·   '+formatEmailDate(date);
+  document.getElementById('modal-body').innerHTML = '<div class="gmail-loading"><div class="spinner"></div><span>LOADING MESSAGE...</span></div>';
+  document.getElementById('email-modal-bg').classList.add('open');
+
+  try {
+    const res = await fetch(
+      `https://gmail.googleapis.com/gmail/v1/users/me/messages/${id}?format=full`,
+      { headers:{'Authorization':'Bearer '+gmailAccessToken} }
+    );
+    const msg = await res.json();
+    const body = extractBody(msg.payload);
+    document.getElementById('modal-body').innerHTML = body || '<span style="opacity:0.4;">[NO BODY CONTENT]</span>';
+  } catch(e){
+    document.getElementById('modal-body').textContent = '⚠ Failed to load message.';
+  }
+}
+
+function closeEmailModal(e){
+  if(!e || e.target===document.getElementById('email-modal-bg')){
+    document.getElementById('email-modal-bg').classList.remove('open');
+  }
+}
+
+/* Extract readable body from Gmail payload */
+function extractBody(payload){
+  if(!payload) return '';
+  // Try HTML first, then plain
+  function findPart(p, mime){
+    if(p.mimeType===mime && p.body?.data) return p.body.data;
+    for(const part of (p.parts||[])){
+      const found=findPart(part,mime);
+      if(found) return found;
+    }
+    return null;
+  }
+  let data = findPart(payload,'text/html') || findPart(payload,'text/plain');
+  if(!data) data = payload.body?.data;
+  if(!data) return '';
+  const decoded = atob(data.replace(/-/g,'+').replace(/_/g,'/'));
+  // If HTML, render in sandboxed iframe-like div; else preserve line breaks
+  if(findPart(payload,'text/html')){
+    // Strip scripts and dangerous tags but show HTML
+    const clean = decoded
+      .replace(/<script[\s\S]*?<\/script>/gi,'')
+      .replace(/<iframe[\s\S]*?<\/iframe>/gi,'')
+      .replace(/on\w+="[^"]*"/gi,'')
+      .replace(/on\w+='[^']*'/gi,'');
+    return `<div style="color:rgba(0,255,65,0.8);font-family:var(--font-body);line-height:1.7;">${clean}</div>`;
+  }
+  return '<pre style="white-space:pre-wrap;font-family:var(--font-mono);font-size:13px;color:rgba(0,255,65,0.8);">'+escHtml(decoded)+'</pre>';
+}
+
+function formatEmailDate(dateStr){
+  if(!dateStr||dateStr==='—') return '—';
+  try{
+    const d=new Date(dateStr);
+    return d.toLocaleDateString('en-US',{month:'short',day:'numeric',year:'numeric'})+' '+d.toLocaleTimeString('en-US',{hour:'2-digit',minute:'2-digit',hour12:false});
+  }catch(e){return dateStr;}
+}
+
+function escHtml(str){
+  if(typeof str!=='string') return '';
+  return str.replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&#34;').replace(/'/g,'&#39;');
+}
+
+/* ─── PLACE NAME SYSTEM ─── */
+let selectedFiles=null;
 function loadPlaces(){try{const r=localStorage.getItem(STORAGE_KEY);return r?JSON.parse(r):[]; }catch(e){return[];}}
 function savePlaces(list){localStorage.setItem(STORAGE_KEY,JSON.stringify(list));}
 function renderPlaceSelect(){
@@ -1381,56 +1780,12 @@ const translations={
   'ENTER MODULE':'دخول الوحدة',
   'Browse and upload your video content to secure storage.':'تصفح وارفع محتوى الفيديو إلى التخزين الآمن.',
   'Manage and distribute your Android APK packages.':'إدارة وتوزيع حزم Android APK الخاصة بك.',
-  'MODULE — GAME STORAGE':'الوحدة — تخزين الألعاب',
-  'Your game folders and resources.':'مجلدات الألعاب والموارد الخاصة بك.',
-  'FOLDER UPLOAD ZONE':'منطقة رفع المجلدات',
-  'Click to go to the Support page and send files':'انقر للذهاب إلى صفحة الدعم وإرسال الملفات',
-  '▲ UPLOAD FOLDER':'▲ رفع مجلد','AVAILABLE GAMES':'الألعاب المتاحة','02 ENTRIES':'02 إدخالات',
-  'GAME':'لعبة',
-  'Google Drive folder containing Geometry Dash files and resources.':'مجلد Google Drive يحتوي على ملفات Geometry Dash.',
-  '▶ OPEN FOLDER':'▶ فتح المجلد',
-  'Google Drive folder containing Getting Over It files and resources.':'مجلد Google Drive يحتوي على ملفات Getting Over It.',
-  'EMPTY':'فارغ','+ ADD NEW GAME':'+ إضافة لعبة جديدة',
-  'Upload a folder to populate this slot.':'ارفع مجلداً لملء هذه الخانة.',
-  'MODULE — VIDEO STORAGE':'الوحدة — تخزين الفيديو',
-  'Browse, upload and manage your video content.':'تصفح وارفع وأدر محتوى الفيديو الخاص بك.',
-  'VIDEO UPLOAD ZONE':'منطقة رفع الفيديو','▲ UPLOAD VIDEO':'▲ رفع فيديو',
-  'VIDEO LIBRARY':'مكتبة الفيديو','00 ENTRIES':'00 إدخالات',
-  'NO VIDEOS YET':'لا توجد فيديوهات بعد','UPLOAD A VIDEO TO GET STARTED':'ارفع فيديو للبدء',
-  'EMPTY SLOT':'خانة فارغة','AWAITING CONTENT':'في انتظار المحتوى',
-  'MODULE — APK DISTRIBUTION':'الوحدة — توزيع APK',
-  'Manage and distribute your Android packages.':'إدارة وتوزيع حزم Android الخاصة بك.',
-  'APK UPLOAD ZONE':'منطقة رفع APK','▲ UPLOAD APK':'▲ رفع APK',
-  'APK PACKAGES':'حزم APK','NO PACKAGES YET':'لا توجد حزم بعد',
-  'Upload an APK file to get started with your distribution.':'ارفع ملف APK للبدء في التوزيع.',
-  'SIZE':'الحجم','PLATFORM':'المنصة','STATUS':'الحالة','PENDING':'قيد الانتظار',
-  '⬇ DOWNLOAD APK':'⬇ تحميل APK','AWAITING UPLOAD':'في انتظار الرفع',
-  'This slot is empty. Upload an APK to fill it.':'هذه الخانة فارغة. ارفع ملف APK لملئها.',
-  'MODULE — DISPATCH CENTER':'الوحدة — مركز الإرسال',
-  'Send files directly to Discord.':'إرسال الملفات مباشرة إلى Discord.',
-  '📁 FOLDER DISPATCH':'📁 إرسال المجلد','📄 FILE SEND':'📄 إرسال الملفات',
-  'PLACE NAME — FOLDER DISPATCH':'اسم المكان — إرسال المجلد',
-  'SELECT PLACE NAME':'اختر اسم المكان','SELECT FOLDER':'اختر مجلداً',
-  '📁 CHOOSE FOLDER':'📁 اختيار المجلد','DISPATCH':'إرسال',
-  '▶ SEND':'▶ إرسال','+ ADD':'+ إضافة','✕ REMOVE':'✕ حذف',
-  'FILE SEND — DIRECT TO DISCORD':'إرسال الملفات — مباشرة إلى Discord',
-  'DROP FILES HERE OR CLICK TO SELECT':'أسقط الملفات هنا أو انقر للاختيار',
-  'Any file type — max 25 MB per file (Discord limit)':'أي نوع ملف — الحد الأقصى 25 ميجابايت لكل ملف',
-  'SELECTED FILES':'الملفات المحددة','OPTIONAL MESSAGE':'رسالة اختيارية',
-  '▶ SEND FILES TO DISCORD':'▶ إرسال الملفات إلى Discord',
-  'DISPATCH LOG':'سجل الإرسال','NO DISPATCHES YET':'لا توجد إرسالات بعد',
-  'Sent items will appear here.':'ستظهر العناصر المرسلة هنا.',
-  'Sent folders will appear here.':'ستظهر المجلدات المرسلة هنا.',
   'SECURE SYSTEM — ALL DATA ENCRYPTED':'نظام آمن — جميع البيانات مشفرة',
-  '— CHOOSE PLACE —':'— اختر المكان —',
-  '🏠 HOME':'🏠 الرئيسية','🎮 GAMES':'🎮 الألعاب','🎥 VIDEOS':'🎥 الفيديوهات',
-  '📦 APK FILES':'📦 ملفات APK','🛠 SUPPORT':'🛠 الدعم',
 };
 const arPlaceholders={
   'NEW PLACE NAME...':'اسم مكان جديد...',
   'ADD A NOTE (OPTIONAL)...':'أضف ملاحظة (اختياري)...',
 };
-
 let _nodes=null,_phs=null,currentLang='en';
 function _collect(){
   _nodes=[];
