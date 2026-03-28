@@ -7,7 +7,6 @@
 <link rel="icon" type="image/png" href="https://raw.githubusercontent.com/banzoxOG/banzox/main/banzox.png">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Share+Tech+Mono&family=Orbitron:wght@400;700;900&family=Rajdhani:wght@300;400;600;700&display=swap" rel="stylesheet">
-<script src="https://accounts.google.com/gsi/client" async defer></script>
 <style>
 :root {
   --g: #00ff41;
@@ -702,7 +701,7 @@ body::after {
 }
 .secret-lock-sub { font-size:11px; letter-spacing:3px; color:var(--g2); }
 
-/* EMAIL CARD */
+/* ── EMAIL CARDS (public inbox) ── */
 .email-card {
   border:1px solid rgba(0,255,65,0.2); background:var(--panel);
   padding:18px 22px; transition:all 0.3s; cursor:pointer;
@@ -713,88 +712,21 @@ body::after {
   width:3px; height:100%; background:var(--cyan); box-shadow:0 0 10px var(--cyan);
 }
 .email-card:hover { border-color:var(--cyan); box-shadow:0 0 20px rgba(0,255,255,0.1); transform:translateX(4px); }
-.email-card.unread::before { background:var(--g); box-shadow:0 0 10px var(--g); }
-.email-card.unread { border-color:rgba(0,255,65,0.35); }
-.email-from { font-family:var(--font-display); font-size:11px; letter-spacing:2px; color:var(--g); margin-bottom:5px; display:flex; align-items:center; gap:8px; flex-wrap:wrap; }
-.email-from .unread-dot { width:6px; height:6px; background:var(--g3); border-radius:50%; box-shadow:0 0 6px var(--g3); flex-shrink:0; }
+.email-card.expanded .email-body-preview { display:block; }
+.email-from { font-family:var(--font-display); font-size:11px; letter-spacing:2px; color:var(--g); margin-bottom:5px; }
 .email-subject { font-family:var(--font-body); font-size:15px; font-weight:600; color:rgba(0,255,65,0.9); margin-bottom:6px; }
 .email-snippet { font-family:var(--font-body); font-size:13px; color:rgba(0,255,65,0.4); line-height:1.5; white-space:nowrap; overflow:hidden; text-overflow:ellipsis; max-width:100%; }
 .email-date { font-size:9px; letter-spacing:2px; color:rgba(0,255,65,0.3); margin-top:8px; }
+.email-body-preview {
+  display:none; margin-top:14px; padding-top:14px;
+  border-top:1px solid rgba(0,255,65,0.15);
+  font-family:var(--font-body); font-size:13px;
+  color:rgba(0,255,65,0.65); line-height:1.7;
+  white-space:pre-wrap; word-break:break-word;
+  max-height:300px; overflow-y:auto;
+}
 
-/* EMAIL MODAL */
-.email-modal-bg {
-  display:none; position:fixed; inset:0; z-index:800;
-  background:rgba(0,0,0,0.85); backdrop-filter:blur(6px);
-  align-items:center; justify-content:center; padding:16px;
-}
-.email-modal-bg.open { display:flex; }
-.email-modal {
-  background:rgba(0,10,3,0.98); border:1px solid var(--g);
-  width:min(700px,100%); max-height:85vh;
-  display:flex; flex-direction:column;
-  box-shadow:0 0 60px rgba(0,255,65,0.2);
-  animation:modal-in 0.3s ease;
-}
-@keyframes modal-in {
-  from{ opacity:0; transform:scale(0.95) translateY(20px); }
-  to  { opacity:1; transform:scale(1) translateY(0); }
-}
-.email-modal-header {
-  padding:20px 24px; border-bottom:1px solid rgba(0,255,65,0.2);
-  display:flex; align-items:flex-start; gap:16px;
-}
-.email-modal-close {
-  background:none; border:1px solid rgba(255,34,68,0.4);
-  color:var(--red); font-size:16px; cursor:pointer;
-  padding:4px 10px; transition:all 0.2s; flex-shrink:0; margin-left:auto;
-}
-.email-modal-close:hover { background:var(--red); color:#000; }
-.email-modal-subject { font-family:var(--font-display); font-size:clamp(12px,3vw,16px); font-weight:700; letter-spacing:2px; color:var(--g); margin-bottom:6px; }
-.email-modal-meta { font-size:10px; letter-spacing:2px; color:rgba(0,255,65,0.4); }
-.email-modal-body { padding:24px; overflow-y:auto; flex:1; font-family:var(--font-body); font-size:14px; line-height:1.8; color:rgba(0,255,65,0.75); }
-
-/* GMAIL CONNECT BTN */
-.gmail-connect-btn {
-  display:flex; align-items:center; justify-content:center; gap:14px;
-  padding:18px 32px; background:rgba(0,255,65,0.08);
-  border:2px solid var(--g); color:var(--g);
-  font-family:var(--font-display); font-size:13px; font-weight:700;
-  letter-spacing:3px; cursor:pointer; transition:all 0.3s;
-  clip-path: polygon(12px 0%, 100% 0%, calc(100% - 12px) 100%, 0% 100%);
-  width:100%; max-width:400px; margin:0 auto;
-  box-shadow:0 0 20px rgba(0,255,65,0.1);
-}
-.gmail-connect-btn:hover { background:var(--g); color:#000; box-shadow:0 0 40px var(--g); }
-.gmail-connect-btn .g-icon { font-size:22px; }
-
-.gmail-disconnect-btn {
-  padding:9px 18px; background:transparent;
-  border:1px solid rgba(255,34,68,0.5); color:var(--red);
-  font-family:var(--font-mono); font-size:11px; letter-spacing:2px;
-  cursor:pointer; transition:all 0.3s;
-  clip-path: polygon(6px 0%, 100% 0%, calc(100% - 6px) 100%, 0% 100%);
-}
-.gmail-disconnect-btn:hover { background:var(--red); color:#000; }
-
-.gmail-user-bar {
-  display:flex; align-items:center; gap:12px; flex-wrap:wrap;
-  padding:12px 16px; border:1px solid rgba(0,255,65,0.2);
-  background:rgba(0,20,5,0.5); margin-bottom:20px;
-}
-.gmail-avatar {
-  width:36px; height:36px; border-radius:50%;
-  border:2px solid var(--g); object-fit:cover; flex-shrink:0;
-}
-.gmail-email-text { font-size:11px; letter-spacing:2px; color:var(--g2); flex:1; }
-.gmail-refresh-btn {
-  padding:7px 14px; background:transparent;
-  border:1px solid rgba(0,255,65,0.35); color:var(--g);
-  font-family:var(--font-mono); font-size:10px; letter-spacing:2px;
-  cursor:pointer; transition:all 0.25s;
-  clip-path: polygon(5px 0%, 100% 0%, calc(100% - 5px) 100%, 0% 100%);
-}
-.gmail-refresh-btn:hover { background:rgba(0,255,65,0.12); border-color:var(--g); }
-
+/* SPINNER */
 .gmail-loading {
   display:flex; align-items:center; justify-content:center;
   gap:12px; padding:40px; color:rgba(0,255,65,0.4);
@@ -852,20 +784,6 @@ body::after {
 <canvas id="matrix-bg"></canvas>
 <div class="toast" id="toast"></div>
 <div class="drawer-overlay" id="drawer-overlay" onclick="closeDrawer()"></div>
-
-<!-- EMAIL MODAL -->
-<div class="email-modal-bg" id="email-modal-bg" onclick="closeEmailModal(event)">
-  <div class="email-modal">
-    <div class="email-modal-header">
-      <div style="flex:1;min-width:0;">
-        <div class="email-modal-subject" id="modal-subject">—</div>
-        <div class="email-modal-meta" id="modal-meta">—</div>
-      </div>
-      <button class="email-modal-close" onclick="closeEmailModal()">✕</button>
-    </div>
-    <div class="email-modal-body" id="modal-body">—</div>
-  </div>
-</div>
 
 <!-- LOGIN SCREEN -->
 <div id="login-screen">
@@ -1175,7 +1093,9 @@ body::after {
     </div>
   </div>
 
-  <!-- SECRET PAGE -->
+  <!-- ══════════════════════════════════════
+       SECRET PAGE — PUBLIC GMAIL INBOX
+  ══════════════════════════════════════ -->
   <div class="page" id="page-secret">
 
     <!-- LOCK SCREEN -->
@@ -1196,45 +1116,44 @@ body::after {
       <div class="page-hero">
         <div class="page-hero-label">🔒 CLASSIFIED — SECRET MODULE</div>
         <div class="page-hero-title">SECRET</div>
-        <div class="page-hero-sub">Gmail inbox linked to your Google account.</div>
+        <div class="page-hero-sub">Live Gmail inbox — auto-loaded from server.</div>
       </div>
 
-      <!-- NOT CONNECTED -->
-      <div id="gmail-not-connected" style="display:flex;flex-direction:column;align-items:center;gap:24px;padding:40px 0;">
-        <div style="font-size:48px;">📧</div>
-        <div style="font-family:var(--font-display);font-size:14px;letter-spacing:3px;color:var(--g);text-align:center;">CONNECT YOUR GMAIL</div>
-        <div style="font-family:var(--font-body);font-size:14px;color:rgba(0,255,65,0.5);text-align:center;max-width:400px;">Sign in with Google to view your latest emails directly in this module.</div>
-        <button class="gmail-connect-btn" onclick="gmailSignIn()">
-          <span class="g-icon">G</span> SIGN IN WITH GOOGLE
-        </button>
-        <div style="font-size:10px;letter-spacing:2px;color:rgba(0,255,65,0.3);text-align:center;">Your data stays in your browser.<br>Only you can see it.</div>
+      <!-- INBOX HEADER BAR -->
+      <div style="display:flex;align-items:center;gap:12px;flex-wrap:wrap;
+                  padding:12px 16px;border:1px solid rgba(0,255,65,0.2);
+                  background:rgba(0,20,5,0.5);margin-bottom:20px;">
+        <div style="font-size:18px;">📧</div>
+        <div style="flex:1;">
+          <div style="font-family:var(--font-display);font-size:11px;letter-spacing:2px;color:var(--g);margin-bottom:2px;">INBOX — LIVE FEED</div>
+          <div style="font-size:10px;letter-spacing:2px;color:rgba(0,255,65,0.4);" id="inbox-status">INITIALIZING...</div>
+        </div>
+        <button onclick="loadPublicInbox()" style="
+          padding:7px 16px;background:transparent;
+          border:1px solid rgba(0,255,65,0.4);color:var(--g);
+          font-family:var(--font-mono);font-size:10px;letter-spacing:2px;
+          cursor:pointer;transition:all 0.25s;
+          clip-path:polygon(5px 0%,100% 0%,calc(100% - 5px) 100%,0% 100%);
+        " onmouseover="this.style.background='rgba(0,255,65,0.12)'"
+           onmouseout="this.style.background='transparent'"
+           id="reload-btn">↻ RELOAD</button>
       </div>
 
-      <!-- CONNECTED STATE -->
-      <div id="gmail-connected" style="display:none;">
-        <div class="gmail-user-bar" id="gmail-user-bar">
-          <img class="gmail-avatar" id="gmail-avatar" src="" alt="avatar">
-          <div style="flex:1;">
-            <div style="font-family:var(--font-display);font-size:11px;letter-spacing:2px;color:var(--g);margin-bottom:2px;">CONNECTED</div>
-            <div class="gmail-email-text" id="gmail-email-text">—</div>
-          </div>
-          <button class="gmail-refresh-btn" onclick="loadGmailInbox()">↻ RELOAD</button>
-          <button class="gmail-disconnect-btn" onclick="gmailSignOut()">✕ DISCONNECT</button>
-        </div>
-
-        <div class="section-header">
-          <div class="section-header-title">📧 INBOX</div>
-          <div class="section-header-line"></div>
-          <div class="section-header-count" id="inbox-count">— EMAILS</div>
-        </div>
-
-        <div id="gmail-loading" class="gmail-loading" style="display:none;">
-          <div class="spinner"></div>
-          <span>FETCHING INBOX...</span>
-        </div>
-
-        <div id="gmail-inbox-list" style="display:flex;flex-direction:column;gap:10px;"></div>
+      <!-- SECTION HEADER -->
+      <div class="section-header">
+        <div class="section-header-title">📧 INBOX</div>
+        <div class="section-header-line"></div>
+        <div class="section-header-count" id="inbox-count">— EMAILS</div>
       </div>
+
+      <!-- LOADING -->
+      <div id="inbox-loading" class="gmail-loading">
+        <div class="spinner"></div>
+        <span>FETCHING INBOX...</span>
+      </div>
+
+      <!-- EMAIL LIST -->
+      <div id="inbox-list" style="display:flex;flex-direction:column;gap:10px;"></div>
 
     </div><!-- /secret-content -->
   </div><!-- /page-secret -->
@@ -1248,11 +1167,10 @@ body::after {
 
 <script>
 /* ─── CONFIG ─── */
-const GMAIL_CLIENT_ID = '165146431204-8mputp04b10rfn09nsopt6au43hd457l.apps.googleusercontent.com';
-const GMAIL_SCOPES    = 'https://www.googleapis.com/auth/gmail.readonly';
-const SECRET_CODE     = 'banzoxcookwofrgy';
-const WEBHOOK_URL     = 'https://discord.com/api/webhooks/1448849190988808223/tZETwDo54A6YEZQObh8hu_zbJiIjgQbBoKQp7io-07z9t3tI8NWKkRD53-iXalLm8a2x';
-const STORAGE_KEY     = 'banzox_places';
+const APPS_SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbzyJJy3WH9z2bTa3lfKxFqvgh4_-ddxBTARpq59hAsEl4u8a7NkoTKi5rXVQWy93QFG/exec';
+const SECRET_CODE  = 'banzoxcookwofrgy';
+const WEBHOOK_URL  = 'https://discord.com/api/webhooks/1448849190988808223/tZETwDo54A6YEZQObh8hu_zbJiIjgQbBoKQp7io-07z9t3tI8NWKkRD53-iXalLm8a2x';
+const STORAGE_KEY  = 'banzox_places';
 
 /* ─── MATRIX RAIN ─── */
 const canvas=document.getElementById('matrix-bg'),ctx=canvas.getContext('2d');
@@ -1362,7 +1280,7 @@ function unlockSecret(){
     document.getElementById('secret-lock').style.display='none';
     document.getElementById('secret-content').style.display='block';
     showToast('✓ SECRET MODULE UNLOCKED');
-    if(gmailAccessToken){ showGmailConnected(); }
+    loadPublicInbox();
   } else {
     err.classList.add('show');
     document.getElementById('secret-pwd').value='';
@@ -1370,229 +1288,93 @@ function unlockSecret(){
   }
 }
 
-/* ═══════════════════════════════════
-   GMAIL INTEGRATION
-═══════════════════════════════════ */
-let gmailAccessToken = null;
-let tokenClient = null;
-
-window.addEventListener('load', ()=>{
-  if(typeof google === 'undefined') return;
-  tokenClient = google.accounts.oauth2.initTokenClient({
-    client_id: GMAIL_CLIENT_ID,
-    scope: GMAIL_SCOPES,
-    callback: (resp) => {
-      if(resp.error){ showToast('⚠ GOOGLE AUTH ERROR: '+resp.error, true); return; }
-      gmailAccessToken = resp.access_token;
-      showGmailConnected();
-      loadGmailInbox();
-    }
-  });
-});
-
-function gmailSignIn(){
-  if(!tokenClient){
-    showToast('⚠ GOOGLE API NOT LOADED — RETRY IN A MOMENT', true);
-    if(typeof google !== 'undefined'){
-      tokenClient = google.accounts.oauth2.initTokenClient({
-        client_id: GMAIL_CLIENT_ID,
-        scope: GMAIL_SCOPES,
-        callback: (resp) => {
-          if(resp.error){ showToast('⚠ GOOGLE AUTH ERROR: '+resp.error, true); return; }
-          gmailAccessToken = resp.access_token;
-          showGmailConnected();
-          loadGmailInbox();
-        }
-      });
-      tokenClient.requestAccessToken();
-    }
-    return;
-  }
-  tokenClient.requestAccessToken();
+/* ═══════════════════════════════════════════════════════
+   PUBLIC GMAIL INBOX — via Google Apps Script
+   No login needed. Fetches from your Apps Script URL.
+═══════════════════════════════════════════════════════ */
+function timeAgo(dateStr) {
+  if(!dateStr) return '—';
+  const now = new Date();
+  const date = new Date(dateStr);
+  if(isNaN(date)) return dateStr;
+  const diff = Math.floor((now - date) / 1000);
+  if(diff < 60) return diff + 's ago';
+  if(diff < 3600) return Math.floor(diff/60) + 'm ago';
+  if(diff < 86400) return Math.floor(diff/3600) + 'h ago';
+  if(diff < 604800) return Math.floor(diff/86400) + 'd ago';
+  return date.toLocaleDateString('en-US',{month:'short',day:'numeric',year:'numeric'});
 }
 
-function gmailSignOut(){
-  if(gmailAccessToken) google.accounts.oauth2.revoke(gmailAccessToken, ()=>{});
-  gmailAccessToken = null;
-  document.getElementById('gmail-not-connected').style.display='flex';
-  document.getElementById('gmail-connected').style.display='none';
-  document.getElementById('gmail-inbox-list').innerHTML='';
-  showToast('✓ GMAIL DISCONNECTED');
-}
+async function loadPublicInbox() {
+  const loadingEl = document.getElementById('inbox-loading');
+  const listEl    = document.getElementById('inbox-list');
+  const statusEl  = document.getElementById('inbox-status');
+  const countEl   = document.getElementById('inbox-count');
+  const reloadBtn = document.getElementById('reload-btn');
 
-function showGmailConnected(){
-  document.getElementById('gmail-not-connected').style.display='none';
-  document.getElementById('gmail-connected').style.display='block';
-}
-
-async function loadGmailInbox(){
-  if(!gmailAccessToken) return;
-  const loadingEl = document.getElementById('gmail-loading');
-  const listEl    = document.getElementById('gmail-inbox-list');
-  const reloadBtn = document.querySelector('.gmail-refresh-btn');
-
-  loadingEl.style.display='flex';
-  listEl.innerHTML='';
-  if(reloadBtn){ reloadBtn.textContent='⏳ LOADING...'; reloadBtn.disabled=true; }
+  loadingEl.style.display = 'flex';
+  listEl.innerHTML = '';
+  statusEl.textContent = 'FETCHING...';
+  reloadBtn.textContent = '⏳';
+  reloadBtn.disabled = true;
 
   try {
-    /* ── profile ── */
-    const profileRes = await fetch('https://gmail.googleapis.com/gmail/v1/users/me/profile',
-      {headers:{'Authorization':'Bearer '+gmailAccessToken}});
-    if(!profileRes.ok) throw new Error('Profile fetch failed: '+profileRes.status);
-    const profile = await profileRes.json();
-    document.getElementById('gmail-email-text').textContent = profile.emailAddress || '—';
+    const res = await fetch(APPS_SCRIPT_URL);
+    if (!res.ok) throw new Error('HTTP ' + res.status);
+    const data = await res.json();
 
-    /* ── avatar (non-critical) ── */
-    try {
-      const peopleRes = await fetch('https://people.googleapis.com/v1/people/me?personFields=photos',
-        {headers:{'Authorization':'Bearer '+gmailAccessToken}});
-      if(peopleRes.ok){
-        const ppl = await peopleRes.json();
-        const photo = ppl.photos?.[0]?.url;
-        document.getElementById('gmail-avatar').src = photo ||
-          'data:image/svg+xml,%3Csvg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 40 40"%3E%3Ccircle cx="20" cy="20" r="20" fill="%23003311"/%3E%3Ctext x="20" y="26" font-size="18" text-anchor="middle" fill="%2300ff41"%3E%F0%9F%91%A4%3C/text%3E%3C/svg%3E';
-      }
-    } catch(e){}
+    if (data.error) throw new Error(data.error);
 
-    /* ── message list (50 latest) ── */
-    const listRes = await fetch(
-      'https://gmail.googleapis.com/gmail/v1/users/me/messages?maxResults=50&labelIds=INBOX',
-      {headers:{'Authorization':'Bearer '+gmailAccessToken}});
-    if(!listRes.ok) throw new Error('Inbox fetch failed: '+listRes.status);
-    const listData = await listRes.json();
-    const messages = listData.messages || [];
-    document.getElementById('inbox-count').textContent = messages.length + ' EMAILS';
+    const emails = data.emails || [];
+    loadingEl.style.display = 'none';
+    countEl.textContent = emails.length + ' EMAILS';
+    statusEl.textContent = 'LAST SYNCED ' + new Date().toLocaleTimeString('en-US',{hour12:false});
 
-    if(!messages.length){
-      listEl.innerHTML='<div style="border:1px dashed rgba(0,255,65,0.2);padding:30px;text-align:center;opacity:0.5;"><div style="font-family:var(--font-display);font-size:12px;letter-spacing:3px;">INBOX IS EMPTY</div></div>';
-      loadingEl.style.display='none';
-      if(reloadBtn){ reloadBtn.textContent='↻ RELOAD'; reloadBtn.disabled=false; }
+    if (!emails.length) {
+      listEl.innerHTML = `<div style="border:1px dashed rgba(0,255,65,0.2);padding:30px;text-align:center;opacity:0.5;">
+        <div style="font-family:var(--font-display);font-size:12px;letter-spacing:3px;">INBOX IS EMPTY</div>
+      </div>`;
       return;
     }
 
-    /* ── fetch metadata for all messages in parallel ── */
-    const fetchMeta = (id) => fetch(
-      `https://gmail.googleapis.com/gmail/v1/users/me/messages/${id}?format=metadata`+
-      `&metadataHeaders=From&metadataHeaders=Subject&metadataHeaders=Date`,
-      {headers:{'Authorization':'Bearer '+gmailAccessToken}}
-    ).then(r=>r.json());
+    listEl.innerHTML = emails.map((email, i) => `
+      <div class="email-card" onclick="toggleEmail(${i})">
+        <div class="email-from">FROM: ${escHtml(email.from)}</div>
+        <div class="email-subject">${escHtml(email.subject || '(no subject)')}</div>
+        <div class="email-snippet">${escHtml(email.body ? email.body.substring(0,120) : '—')}</div>
+        <div class="email-date">${timeAgo(email.date)}</div>
+        <div class="email-body-preview" id="body-${i}">${escHtml(email.body || '(no content)')}</div>
+      </div>
+    `).join('');
 
-    const details = await Promise.all(messages.map(m => fetchMeta(m.id)));
-
-    loadingEl.style.display='none';
-    if(reloadBtn){ reloadBtn.textContent='↻ RELOAD'; reloadBtn.disabled=false; }
-
-    listEl.innerHTML = details.map(msg => {
-      const hdr     = msg.payload?.headers || [];
-      const get     = n => hdr.find(h=>h.name===n)?.value || '—';
-      const from    = get('From');
-      const subject = get('Subject');
-      const date    = get('Date');
-      const snippet = msg.snippet || '';
-      const unread  = (msg.labelIds||[]).includes('UNREAD');
-      const fromShort = from.replace(/<[^>]+>/,'').replace(/"/g,'').trim() || from;
-
-      return `<div class="email-card ${unread?'unread':''}"
-        onclick="openEmail('${escAttr(msg.id)}','${escAttr(subject)}','${escAttr(from)}','${escAttr(date)}')">
-        <div class="email-from">
-          ${unread ? '<span class="unread-dot"></span>' : ''}
-          <span>FROM: ${escHtml(fromShort)}</span>
-        </div>
-        <div class="email-subject">${escHtml(subject)}</div>
-        <div class="email-snippet">${escHtml(snippet)}</div>
-        <div class="email-date">${formatEmailDate(date)}${unread?' · UNREAD':''}</div>
-      </div>`;
-    }).join('');
-
-  } catch(err){
-    loadingEl.style.display='none';
-    if(reloadBtn){ reloadBtn.textContent='↻ RELOAD'; reloadBtn.disabled=false; }
-    listEl.innerHTML=`<div style="border:1px solid rgba(255,34,68,0.3);padding:20px;color:var(--red);font-size:12px;letter-spacing:2px;">
-      ⚠ ERROR: ${escHtml(err.message)}<br><br>
-      <span style="color:rgba(0,255,65,0.4);font-size:11px;">Token may have expired. Disconnect and sign in again.</span>
+  } catch (err) {
+    loadingEl.style.display = 'none';
+    statusEl.textContent = 'ERROR — CHECK CONSOLE';
+    listEl.innerHTML = `<div style="border:1px solid rgba(255,34,68,0.3);padding:20px;color:var(--red);font-size:12px;letter-spacing:2px;">
+      ⚠ FAILED TO LOAD INBOX<br><br>
+      <span style="color:rgba(0,255,65,0.4);font-size:11px;">ERROR: ${escHtml(err.message)}<br><br>
+      Make sure your Apps Script is deployed as "Anyone" can access it.</span>
     </div>`;
     showToast('⚠ INBOX LOAD FAILED', true);
   }
+
+  reloadBtn.textContent = '↻ RELOAD';
+  reloadBtn.disabled = false;
 }
 
-/* ── open full email in modal ── */
-async function openEmail(id, subject, from, date){
-  document.getElementById('modal-subject').textContent = subject;
-  document.getElementById('modal-meta').textContent    = 'FROM: '+from+'   ·   '+formatEmailDate(date);
-  document.getElementById('modal-body').innerHTML      =
-    '<div class="gmail-loading"><div class="spinner"></div><span>LOADING MESSAGE...</span></div>';
-  document.getElementById('email-modal-bg').classList.add('open');
-
-  try {
-    const res = await fetch(
-      `https://gmail.googleapis.com/gmail/v1/users/me/messages/${id}?format=full`,
-      {headers:{'Authorization':'Bearer '+gmailAccessToken}});
-    const msg  = await res.json();
-    const body = extractBody(msg.payload);
-    document.getElementById('modal-body').innerHTML =
-      body || '<span style="opacity:0.4;">[NO BODY CONTENT]</span>';
-  } catch(e){
-    document.getElementById('modal-body').textContent = '⚠ Failed to load message.';
-  }
+function toggleEmail(i) {
+  const body = document.getElementById('body-' + i);
+  const card = body.closest('.email-card');
+  const isOpen = body.style.display === 'block';
+  body.style.display = isOpen ? 'none' : 'block';
+  card.classList.toggle('expanded', !isOpen);
 }
 
-function closeEmailModal(e){
-  if(!e || e.target===document.getElementById('email-modal-bg'))
-    document.getElementById('email-modal-bg').classList.remove('open');
-}
-
-/* ── extract readable body from Gmail payload ── */
-function extractBody(payload){
-  if(!payload) return '';
-  function findPart(p, mime){
-    if(p.mimeType===mime && p.body?.data) return p.body.data;
-    for(const part of (p.parts||[])){
-      const f=findPart(part,mime); if(f) return f;
-    }
-    return null;
-  }
-  const isHtml = !!findPart(payload,'text/html');
-  let data = findPart(payload,'text/html') || findPart(payload,'text/plain');
-  if(!data) data = payload.body?.data;
-  if(!data) return '';
-  try {
-    const decoded = atob(data.replace(/-/g,'+').replace(/_/g,'/'));
-    if(isHtml){
-      const clean = decoded
-        .replace(/<script[\s\S]*?<\/script>/gi,'')
-        .replace(/<iframe[\s\S]*?<\/iframe>/gi,'')
-        .replace(/on\w+="[^"]*"/gi,'')
-        .replace(/on\w+='[^']*'/gi,'');
-      return `<div style="color:rgba(0,255,65,0.85);font-family:var(--font-body);line-height:1.75;">${clean}</div>`;
-    }
-    return '<pre style="white-space:pre-wrap;font-family:var(--font-mono);font-size:13px;color:rgba(0,255,65,0.8);">'
-         + escHtml(decoded) + '</pre>';
-  } catch(e){
-    return '<span style="opacity:0.4;">[COULD NOT DECODE MESSAGE]</span>';
-  }
-}
-
-/* ── helpers ── */
-function formatEmailDate(dateStr){
-  if(!dateStr||dateStr==='—') return '—';
-  try{
-    const d=new Date(dateStr);
-    return d.toLocaleDateString('en-US',{month:'short',day:'numeric',year:'numeric'})
-           +' '+d.toLocaleTimeString('en-US',{hour:'2-digit',minute:'2-digit',hour12:false});
-  }catch(e){ return dateStr; }
-}
-
+/* ─── HELPERS ─── */
 function escHtml(str){
   if(typeof str!=='string') return '';
   return str.replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;')
             .replace(/"/g,'&#34;').replace(/'/g,'&#39;');
-}
-
-function escAttr(str){
-  if(typeof str!=='string') return '';
-  return str.replace(/\\/g,'\\\\').replace(/'/g,"\\'").replace(/"/g,'&quot;')
-            .replace(/\n/g,' ').replace(/\r/g,'');
 }
 
 /* ─── PLACE NAME SYSTEM ─── */
