@@ -3,11 +3,10 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-<title>BANZOX — test</title>
+<title>BANZOX — website</title>
 <link rel="icon" type="image/png" href="https://raw.githubusercontent.com/banzoxOG/banzox/main/banzox.png">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Share+Tech+Mono&family=Orbitron:wght@400;700;900&family=Rajdhani:wght@300;400;600;700&display=swap" rel="stylesheet">
-<!-- Google Identity Services -->
 <script src="https://accounts.google.com/gsi/client" async defer></script>
 <style>
 :root {
@@ -681,9 +680,7 @@ body::after {
 ::-webkit-scrollbar-track { background:#000; }
 ::-webkit-scrollbar-thumb { background:var(--g2); }
 
-/* ═══════════════════════════
-   SECRET PAGE STYLES
-═══════════════════════════ */
+/* SECRET PAGE */
 .secret-lock-wrap {
   display:flex; flex-direction:column;
   align-items:center; justify-content:center;
@@ -897,12 +894,10 @@ body::after {
   <!-- TOPBAR -->
   <nav class="topbar">
     <div class="topbar-logo glitch" onclick="showPage('home')">BANZOX</div>
-
     <div class="lang-switcher">
       <button class="lang-btn active" id="lang-en" onclick="setLang('en')">EN</button>
       <button class="lang-btn"        id="lang-ar" onclick="setLang('ar')">AR</button>
     </div>
-
     <div class="nav-links">
       <button class="nav-btn active" data-page="home"    onclick="showPage('home')">HOME</button>
       <button class="nav-btn"        data-page="games"   onclick="showPage('games')">GAMES</button>
@@ -912,7 +907,6 @@ body::after {
       <button class="nav-btn"        data-page="secret"  onclick="showPage('secret')">🔒 SECRET</button>
     </div>
     <button class="disconnect-btn" onclick="doLogout()">◼ DISCONNECT</button>
-
     <button class="hamburger" id="hamburger" onclick="toggleDrawer()" aria-label="Menu">
       <span></span><span></span><span></span>
     </button>
@@ -1181,9 +1175,7 @@ body::after {
     </div>
   </div>
 
-  <!-- ════════════════════════════
-       SECRET PAGE
-  ════════════════════════════ -->
+  <!-- SECRET PAGE -->
   <div class="page" id="page-secret">
 
     <!-- LOCK SCREEN -->
@@ -1207,7 +1199,7 @@ body::after {
         <div class="page-hero-sub">Gmail inbox linked to your Google account.</div>
       </div>
 
-      <!-- GMAIL CONNECT SECTION -->
+      <!-- NOT CONNECTED -->
       <div id="gmail-not-connected" style="display:flex;flex-direction:column;align-items:center;gap:24px;padding:40px 0;">
         <div style="font-size:48px;">📧</div>
         <div style="font-family:var(--font-display);font-size:14px;letter-spacing:3px;color:var(--g);text-align:center;">CONNECT YOUR GMAIL</div>
@@ -1218,7 +1210,7 @@ body::after {
         <div style="font-size:10px;letter-spacing:2px;color:rgba(0,255,65,0.3);text-align:center;">Your data stays in your browser.<br>Only you can see it.</div>
       </div>
 
-      <!-- GMAIL CONNECTED STATE -->
+      <!-- CONNECTED STATE -->
       <div id="gmail-connected" style="display:none;">
         <div class="gmail-user-bar" id="gmail-user-bar">
           <img class="gmail-avatar" id="gmail-avatar" src="" alt="avatar">
@@ -1226,7 +1218,7 @@ body::after {
             <div style="font-family:var(--font-display);font-size:11px;letter-spacing:2px;color:var(--g);margin-bottom:2px;">CONNECTED</div>
             <div class="gmail-email-text" id="gmail-email-text">—</div>
           </div>
-          <button class="gmail-refresh-btn" onclick="loadGmailInbox()">↻ REFRESH</button>
+          <button class="gmail-refresh-btn" onclick="loadGmailInbox()">↻ RELOAD</button>
           <button class="gmail-disconnect-btn" onclick="gmailSignOut()">✕ DISCONNECT</button>
         </div>
 
@@ -1337,7 +1329,6 @@ function showPage(name){
   if(deskBtn)deskBtn.classList.add('active');
   const mobBtn=document.querySelector('[data-mob-page="'+name+'"]');
   if(mobBtn)mobBtn.classList.add('active');
-  // Re-lock secret page every time you visit it
   if(name==='secret'){
     document.getElementById('secret-lock').style.display='flex';
     document.getElementById('secret-content').style.display='none';
@@ -1363,9 +1354,7 @@ function closeDrawer(){
 }
 function mobileNav(page){showPage(page);closeDrawer();}
 
-/* ═══════════════════════════════════
-   SECRET PAGE
-═══════════════════════════════════ */
+/* ─── SECRET PAGE ─── */
 function unlockSecret(){
   const val=document.getElementById('secret-pwd').value;
   const err=document.getElementById('secret-err');
@@ -1373,7 +1362,6 @@ function unlockSecret(){
     document.getElementById('secret-lock').style.display='none';
     document.getElementById('secret-content').style.display='block';
     showToast('✓ SECRET MODULE UNLOCKED');
-    // If already signed in to Gmail, restore state
     if(gmailAccessToken){ showGmailConnected(); }
   } else {
     err.classList.add('show');
@@ -1388,7 +1376,6 @@ function unlockSecret(){
 let gmailAccessToken = null;
 let tokenClient = null;
 
-// Init Google Identity Services after lib loads
 window.addEventListener('load', ()=>{
   if(typeof google === 'undefined') return;
   tokenClient = google.accounts.oauth2.initTokenClient({
@@ -1405,8 +1392,7 @@ window.addEventListener('load', ()=>{
 
 function gmailSignIn(){
   if(!tokenClient){
-    showToast('⚠ GOOGLE API NOT LOADED YET — TRY AGAIN IN A MOMENT', true);
-    // Try to init again
+    showToast('⚠ GOOGLE API NOT LOADED — RETRY IN A MOMENT', true);
     if(typeof google !== 'undefined'){
       tokenClient = google.accounts.oauth2.initTokenClient({
         client_id: GMAIL_CLIENT_ID,
@@ -1426,9 +1412,7 @@ function gmailSignIn(){
 }
 
 function gmailSignOut(){
-  if(gmailAccessToken){
-    google.accounts.oauth2.revoke(gmailAccessToken, ()=>{});
-  }
+  if(gmailAccessToken) google.accounts.oauth2.revoke(gmailAccessToken, ()=>{});
   gmailAccessToken = null;
   document.getElementById('gmail-not-connected').style.display='flex';
   document.getElementById('gmail-connected').style.display='none';
@@ -1442,39 +1426,40 @@ function showGmailConnected(){
 }
 
 async function loadGmailInbox(){
-  if(!gmailAccessToken){ return; }
+  if(!gmailAccessToken) return;
   const loadingEl = document.getElementById('gmail-loading');
-  const listEl = document.getElementById('gmail-inbox-list');
+  const listEl    = document.getElementById('gmail-inbox-list');
+  const reloadBtn = document.querySelector('.gmail-refresh-btn');
+
   loadingEl.style.display='flex';
   listEl.innerHTML='';
+  if(reloadBtn){ reloadBtn.textContent='⏳ LOADING...'; reloadBtn.disabled=true; }
 
   try {
-    // Get user profile
-    const profileRes = await fetch('https://gmail.googleapis.com/gmail/v1/users/me/profile', {
-      headers: { 'Authorization': 'Bearer '+gmailAccessToken }
-    });
-    if(!profileRes.ok){ throw new Error('Profile fetch failed: '+profileRes.status); }
+    /* ── profile ── */
+    const profileRes = await fetch('https://gmail.googleapis.com/gmail/v1/users/me/profile',
+      {headers:{'Authorization':'Bearer '+gmailAccessToken}});
+    if(!profileRes.ok) throw new Error('Profile fetch failed: '+profileRes.status);
     const profile = await profileRes.json();
     document.getElementById('gmail-email-text').textContent = profile.emailAddress || '—';
-    // Try to get avatar from Google People API
-    try {
-      const peopleRes = await fetch('https://people.googleapis.com/v1/people/me?personFields=photos', {
-        headers:{'Authorization':'Bearer '+gmailAccessToken}
-      });
-      if(peopleRes.ok){
-        const people = await peopleRes.json();
-        const photo = people.photos?.[0]?.url;
-        if(photo) document.getElementById('gmail-avatar').src = photo;
-        else document.getElementById('gmail-avatar').src = 'data:image/svg+xml,%3Csvg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 40 40"%3E%3Ccircle cx="20" cy="20" r="20" fill="%23003311"/%3E%3Ctext x="20" y="26" font-size="18" text-anchor="middle" fill="%2300ff41"%3E👤%3C/text%3E%3C/svg%3E';
-      }
-    } catch(e){ /* avatar not critical */ }
 
-    // Fetch messages list (latest 30)
+    /* ── avatar (non-critical) ── */
+    try {
+      const peopleRes = await fetch('https://people.googleapis.com/v1/people/me?personFields=photos',
+        {headers:{'Authorization':'Bearer '+gmailAccessToken}});
+      if(peopleRes.ok){
+        const ppl = await peopleRes.json();
+        const photo = ppl.photos?.[0]?.url;
+        document.getElementById('gmail-avatar').src = photo ||
+          'data:image/svg+xml,%3Csvg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 40 40"%3E%3Ccircle cx="20" cy="20" r="20" fill="%23003311"/%3E%3Ctext x="20" y="26" font-size="18" text-anchor="middle" fill="%2300ff41"%3E%F0%9F%91%A4%3C/text%3E%3C/svg%3E';
+      }
+    } catch(e){}
+
+    /* ── message list (50 latest) ── */
     const listRes = await fetch(
-      'https://gmail.googleapis.com/gmail/v1/users/me/messages?maxResults=30&labelIds=INBOX',
-      { headers:{'Authorization':'Bearer '+gmailAccessToken} }
-    );
-    if(!listRes.ok){ throw new Error('Inbox fetch failed: '+listRes.status); }
+      'https://gmail.googleapis.com/gmail/v1/users/me/messages?maxResults=50&labelIds=INBOX',
+      {headers:{'Authorization':'Bearer '+gmailAccessToken}});
+    if(!listRes.ok) throw new Error('Inbox fetch failed: '+listRes.status);
     const listData = await listRes.json();
     const messages = listData.messages || [];
     document.getElementById('inbox-count').textContent = messages.length + ' EMAILS';
@@ -1482,110 +1467,132 @@ async function loadGmailInbox(){
     if(!messages.length){
       listEl.innerHTML='<div style="border:1px dashed rgba(0,255,65,0.2);padding:30px;text-align:center;opacity:0.5;"><div style="font-family:var(--font-display);font-size:12px;letter-spacing:3px;">INBOX IS EMPTY</div></div>';
       loadingEl.style.display='none';
+      if(reloadBtn){ reloadBtn.textContent='↻ RELOAD'; reloadBtn.disabled=false; }
       return;
     }
 
-    // Fetch each message metadata in parallel (batches of 10)
-    const fetchMsg = (id) => fetch(
-      `https://gmail.googleapis.com/gmail/v1/users/me/messages/${id}?format=metadata&metadataHeaders=From&metadataHeaders=Subject&metadataHeaders=Date`,
-      { headers:{'Authorization':'Bearer '+gmailAccessToken} }
+    /* ── fetch metadata for all messages in parallel ── */
+    const fetchMeta = (id) => fetch(
+      `https://gmail.googleapis.com/gmail/v1/users/me/messages/${id}?format=metadata`+
+      `&metadataHeaders=From&metadataHeaders=Subject&metadataHeaders=Date`,
+      {headers:{'Authorization':'Bearer '+gmailAccessToken}}
     ).then(r=>r.json());
 
-    const msgDetails = await Promise.all(messages.map(m=>fetchMsg(m.id)));
+    const details = await Promise.all(messages.map(m => fetchMeta(m.id)));
 
     loadingEl.style.display='none';
-    listEl.innerHTML = msgDetails.map(msg=>{
-      const headers = msg.payload?.headers || [];
-      const get = (name)=> headers.find(h=>h.name===name)?.value || '—';
+    if(reloadBtn){ reloadBtn.textContent='↻ RELOAD'; reloadBtn.disabled=false; }
+
+    listEl.innerHTML = details.map(msg => {
+      const hdr     = msg.payload?.headers || [];
+      const get     = n => hdr.find(h=>h.name===n)?.value || '—';
       const from    = get('From');
       const subject = get('Subject');
       const date    = get('Date');
       const snippet = msg.snippet || '';
-      const isUnread= (msg.labelIds||[]).includes('UNREAD');
-      const fromShort = from.replace(/<.*>/,'').replace(/"/g,'').trim() || from;
-      const dateShort = formatEmailDate(date);
+      const unread  = (msg.labelIds||[]).includes('UNREAD');
+      const fromShort = from.replace(/<[^>]+>/,'').replace(/"/g,'').trim() || from;
 
-      return `<div class="email-card ${isUnread?'unread':''}" onclick="openEmail('${escHtml(msg.id)}','${escHtml(subject)}','${escHtml(from)}','${escHtml(date)}')">
-        <div class="email-from">${isUnread?'<span class="unread-dot"></span>':''}<span>FROM: ${escHtml(fromShort)}</span></div>
+      return `<div class="email-card ${unread?'unread':''}"
+        onclick="openEmail('${escAttr(msg.id)}','${escAttr(subject)}','${escAttr(from)}','${escAttr(date)}')">
+        <div class="email-from">
+          ${unread ? '<span class="unread-dot"></span>' : ''}
+          <span>FROM: ${escHtml(fromShort)}</span>
+        </div>
         <div class="email-subject">${escHtml(subject)}</div>
         <div class="email-snippet">${escHtml(snippet)}</div>
-        <div class="email-date">${dateShort}${isUnread?' · UNREAD':''}</div>
+        <div class="email-date">${formatEmailDate(date)}${unread?' · UNREAD':''}</div>
       </div>`;
     }).join('');
 
   } catch(err){
     loadingEl.style.display='none';
-    listEl.innerHTML=`<div style="border:1px solid rgba(255,34,68,0.3);padding:20px;color:var(--red);font-size:12px;letter-spacing:2px;">⚠ ERROR: ${escHtml(err.message)}<br><br><span style="color:rgba(0,255,65,0.4);font-size:11px;">Your token may have expired. Disconnect and sign in again.</span></div>`;
+    if(reloadBtn){ reloadBtn.textContent='↻ RELOAD'; reloadBtn.disabled=false; }
+    listEl.innerHTML=`<div style="border:1px solid rgba(255,34,68,0.3);padding:20px;color:var(--red);font-size:12px;letter-spacing:2px;">
+      ⚠ ERROR: ${escHtml(err.message)}<br><br>
+      <span style="color:rgba(0,255,65,0.4);font-size:11px;">Token may have expired. Disconnect and sign in again.</span>
+    </div>`;
     showToast('⚠ INBOX LOAD FAILED', true);
   }
 }
 
-/* Open email modal and fetch full body */
+/* ── open full email in modal ── */
 async function openEmail(id, subject, from, date){
   document.getElementById('modal-subject').textContent = subject;
-  document.getElementById('modal-meta').textContent = 'FROM: '+from+'   ·   '+formatEmailDate(date);
-  document.getElementById('modal-body').innerHTML = '<div class="gmail-loading"><div class="spinner"></div><span>LOADING MESSAGE...</span></div>';
+  document.getElementById('modal-meta').textContent    = 'FROM: '+from+'   ·   '+formatEmailDate(date);
+  document.getElementById('modal-body').innerHTML      =
+    '<div class="gmail-loading"><div class="spinner"></div><span>LOADING MESSAGE...</span></div>';
   document.getElementById('email-modal-bg').classList.add('open');
 
   try {
     const res = await fetch(
       `https://gmail.googleapis.com/gmail/v1/users/me/messages/${id}?format=full`,
-      { headers:{'Authorization':'Bearer '+gmailAccessToken} }
-    );
-    const msg = await res.json();
+      {headers:{'Authorization':'Bearer '+gmailAccessToken}});
+    const msg  = await res.json();
     const body = extractBody(msg.payload);
-    document.getElementById('modal-body').innerHTML = body || '<span style="opacity:0.4;">[NO BODY CONTENT]</span>';
+    document.getElementById('modal-body').innerHTML =
+      body || '<span style="opacity:0.4;">[NO BODY CONTENT]</span>';
   } catch(e){
     document.getElementById('modal-body').textContent = '⚠ Failed to load message.';
   }
 }
 
 function closeEmailModal(e){
-  if(!e || e.target===document.getElementById('email-modal-bg')){
+  if(!e || e.target===document.getElementById('email-modal-bg'))
     document.getElementById('email-modal-bg').classList.remove('open');
-  }
 }
 
-/* Extract readable body from Gmail payload */
+/* ── extract readable body from Gmail payload ── */
 function extractBody(payload){
   if(!payload) return '';
-  // Try HTML first, then plain
   function findPart(p, mime){
     if(p.mimeType===mime && p.body?.data) return p.body.data;
     for(const part of (p.parts||[])){
-      const found=findPart(part,mime);
-      if(found) return found;
+      const f=findPart(part,mime); if(f) return f;
     }
     return null;
   }
+  const isHtml = !!findPart(payload,'text/html');
   let data = findPart(payload,'text/html') || findPart(payload,'text/plain');
   if(!data) data = payload.body?.data;
   if(!data) return '';
-  const decoded = atob(data.replace(/-/g,'+').replace(/_/g,'/'));
-  // If HTML, render in sandboxed iframe-like div; else preserve line breaks
-  if(findPart(payload,'text/html')){
-    // Strip scripts and dangerous tags but show HTML
-    const clean = decoded
-      .replace(/<script[\s\S]*?<\/script>/gi,'')
-      .replace(/<iframe[\s\S]*?<\/iframe>/gi,'')
-      .replace(/on\w+="[^"]*"/gi,'')
-      .replace(/on\w+='[^']*'/gi,'');
-    return `<div style="color:rgba(0,255,65,0.8);font-family:var(--font-body);line-height:1.7;">${clean}</div>`;
+  try {
+    const decoded = atob(data.replace(/-/g,'+').replace(/_/g,'/'));
+    if(isHtml){
+      const clean = decoded
+        .replace(/<script[\s\S]*?<\/script>/gi,'')
+        .replace(/<iframe[\s\S]*?<\/iframe>/gi,'')
+        .replace(/on\w+="[^"]*"/gi,'')
+        .replace(/on\w+='[^']*'/gi,'');
+      return `<div style="color:rgba(0,255,65,0.85);font-family:var(--font-body);line-height:1.75;">${clean}</div>`;
+    }
+    return '<pre style="white-space:pre-wrap;font-family:var(--font-mono);font-size:13px;color:rgba(0,255,65,0.8);">'
+         + escHtml(decoded) + '</pre>';
+  } catch(e){
+    return '<span style="opacity:0.4;">[COULD NOT DECODE MESSAGE]</span>';
   }
-  return '<pre style="white-space:pre-wrap;font-family:var(--font-mono);font-size:13px;color:rgba(0,255,65,0.8);">'+escHtml(decoded)+'</pre>';
 }
 
+/* ── helpers ── */
 function formatEmailDate(dateStr){
   if(!dateStr||dateStr==='—') return '—';
   try{
     const d=new Date(dateStr);
-    return d.toLocaleDateString('en-US',{month:'short',day:'numeric',year:'numeric'})+' '+d.toLocaleTimeString('en-US',{hour:'2-digit',minute:'2-digit',hour12:false});
-  }catch(e){return dateStr;}
+    return d.toLocaleDateString('en-US',{month:'short',day:'numeric',year:'numeric'})
+           +' '+d.toLocaleTimeString('en-US',{hour:'2-digit',minute:'2-digit',hour12:false});
+  }catch(e){ return dateStr; }
 }
 
 function escHtml(str){
   if(typeof str!=='string') return '';
-  return str.replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&#34;').replace(/'/g,'&#39;');
+  return str.replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;')
+            .replace(/"/g,'&#34;').replace(/'/g,'&#39;');
+}
+
+function escAttr(str){
+  if(typeof str!=='string') return '';
+  return str.replace(/\\/g,'\\\\').replace(/'/g,"\\'").replace(/"/g,'&quot;')
+            .replace(/\n/g,' ').replace(/\r/g,'');
 }
 
 /* ─── PLACE NAME SYSTEM ─── */
@@ -1733,7 +1740,7 @@ async function sendFilesToDiscord(){
   setTimeout(()=>{wrap.style.display='none';bar.style.width='0%';btn.textContent='▶ SEND FILES TO DISCORD';btn.disabled=true;},1500);
 }
 
-/* ─── LOG ─── */
+/* ─── DISPATCH LOG ─── */
 let dispatchLog=[];
 function addLogEntry(place,folderName,fileCount,totalMB){
   dispatchLog.unshift({place,folderName,fileCount,totalMB,ts:new Date().toLocaleString('en-US',{hour12:false})});
@@ -1758,9 +1765,7 @@ function renderLog(){
     </div>`).join('');
 }
 
-/* ════════════════════════════
-   LANGUAGE SYSTEM
-════════════════════════════ */
+/* ─── LANGUAGE SYSTEM ─── */
 const translations={
   '[ SECURE SYSTEM ACCESS — AUTHORIZED ONLY ]':'[ وصول آمن للنظام — للمصرح لهم فقط ]',
   'ENTER ACCESS CODE':'أدخل رمز الوصول',
