@@ -701,7 +701,7 @@ body::after {
 }
 .secret-lock-sub { font-size:11px; letter-spacing:3px; color:var(--g2); }
 
-/* ── EMAIL CARDS ── */
+/* ── EMAIL CARDS (public inbox) ── */
 .email-card {
   border:1px solid rgba(0,255,65,0.2); background:var(--panel);
   padding:18px 22px; transition:all 0.3s; cursor:pointer;
@@ -712,81 +712,19 @@ body::after {
   width:3px; height:100%; background:var(--cyan); box-shadow:0 0 10px var(--cyan);
 }
 .email-card:hover { border-color:var(--cyan); box-shadow:0 0 20px rgba(0,255,255,0.1); transform:translateX(4px); }
+.email-card.expanded .email-body-preview { display:block; }
 .email-from { font-family:var(--font-display); font-size:11px; letter-spacing:2px; color:var(--g); margin-bottom:5px; }
 .email-subject { font-family:var(--font-body); font-size:15px; font-weight:600; color:rgba(0,255,65,0.9); margin-bottom:6px; }
 .email-snippet { font-family:var(--font-body); font-size:13px; color:rgba(0,255,65,0.4); line-height:1.5; white-space:nowrap; overflow:hidden; text-overflow:ellipsis; max-width:100%; }
 .email-date { font-size:9px; letter-spacing:2px; color:rgba(0,255,65,0.3); margin-top:8px; }
-
-/* EMAIL CARD — title & meta */
-.email-title-block { margin-bottom:8px; }
-.email-subject-big {
-  font-family: var(--font-display);
-  font-size: clamp(13px, 2.5vw, 17px);
-  font-weight: 700;
-  letter-spacing: 0.05em;
-  color: var(--g);
-  text-shadow: 0 0 10px rgba(0,255,65,0.4);
-  margin-bottom: 6px;
-  line-height: 1.3;
-}
-.email-meta-row {
-  display: flex; gap: 14px; flex-wrap: wrap; align-items: center;
-}
-.email-from-tag {
-  font-family: var(--font-mono);
-  font-size: 10px; letter-spacing: 2px;
-  color: var(--cyan); opacity: 0.8;
-}
-.email-date-tag {
-  font-size: 9px; letter-spacing: 2px;
-  color: rgba(0,255,65,0.35);
-}
-
-/* EMAIL BODY — fully rendered HTML */
 .email-body-preview {
-  display:none;
-  margin-top:14px; padding-top:14px;
-  border-top:1px solid rgba(0,255,65,0.2);
+  display:none; margin-top:14px; padding-top:14px;
+  border-top:1px solid rgba(0,255,65,0.15);
+  font-family:var(--font-body); font-size:13px;
+  color:rgba(0,255,65,0.65); line-height:1.7;
+  white-space:pre-wrap; word-break:break-word;
+  max-height:300px; overflow-y:auto;
 }
-.email-body-preview.open { display:block; }
-
-/* Action bar above iframe */
-.email-action-bar {
-  display: flex; justify-content: space-between; align-items: center;
-  margin-bottom: 10px; flex-wrap: wrap; gap: 8px;
-}
-.email-pdf-btn {
-  font-family: var(--font-display);
-  font-size: 10px; font-weight: 700; letter-spacing: 2px;
-  padding: 7px 16px;
-  background: transparent;
-  border: 1px solid var(--g);
-  color: var(--g);
-  cursor: pointer; transition: all 0.25s;
-  clip-path: polygon(5px 0%,100% 0%,calc(100% - 5px) 100%,0% 100%);
-  position: relative; z-index: 10;
-}
-.email-pdf-btn:hover { background: var(--g); color: #000; box-shadow: 0 0 16px var(--g); }
-
-/* Iframe wrapper */
-.email-iframe-wrap { width: 100%; }
-
-/* Iframe that holds the rendered email */
-.email-iframe {
-  width:100%; border:none;
-  background:#fff; border-radius:2px;
-  min-height:200px;
-  display:block;
-}
-
-/* Toggle chevron */
-.email-toggle {
-  position:absolute; top:18px; right:18px;
-  font-size:12px; color:rgba(0,255,65,0.4);
-  transition:transform 0.3s;
-  pointer-events:none;
-}
-.email-card.expanded .email-toggle { transform:rotate(180deg); }
 
 /* SPINNER */
 .gmail-loading {
@@ -1155,7 +1093,9 @@ body::after {
     </div>
   </div>
 
-  <!-- SECRET PAGE -->
+  <!-- ══════════════════════════════════════
+       SECRET PAGE — PUBLIC GMAIL INBOX
+  ══════════════════════════════════════ -->
   <div class="page" id="page-secret">
 
     <!-- LOCK SCREEN -->
@@ -1199,27 +1139,31 @@ body::after {
            id="reload-btn">↻ RELOAD</button>
       </div>
 
+      <!-- SECTION HEADER -->
       <div class="section-header">
         <div class="section-header-title">📧 INBOX</div>
         <div class="section-header-line"></div>
         <div class="section-header-count" id="inbox-count">— EMAILS</div>
       </div>
 
+      <!-- LOADING -->
       <div id="inbox-loading" class="gmail-loading">
         <div class="spinner"></div>
         <span>FETCHING INBOX...</span>
       </div>
 
+      <!-- EMAIL LIST -->
       <div id="inbox-list" style="display:flex;flex-direction:column;gap:10px;"></div>
-    </div>
-  </div>
+
+    </div><!-- /secret-content -->
+  </div><!-- /page-secret -->
 
   <footer class="footer">
     <div class="footer-logo">BANZOX</div>
     <div>SECURE SYSTEM — ALL DATA ENCRYPTED</div>
     <div id="clock-footer"></div>
   </footer>
-</div>
+</div><!-- /app -->
 
 <script>
 /* ─── CONFIG ─── */
@@ -1345,96 +1289,9 @@ function unlockSecret(){
 }
 
 /* ═══════════════════════════════════════════════════════
-   EMAIL BODY RENDERER
-   Uses a sandboxed iframe so HTML emails render fully
-   (buttons, links, images, tables — everything shows).
+   PUBLIC GMAIL INBOX — via Google Apps Script
+   No login needed. Fetches from your Apps Script URL.
 ═══════════════════════════════════════════════════════ */
-
-/**
- * Render email body into a sandboxed iframe.
- * The iframe auto-resizes to fit its content.
- */
-function renderEmailBody(container, rawBody) {
-  // Detect if the body looks like HTML
-  const isHtml = /<[a-zA-Z][\s\S]*>/i.test(rawBody);
-
-  // Build full HTML document — inject base styles for clean rendering
-  const htmlContent = `<!DOCTYPE html>
-<html><head><meta charset="UTF-8">
-<meta name="viewport" content="width=device-width,initial-scale=1">
-<style>
-  * { box-sizing: border-box; }
-  html, body {
-    margin: 0; padding: 0;
-    /* prevent internal scrollbars — let parent see full height */
-    overflow: hidden;
-  }
-  body {
-    font-family: Arial, sans-serif; font-size: 14px; line-height: 1.7;
-    color: #222; padding: 16px; word-break: break-word;
-    ${isHtml ? '' : 'white-space: pre-wrap;'}
-  }
-  a { color: #0066cc; }
-  img { max-width: 100%; height: auto; }
-  table { max-width: 100%; }
-</style>
-</head><body>${isHtml ? rawBody : escHtml(rawBody)}</body></html>`;
-
-  const iframe = document.createElement('iframe');
-  iframe.className = 'email-iframe';
-  iframe.setAttribute('sandbox', 'allow-same-origin allow-popups allow-popups-to-escape-sandbox');
-  iframe.style.cssText = 'width:100%;border:none;background:#fff;border-radius:2px;display:block;height:200px;';
-
-  container.appendChild(iframe);
-
-  // Write content
-  const doc = iframe.contentDocument || iframe.contentWindow.document;
-  doc.open();
-  doc.write(htmlContent);
-  doc.close();
-
-  // ── Aggressive auto-resize ──
-  // Polls until the height stabilises, then stops.
-  let lastH = 0, stable = 0;
-  function fitIframe() {
-    try {
-      const body = iframe.contentDocument && iframe.contentDocument.body;
-      if (!body) return;
-      // Use scrollHeight of the documentElement for full content height
-      const h = Math.max(
-        body.scrollHeight,
-        body.offsetHeight,
-        iframe.contentDocument.documentElement.scrollHeight,
-        iframe.contentDocument.documentElement.offsetHeight
-      );
-      if (h > 0) {
-        iframe.style.height = (h + 20) + 'px'; // +20px safety buffer
-        if (h === lastH) { stable++; } else { stable = 0; lastH = h; }
-      }
-    } catch(e) {}
-  }
-
-  // Poll every 100ms for up to 5 seconds, then slow to 1s checks for images
-  let polls = 0;
-  const fast = setInterval(() => {
-    fitIframe();
-    polls++;
-    if (polls >= 50) { clearInterval(fast); setInterval(fitIframe, 1000); }
-  }, 100);
-
-  // Also resize on iframe load event
-  iframe.addEventListener('load', () => { fitIframe(); setTimeout(fitIframe, 200); setTimeout(fitIframe, 800); });
-
-  // Watch for DOM changes inside (images loading, JS rendering)
-  iframe.addEventListener('load', () => {
-    try {
-      const obs = new (iframe.contentWindow.MutationObserver || MutationObserver)(() => fitIframe());
-      obs.observe(iframe.contentDocument.body, { childList: true, subtree: true, attributes: true });
-    } catch(e) {}
-  });
-}
-
-/* ─── TIME HELPER ─── */
 function timeAgo(dateStr) {
   if(!dateStr) return '—';
   const now = new Date();
@@ -1448,7 +1305,6 @@ function timeAgo(dateStr) {
   return date.toLocaleDateString('en-US',{month:'short',day:'numeric',year:'numeric'});
 }
 
-/* ─── LOAD INBOX ─── */
 async function loadPublicInbox() {
   const loadingEl = document.getElementById('inbox-loading');
   const listEl    = document.getElementById('inbox-list');
@@ -1466,6 +1322,7 @@ async function loadPublicInbox() {
     const res = await fetch(APPS_SCRIPT_URL);
     if (!res.ok) throw new Error('HTTP ' + res.status);
     const data = await res.json();
+
     if (data.error) throw new Error(data.error);
 
     const emails = data.emails || [];
@@ -1480,46 +1337,15 @@ async function loadPublicInbox() {
       return;
     }
 
-    // Build card shells — body will be injected on expand
-    listEl.innerHTML = '';
-    emails.forEach((email, i) => {
-      const card = document.createElement('div');
-      card.className = 'email-card';
-      card.dataset.index = i;
-
-      const snippet = (email.body || '').replace(/<[^>]+>/g, '').substring(0, 140);
-
-      card.innerHTML = `
-        <div class="email-toggle">&#9660;</div>
-        <div class="email-title-block">
-          <div class="email-subject-big">${escHtml(email.subject || '(no subject)')}</div>
-          <div class="email-meta-row">
-            <span class="email-from-tag">FROM: ${escHtml(email.from)}</span>
-            <span class="email-date-tag">${timeAgo(email.date)}</span>
-          </div>
-        </div>
-        <div class="email-snippet" id="snippet-${i}">${escHtml(snippet)}${snippet.length >= 140 ? '…' : ''}</div>
-        <div class="email-body-preview" id="body-${i}">
-          <div class="email-action-bar">
-            <span style="font-size:10px;letter-spacing:2px;color:rgba(0,255,65,0.45);">&#128231; FULL MESSAGE</span>
-            <button class="email-pdf-btn" onclick="downloadEmailPDF(event,${i})">&#11015; SAVE AS PDF</button>
-          </div>
-          <div class="email-iframe-wrap" id="iframe-wrap-${i}"></div>
-        </div>
-      `;
-
-      card._emailBody    = email.body    || '(no content)';
-      card._emailSubject = email.subject || '(no subject)';
-      card._emailFrom    = email.from    || '';
-      card._emailDate    = email.date    || '';
-      card._bodyRendered = false;
-
-      card.addEventListener('click', (e) => {
-        if (e.target.closest('.email-pdf-btn')) return;
-        toggleEmail(card, i);
-      });
-      listEl.appendChild(card);
-    });
+    listEl.innerHTML = emails.map((email, i) => `
+      <div class="email-card" onclick="toggleEmail(${i})">
+        <div class="email-from">FROM: ${escHtml(email.from)}</div>
+        <div class="email-subject">${escHtml(email.subject || '(no subject)')}</div>
+        <div class="email-snippet">${escHtml(email.body ? email.body.substring(0,120) : '—')}</div>
+        <div class="email-date">${timeAgo(email.date)}</div>
+        <div class="email-body-preview" id="body-${i}">${escHtml(email.body || '(no content)')}</div>
+      </div>
+    `).join('');
 
   } catch (err) {
     loadingEl.style.display = 'none';
@@ -1536,81 +1362,12 @@ async function loadPublicInbox() {
   reloadBtn.disabled = false;
 }
 
-/* ─── TOGGLE EMAIL ─── */
-function toggleEmail(card, i) {
-  const bodyEl   = document.getElementById('body-' + i);
-  const wrapEl   = document.getElementById('iframe-wrap-' + i);
-  const snippetEl = document.getElementById('snippet-' + i);
-  const isOpen   = bodyEl.classList.contains('open');
-
-  if (isOpen) {
-    bodyEl.classList.remove('open');
-    card.classList.remove('expanded');
-    if (snippetEl) snippetEl.style.display = '';
-    return;
-  }
-
-  // Render iframe on first open
-  if (!card._bodyRendered) {
-    renderEmailBody(wrapEl, card._emailBody);
-    card._bodyRendered = true;
-  }
-
-  if (snippetEl) snippetEl.style.display = 'none'; // hide snippet when full body shown
-  bodyEl.classList.add('open');
-  card.classList.add('expanded');
-}
-
-/* ─── DOWNLOAD EMAIL AS PDF ─── */
-function downloadEmailPDF(e, i) {
-  e.stopPropagation();
-  const card = document.querySelector('.email-card[data-index="' + i + '"]');
-  if (!card) return;
-
-  const subject = card._emailSubject || 'email';
-  const from    = card._emailFrom    || '';
-  const date    = card._emailDate    ? new Date(card._emailDate).toLocaleString() : '';
-  const body    = card._emailBody    || '';
-  const isHtml  = /<[a-zA-Z][\s\S]*>/i.test(body);
-
-  // Build a clean printable HTML document
-  const printDoc = `<!DOCTYPE html>
-<html>
-<head>
-<meta charset="UTF-8">
-<title>${subject.replace(/</g,'&lt;')}</title>
-<style>
-  body { font-family: Arial, sans-serif; font-size: 14px; line-height: 1.7; color: #111; margin: 32px; }
-  .email-header { border-bottom: 2px solid #000; padding-bottom: 14px; margin-bottom: 24px; }
-  .email-header h1 { font-size: 20px; margin: 0 0 10px; }
-  .email-header .meta { font-size: 12px; color: #555; }
-  img { max-width: 100%; }
-  a { color: #0066cc; }
-  @media print { body { margin: 0; } }
-</style>
-</head>
-<body>
-<div class="email-header">
-  <h1>${subject.replace(/</g,'&lt;').replace(/>/g,'&gt;')}</h1>
-  <div class="meta"><strong>FROM:</strong> ${from.replace(/</g,'&lt;')}</div>
-  <div class="meta"><strong>DATE:</strong> ${date}</div>
-</div>
-${isHtml ? body : '<pre style="white-space:pre-wrap;word-break:break-word;">' + body.replace(/</g,'&lt;').replace(/>/g,'&gt;') + '</pre>'}
-</body>
-</html>`;
-
-  // Open in new window and trigger print dialog (save as PDF)
-  const win = window.open('', '_blank');
-  if (!win) { showToast('⚠ POPUP BLOCKED — ALLOW POPUPS TO SAVE PDF', true); return; }
-  win.document.open();
-  win.document.write(printDoc);
-  win.document.close();
-  win.addEventListener('load', () => {
-    win.focus();
-    win.print();
-  });
-  // Fallback if load doesn't fire
-  setTimeout(() => { try { win.focus(); win.print(); } catch(e) {} }, 800);
+function toggleEmail(i) {
+  const body = document.getElementById('body-' + i);
+  const card = body.closest('.email-card');
+  const isOpen = body.style.display === 'block';
+  body.style.display = isOpen ? 'none' : 'block';
+  card.classList.toggle('expanded', !isOpen);
 }
 
 /* ─── HELPERS ─── */
