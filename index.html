@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-<title>BANZOX — website</title>
+<title>BANZOX — test</title>
 <link rel="icon" type="image/png" href="https://raw.githubusercontent.com/banzoxOG/banzox/main/banzox.png">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Share+Tech+Mono&family=Orbitron:wght@400;700;900&family=Rajdhani:wght@300;400;600;700&display=swap" rel="stylesheet">
@@ -1313,49 +1313,80 @@ function renderEmailBody(container, rawBody) {
   // Detect if the body looks like HTML
   const isHtml = /<[a-zA-Z][\s\S]*>/i.test(rawBody);
 
-  // Wrap plain text in a minimal HTML shell with readable styling
-  const htmlContent = isHtml ? rawBody : `<!DOCTYPE html>
+  // Build full HTML document — inject base styles for clean rendering
+  const htmlContent = `<!DOCTYPE html>
 <html><head><meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
 <style>
-  body { font-family: Arial, sans-serif; font-size: 14px; line-height: 1.7;
-         color: #222; padding: 16px; margin: 0; white-space: pre-wrap; word-break: break-word; }
+  * { box-sizing: border-box; }
+  html, body {
+    margin: 0; padding: 0;
+    /* prevent internal scrollbars — let parent see full height */
+    overflow: hidden;
+  }
+  body {
+    font-family: Arial, sans-serif; font-size: 14px; line-height: 1.7;
+    color: #222; padding: 16px; word-break: break-word;
+    ${isHtml ? '' : 'white-space: pre-wrap;'}
+  }
   a { color: #0066cc; }
-</style></head><body>${escHtml(rawBody)}</body></html>`;
+  img { max-width: 100%; height: auto; }
+  table { max-width: 100%; }
+</style>
+</head><body>${isHtml ? rawBody : escHtml(rawBody)}</body></html>`;
 
   const iframe = document.createElement('iframe');
   iframe.className = 'email-iframe';
-  // sandbox allows links & scripts inside the email to work normally
-  // but keeps them isolated from our page
   iframe.setAttribute('sandbox', 'allow-same-origin allow-popups allow-popups-to-escape-sandbox');
-  iframe.style.width = '100%';
-  iframe.style.border = 'none';
-  iframe.style.minHeight = '150px';
-  iframe.style.background = '#fff';
-  iframe.style.borderRadius = '2px';
-  iframe.style.display = 'block';
+  iframe.style.cssText = 'width:100%;border:none;background:#fff;border-radius:2px;display:block;height:200px;';
 
   container.appendChild(iframe);
 
-  // Write content once iframe is in DOM
+  // Write content
   const doc = iframe.contentDocument || iframe.contentWindow.document;
   doc.open();
   doc.write(htmlContent);
   doc.close();
 
-  // Auto-resize iframe to content height
-  function resizeIframe() {
+  // ── Aggressive auto-resize ──
+  // Polls until the height stabilises, then stops.
+  let lastH = 0, stable = 0;
+  function fitIframe() {
     try {
-      const h = iframe.contentDocument.body.scrollHeight;
-      if (h > 0) iframe.style.height = h + 'px';
+      const body = iframe.contentDocument && iframe.contentDocument.body;
+      if (!body) return;
+      // Use scrollHeight of the documentElement for full content height
+      const h = Math.max(
+        body.scrollHeight,
+        body.offsetHeight,
+        iframe.contentDocument.documentElement.scrollHeight,
+        iframe.contentDocument.documentElement.offsetHeight
+      );
+      if (h > 0) {
+        iframe.style.height = (h + 20) + 'px'; // +20px safety buffer
+        if (h === lastH) { stable++; } else { stable = 0; lastH = h; }
+      }
     } catch(e) {}
   }
-  // Resize on load and after a short delay (for images etc.)
+
+  // Poll every 100ms for up to 5 seconds, then slow to 1s checks for images
+  let polls = 0;
+  const fast = setInterval(() => {
+    fitIframe();
+    polls++;
+    if (polls >= 50) { clearInterval(fast); setInterval(fitIframe, 1000); }
+  }, 100);
+
+  // Also resize on iframe load event
+  iframe.addEventListener('load', () => { fitIframe(); setTimeout(fitIframe, 200); setTimeout(fitIframe, 800); });
+
+  // Watch for DOM changes inside (images loading, JS rendering)
   iframe.addEventListener('load', () => {
-    resizeIframe();
-    setTimeout(resizeIframe, 500);
-    setTimeout(resizeIframe, 1500);
+    try {
+      const obs = new (iframe.contentWindow.MutationObserver || MutationObserver)(() => fitIframe());
+      obs.observe(iframe.contentDocument.body, { childList: true, subtree: true, attributes: true });
+    } catch(e) {}
   });
-  setTimeout(resizeIframe, 300);
 }
 
 /* ─── TIME HELPER ─── */
